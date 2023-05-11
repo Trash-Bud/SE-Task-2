@@ -36,7 +36,7 @@ class MainPage extends StatelessWidget {
             margin: const EdgeInsets.all(20),
             width: 500,
             child: ElevatedButton(
-                onPressed: () => {},
+                onPressed: () => {Navigator.of(context).pushNamed("/setup")},
                 child: Container(
                     margin: const EdgeInsets.all(20),
                     child: const Text("Criar Novo Jogo"),

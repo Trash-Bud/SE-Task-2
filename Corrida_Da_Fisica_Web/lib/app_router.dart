@@ -2,6 +2,7 @@
 import 'package:corrida_da_fisica_web/view/pages/error_page.dart';
 import 'package:corrida_da_fisica_web/view/pages/main_page.dart';
 import 'package:corrida_da_fisica_web/view/pages/rules_page.dart';
+import 'package:corrida_da_fisica_web/view/pages/setup_page.dart';
 import 'package:flutter/material.dart';
 
 class AppRouter{
@@ -16,6 +17,8 @@ class AppRouter{
         return MaterialPageRoute(builder: (_) => const MainPage(), settings: settingsNew);
       case '/rules':
         return MaterialPageRoute(builder: (_) => const RulesPage(), settings: settingsNew);
+      case '/setup':
+        return MaterialPageRoute(builder: (_) => const SetupPage(), settings: settingsNew);
       default:
         return MaterialPageRoute(builder: (_) => const ErrorPage(), settings: settingsNew);
     }

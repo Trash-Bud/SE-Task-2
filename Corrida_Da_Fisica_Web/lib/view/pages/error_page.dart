@@ -11,7 +11,7 @@ class ErrorPage extends StatelessWidget{
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: CustomAppBar(),
-      body: Center(child: Text("Esta página não existe", style: TextStyle(color: Theme.of(context).primaryColor, fontSize: 40),),),
+      body: Center(child: Text("Erro 404: Esta página não existe", style: TextStyle(color: Theme.of(context).primaryColor, fontSize: 40),),),
     );
   }
 }

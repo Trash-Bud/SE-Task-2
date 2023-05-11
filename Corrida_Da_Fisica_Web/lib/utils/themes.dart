@@ -11,6 +11,8 @@ ThemeData defaultTheme = ThemeData(
     textButtonTheme: TextButtonThemeData(
       style: ButtonStyle(
         foregroundColor: MaterialStateProperty.all<Color>(Colors.black),
+        textStyle: MaterialStateTextStyle.resolveWith(
+                (states) => const TextStyle(decoration: TextDecoration.underline)),
       )
     ),
 
@@ -70,6 +72,8 @@ ThemeData seventhGradeTheme = ThemeData(
     textButtonTheme: TextButtonThemeData(
         style: ButtonStyle(
           foregroundColor: MaterialStateProperty.all<Color>(Colors.white),
+          textStyle: MaterialStateTextStyle.resolveWith(
+                  (states) => const TextStyle(decoration: TextDecoration.underline)),
         )
     ),
 
