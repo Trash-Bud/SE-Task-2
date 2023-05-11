@@ -1,4 +1,4 @@
-import 'package:corrida_da_fisica_web/view/components/header.dart';
+import 'package:corrida_da_fisica_web/view/components/app_bar.dart';
 import 'package:corrida_da_fisica_web/view/pages/rules_page.dart';
 import 'package:flutter/material.dart';
 
@@ -8,7 +8,7 @@ class MainPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: Header(),
+        appBar: CustomAppBar(),
         body: Row(
           children: [getBoard(context), getButton(context)],
         ));
@@ -47,10 +47,7 @@ class MainPage extends StatelessWidget {
               margin: const EdgeInsets.all(20),
               width: 500,
               child: OutlinedButton(
-                  onPressed: () => {Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => const RulesPage()),
-                  )},
+                  onPressed: () => {Navigator.of(context).pushNamed("/rules")},
                   child: Container(
                     margin: const EdgeInsets.all(20),
                     child: const Text("Regras"),

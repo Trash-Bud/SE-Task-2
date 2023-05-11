@@ -1,9 +1,9 @@
 
 import 'package:flutter/material.dart';
 
-class Header extends AppBar{
+class CustomAppBar extends AppBar{
 
-  Header({super.key});
+  CustomAppBar({super.key});
 
   @override
   Widget? get title =>  Row(children: [

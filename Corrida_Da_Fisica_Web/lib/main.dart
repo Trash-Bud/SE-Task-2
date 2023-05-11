@@ -1,7 +1,7 @@
 import 'package:corrida_da_fisica_web/utils/themes.dart';
 import 'package:flutter/material.dart';
 
-import 'view/components/header.dart';
+import 'app_router.dart';
 import 'view/pages/main_page.dart';
 
 void main() {
@@ -17,7 +17,8 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'A Corrida da Física',
       theme: defaultTheme,
-      home: const MainPage(),
+      initialRoute: '/',
+      onGenerateRoute: AppRouter.generateRoute,
     );
   }
 }

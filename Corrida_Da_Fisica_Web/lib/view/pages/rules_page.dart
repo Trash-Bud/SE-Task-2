@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
-import '../components/header.dart';
+import '../components/app_bar.dart';
+import '../components/page_header.dart';
 
 class RulesPage extends StatefulWidget {
   const RulesPage({super.key});
@@ -16,7 +17,7 @@ class _RulesPage extends State<RulesPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: Header(),
+      appBar: CustomAppBar(),
       body: getPage(),
     );
   }
@@ -25,23 +26,13 @@ class _RulesPage extends State<RulesPage> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        getBackButton(),
-        getTitle(),
+        const Header(title:"Regras", path: "/"),
         if (page == 1) getPageOne(),
         if (page == 2) getPageTwo(),
         if (page == 3) getPageThree(),
         getFooter()
       ],
     );
-
-  }
-
-  Widget getBackButton() {
-    return Container(margin: const EdgeInsets.all(10), child: TextButton(onPressed: () => {}, child: Row(children: const [ Icon(Icons.arrow_back), SizedBox(width: 10,) , Text("Voltar para o menu", style: TextStyle(fontSize: 20),)])));
-  }
-
-  Widget getTitle() {
-    return Container( margin: const EdgeInsets.all(10), alignment: Alignment.center, child: Text("Regras", style: TextStyle(fontSize: 50, color: Theme.of(context).primaryColor),));
   }
 
   back(){
