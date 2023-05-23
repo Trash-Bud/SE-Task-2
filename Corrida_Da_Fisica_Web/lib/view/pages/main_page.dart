@@ -1,6 +1,9 @@
+import 'package:corrida_da_fisica_web/controller/repository/GameRepository.dart';
 import 'package:corrida_da_fisica_web/view/components/app_bar.dart';
-import 'package:corrida_da_fisica_web/view/pages/rules_page.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+
+import '../components/board_widget.dart';
 
 class MainPage extends StatelessWidget {
   const MainPage({super.key});
@@ -15,12 +18,11 @@ class MainPage extends StatelessWidget {
   }
 
   Widget getBoard(BuildContext context) {
+
     return Container(
-      width: MediaQuery.of(context).size.width / 2,
-      alignment: Alignment.center,
-      padding: const EdgeInsets.all(20),
-      child: Image.asset("assets/images/basic_board.png"),
-    );
+        width: MediaQuery.of(context).size.width/2,
+        alignment: Alignment.center,
+        child: const BoardWidget());
   }
 
   Widget getButton(BuildContext context) {
@@ -70,4 +72,5 @@ class MainPage extends StatelessWidget {
       ),
     );
   }
+
 }
