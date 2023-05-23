@@ -1,19 +1,14 @@
-
-import 'dart:developer';
-import 'dart:ui' as ui;
-
 import 'package:corrida_da_fisica_web/model/Board.dart';
 import 'package:corrida_da_fisica_web/utils/themes.dart';
 import 'package:flutter/cupertino.dart';
 
-import '../../model/Player.dart';
 import '../../model/Team.dart';
 import '../../utils/utils.dart';
 
 class GameRepository extends ChangeNotifier{
 
   AppTheme appTheme = AppTheme.defaultTheme;
-  List<Team> teams = [ ];
+  List<Team> teams = [];
   int numberOfThemes = 0;
   Board board = Board();
   bool isLoading = false;
@@ -25,7 +20,7 @@ class GameRepository extends ChangeNotifier{
     if(board.loadedImage == null) {
       await loadBoardImage();
     }
-    if(teams[0].loadedImage == null) {
+    if(teams.isNotEmpty && teams[0].loadedImage == null) {
       await loadTeamImages();
     }
     isLoading = false;
