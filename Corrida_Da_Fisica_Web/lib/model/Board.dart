@@ -7,6 +7,7 @@ class Board {
   AppTheme theme = AppTheme.defaultTheme;
   late String boardImage = "assets/images/basic_board.png";
   Image? loadedImage;
+  bool imageAltered = true;
 
   void switchTheme(AppTheme newTheme) {
     theme = newTheme;
@@ -21,6 +22,10 @@ class Board {
         boardImage = "assets/images/basic_board.png";
         break;
     }
+  }
+
+  setImageAltered(bool imageAltered ){
+    imageAltered = imageAltered;
   }
 
 

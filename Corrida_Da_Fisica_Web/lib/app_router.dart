@@ -18,7 +18,7 @@ class AppRouter{
       case '/rules':
         return MaterialPageRoute(builder: (_) => const RulesPage(), settings: settingsNew);
       case '/setup':
-        return MaterialPageRoute(builder: (_) => const SetupPage(), settings: settingsNew);
+        return MaterialPageRoute(builder: (_) => const  SetupPage(), settings: settingsNew);
       default:
         return MaterialPageRoute(builder: (_) => const ErrorPage(), settings: settingsNew);
     }

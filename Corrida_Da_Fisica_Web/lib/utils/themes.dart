@@ -9,7 +9,9 @@ ThemeData defaultTheme = ThemeData(
     primaryColor: DefaultPalette.orange,
     colorScheme: ColorScheme.fromSwatch().copyWith(
       secondary: DefaultPalette.darkOrange,
+      tertiary: DefaultPalette.peach
     ),
+
     textButtonTheme: TextButtonThemeData(
         style: ButtonStyle(
       foregroundColor: MaterialStateProperty.all<Color>(Colors.black),

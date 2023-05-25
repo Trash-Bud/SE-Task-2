@@ -12,16 +12,21 @@ class Team{
   Player teamLeader;
   Image? loadedImage;
   int square = 0;
+  bool imageAltered = true;
 
   Team(this.name, this.image, this.teamLeader, this.id){
     players.add(teamLeader);
   }
 
-
   // TODO: erase later after all positions in the board are done
   Team.testPos(this.id, this.name, this.image, this.teamLeader, this.square){
     players.add(teamLeader);
   }
+
+  setImageAltered(bool imageAltered ){
+    imageAltered = imageAltered;
+  }
+
 
   addPlayer(Player player){
     players.add(player);
