@@ -48,9 +48,9 @@ class _CreateProfilePage extends State<CreateProfilePage>{
   void updateData() {
     //var game = Provider.of<GameRepository>(context);
     var game = Provider.of<GameRepository>(context, listen: false);
-    game.setPlayer(_nameController.toString(), "assets/images/profile/pfp${(_imageController+1).toString()}.png");
+    game.setPlayer(_nameController.toString(), (_imageController+1));
 
-    Navigator.of(context).pushNamed("/choose_team");
+    Navigator.of(context).pushNamed("/color_pfp");
   }
 
   @override

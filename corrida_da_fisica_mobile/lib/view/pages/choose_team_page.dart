@@ -41,7 +41,7 @@ class _ChooseTeamPage extends State<ChooseTeamPage>{
     return Scaffold(
         appBar: AppBar(
           title: Row(children: [
-                Image.asset(Provider.of<GameRepository>(context).getPfp(), width:50),
+                Provider.of<GameRepository>(context).player.getPfp(),
                 const SizedBox(width: 25,),
                 const Text("A Corrida da Física",
                   textAlign: TextAlign.center)

@@ -16,12 +16,12 @@ class GameRepository extends ChangeNotifier{
   bool playerSet = false;
   late Player player;
 
-  void setPlayer(String name, String image){
+  void setPlayer(String name, int image){
     player = Player(name, image);
     playerSet = true;
   }
 
-  String getPfp(){
+  int getPfp(){
     return player.image;
   }
 

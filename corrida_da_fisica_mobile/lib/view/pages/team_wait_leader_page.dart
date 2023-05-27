@@ -53,7 +53,7 @@ class TeamWaitLeaderPage extends StatelessWidget {
             ],
           ),
           Text("Aguarda pelo início do jogo...",
-              style: TextStyle(color: Theme.of(context).primaryColor, fontSize: 15)),
+              style: TextStyle(color: Theme.of(context).primaryColor, fontSize: 25)),
           Container(
               margin: const EdgeInsets.all(20),
               width: 500,

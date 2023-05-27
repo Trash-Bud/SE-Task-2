@@ -1,5 +1,6 @@
 
 import 'package:corrida_da_fisica_mobile/view/pages/choose_team_page.dart';
+import 'package:corrida_da_fisica_mobile/view/pages/color_pfp_page.dart';
 import 'package:corrida_da_fisica_mobile/view/pages/create_code_page.dart';
 import 'package:corrida_da_fisica_mobile/view/pages/create_profile_page.dart';
 import 'package:corrida_da_fisica_mobile/view/pages/leader_page.dart';
@@ -27,6 +28,8 @@ class AppRouter{
         return MaterialPageRoute(builder: (_) => CreateCodePage(), settings: settingsNew);
       case '/create_profile':
         return MaterialPageRoute(builder: (_) => CreateProfilePage(), settings: settingsNew);
+      case '/color_pfp':
+        return MaterialPageRoute(builder: (_) => ColorPFPPage(), settings: settingsNew);
       case '/choose_team':
         return MaterialPageRoute(builder: (_) => ChooseTeamPage(), settings: settingsNew);
       case '/team_wait':
