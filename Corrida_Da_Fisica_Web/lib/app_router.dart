@@ -1,5 +1,7 @@
 
 import 'package:corrida_da_fisica_web/view/pages/error_page.dart';
+import 'package:corrida_da_fisica_web/view/pages/game_page.dart';
+import 'package:corrida_da_fisica_web/view/pages/game_wait_page.dart';
 import 'package:corrida_da_fisica_web/view/pages/main_page.dart';
 import 'package:corrida_da_fisica_web/view/pages/rules_page.dart';
 import 'package:corrida_da_fisica_web/view/pages/setup_page.dart';
@@ -19,6 +21,10 @@ class AppRouter{
         return MaterialPageRoute(builder: (_) => const RulesPage(), settings: settingsNew);
       case '/setup':
         return MaterialPageRoute(builder: (_) => const  SetupPage(), settings: settingsNew);
+      case '/connect':
+        return MaterialPageRoute(builder: (_) => const  GameWaitPage(), settings: settingsNew);
+      case '/game':
+        return MaterialPageRoute(builder: (_) => const  GamePage(), settings: settingsNew);
       default:
         return MaterialPageRoute(builder: (_) => const ErrorPage(), settings: settingsNew);
     }
