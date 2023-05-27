@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 
 import './constants.dart';
 
+enum AppTheme { defaultTheme, seventhGradeTheme }
+
 ThemeData defaultTheme = ThemeData(
     scaffoldBackgroundColor: Colors.white,
     primaryColor: DefaultPalette.orange,

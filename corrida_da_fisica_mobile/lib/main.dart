@@ -1,11 +1,11 @@
 import 'package:corrida_da_fisica_mobile/utils/themes.dart';
+import 'package:corrida_da_fisica_mobile/controller/GameRepository.dart';
 import 'package:flutter/material.dart';
-
+import 'package:provider/provider.dart';
 import 'app_router.dart';
-import 'view/pages/main_page.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp( ChangeNotifierProvider(create: (context) => GameRepository(), child: const MyApp()));
 }
 
 class MyApp extends StatelessWidget {
