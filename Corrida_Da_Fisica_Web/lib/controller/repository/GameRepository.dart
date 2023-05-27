@@ -3,6 +3,7 @@ import 'package:corrida_da_fisica_web/model/Player.dart';
 import 'package:corrida_da_fisica_web/utils/themes.dart';
 import 'package:flutter/material.dart';
 
+import '../../model/Question.dart';
 import '../../model/Team.dart';
 import '../../model/game_state.dart';
 import '../../utils/utils.dart';
@@ -15,11 +16,12 @@ class GameRepository extends ChangeNotifier{
   int numberOfTeams = 0;
   int maxPlayerNumber = 2;
   Board board = Board();
-  GameState gameState = GameState.question;
+  GameState gameState = GameState.waiting;
   bool isLoading = false;
   int rolledNumber = 1;
   int currentTeamTurn = 0;
   int currentPlayerTurn = 0;
+  late Question question = Question("asaddas", ["answers","jja","jksajk","kjasjkdasjk"],"answers");
 
   changeTheme(ThemeData theme){
     board.switchTheme(theme);

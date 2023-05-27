@@ -1,4 +1,5 @@
 import 'package:corrida_da_fisica_web/model/game_state.dart';
+import 'package:corrida_da_fisica_web/view/components/question_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:provider/provider.dart';
@@ -25,12 +26,20 @@ class _GamePage extends State<GamePage> {
       appBar: CustomAppBar(),
       body: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [getBoard(), getWaitRollDice(game)],
+        children: [getBoard(game), getWaitRollDice(game)],
       ),
     );
   }
 
-  Widget getBoard() {
+  Widget getBoard(GameRepository game) {
+
+    if (game.gameState == GameState.question){
+      return Container(
+          width: MediaQuery.of(context).size.width / 2,
+          alignment: Alignment.center,
+          child: QuestionCard(question: game.question,));
+    }
+
     return Container(
         width: MediaQuery.of(context).size.width / 2,
         alignment: Alignment.center,
@@ -41,6 +50,36 @@ class _GamePage extends State<GamePage> {
     return Image.asset(
       "assets/images/icons/${game.getPlayingTeam().image}",
       scale: 5,
+    );
+  }
+
+  getAnswerQuestion(){
+    return Text(
+      "Respondam a pergunta antes do tempo acabar.",
+      style: TextStyle(
+        color: Theme.of(context).colorScheme.secondary,
+        fontSize: 20,
+      ),
+    );
+  }
+
+  correctAnswerText(GameRepository game){
+    return Text(
+      "Os ${game} acertaram a pergunta!",
+      style: TextStyle(
+        color: Theme.of(context).colorScheme.secondary,
+        fontSize: 20,
+      ),
+    );
+  }
+
+  wrongAnswerText(GameRepository game){
+    return Text(
+      "Os ${game} erraram a pergunta",
+      style: TextStyle(
+        color: Theme.of(context).colorScheme.secondary,
+        fontSize: 20,
+      ),
     );
   }
 
@@ -119,11 +158,25 @@ class _GamePage extends State<GamePage> {
       list.add(getCurrentPlayerIcon(game));
       list.add(getTurn(game));
     }
+
+    if (game.gameState == GameState.question){
+      list.add(getAnswerQuestion());
+    }
+
     if (game.gameState == GameState.waitingDice ||
         game.gameState == GameState.rolledDice) {
       getDiceScreen(game).forEach((e) => list.add(e));
     }
+
+    if (game.gameState != GameState.gameEnd) {
+      list.add(getEndGameButton());
+    }
     return list;
+  }
+
+
+  getEndGameButton(){
+    return TextButton(onPressed: () => {}, child: Text("Terminar o jogo"));
   }
 
   getWinningTitle() {
