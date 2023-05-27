@@ -64,6 +64,7 @@ flutter:
   assets:
     - assets/images/
     - assets/images/basic_board.png
+    - assets/images/join_instructions/
     - assets/images/rules/
     - assets/images/icons/
     - assets/images/dice/

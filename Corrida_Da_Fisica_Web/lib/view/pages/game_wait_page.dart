@@ -81,7 +81,9 @@ class _GameWaitPage extends State<GameWaitPage> {
                 color: Theme.of(context).colorScheme.tertiary, fontSize: 20),
           ),
           TextButton(
-              onPressed: () => {},
+              onPressed: () => {
+                Navigator.of(context).pushNamed("/how_connect")
+              },
               child: Text(
                 "Como é que se entra no jogo?",
                 style: TextStyle(color: Theme.of(context).primaryColor),
