@@ -1,20 +1,40 @@
 import 'package:corrida_da_fisica_web/model/Board.dart';
 import 'package:corrida_da_fisica_web/model/Player.dart';
 import 'package:corrida_da_fisica_web/utils/themes.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 
+import '../../model/Question.dart';
 import '../../model/Team.dart';
+import '../../model/game_state.dart';
 import '../../utils/utils.dart';
 
 class GameRepository extends ChangeNotifier{
 
   String? gameCode;
   AppTheme appTheme = AppTheme.defaultTheme;
-  List<Team> teams = [];
-  int numberOfThemes = 0;
+  List<Team> teams = [ Team("AAA", "player_icon_1.png", Player("aluno 1","jbasdj"), "sjksadjkads")];
+  int numberOfTeams = 0;
+  int maxPlayerNumber = 2;
   Board board = Board();
+  GameState gameState = GameState.waiting;
   bool isLoading = false;
-  int currentTurn = 0;
+  int rolledNumber = 1;
+  int currentTeamTurn = 0;
+  int currentPlayerTurn = 0;
+  late Question question = Question("asaddas", ["answers","jja","jksajk","kjasjkdasjk"],"answers");
+
+  changeTheme(ThemeData theme){
+    board.switchTheme(theme);
+  }
+
+  Player getDiceRollingPlayer(){
+    return teams[currentTeamTurn].players[currentPlayerTurn];
+  }
+
+  Team getPlayingTeam(){
+    return teams[currentTeamTurn];
+  }
+
 
   loadImages() async{
 

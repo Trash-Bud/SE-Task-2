@@ -15,6 +15,7 @@ class GameRepository extends ChangeNotifier{
   bool isPlaying = false;
   bool playerSet = false;
   late Player player;
+  late int lastAnswer;
 
   void setPlayer(String name, int image){
     player = Player(name, image);

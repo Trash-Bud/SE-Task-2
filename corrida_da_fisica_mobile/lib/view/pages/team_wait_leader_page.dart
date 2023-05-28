@@ -29,7 +29,15 @@ class _TeamWaitLeaderPage extends State<TeamWaitLeaderPage>{
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: CustomAppBar(),
+        appBar: AppBar(
+        title: Row(children: [
+        Provider.of<GameRepository>(context).player.getPfp(),
+          const SizedBox(width: 25,),
+          const Text("A Corrida da Física",
+            textAlign: TextAlign.center)
+          ]),
+          automaticallyImplyLeading: false
+        ),
         resizeToAvoidBottomInset: false,
         body: Column(
           children: [getTeamImage(context), getTeamName(context), getButton(context)],
@@ -61,9 +69,9 @@ class _TeamWaitLeaderPage extends State<TeamWaitLeaderPage>{
         );
       },
       child: GFAvatar(
-        radius: 60,
+        radius: 40,
         backgroundImage: _imageController == -1 ?
-        ExactAssetImage("assets/images/team/pfp${Provider.of<GameRepository>(context, listen: false).player.getTeamID()}.png") : ExactAssetImage("assets/images/team/pfp$_imageController.png"),
+        ExactAssetImage("assets/images/team/pfp${Provider.of<GameRepository>(context, listen: false).player.getTeamID()}.png") : ExactAssetImage("assets/images/team/pfp${_imageController+1}.png"),
         shape: GFAvatarShape.standard,
         child: Align(
           alignment: Alignment.bottomRight,
@@ -136,7 +144,7 @@ class _TeamWaitLeaderPage extends State<TeamWaitLeaderPage>{
   Widget getButton(BuildContext context) {
     return Container(
       padding: const EdgeInsets.all(10),
-      alignment: Alignment.center,
+      alignment: Alignment.bottomCenter,
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.center,
@@ -167,7 +175,7 @@ class _TeamWaitLeaderPage extends State<TeamWaitLeaderPage>{
               margin: const EdgeInsets.all(10),
               width: 500,
               child: ElevatedButton(
-                  onPressed: () => {Navigator.of(context).pushNamed("/insert_code")},
+                  onPressed: () => {Navigator.of(context).pushNamed("/question")},
                   child: Container(
                     margin: const EdgeInsets.all(20),
                     child: const Text("Bloquear equipa"),
@@ -231,7 +239,7 @@ class _TeamWaitLeaderPage extends State<TeamWaitLeaderPage>{
           ],
         ),
       );
-      icons.add(const SizedBox(height: 3));
+      icons.add(const SizedBox(height: 20));
     }
     return icons;
   }

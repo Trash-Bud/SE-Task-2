@@ -1,27 +1,29 @@
 
-import 'dart:ui';
+
+import 'package:flutter/material.dart';
+
+import 'dart:ui' as ui;
 
 import '../utils/themes.dart';
 
 class Board {
-  AppTheme theme = AppTheme.defaultTheme;
+  ThemeData theme = defaultTheme;
   late String boardImage = "assets/images/basic_board.png";
-  Image? loadedImage;
+  ui.Image? loadedImage;
   bool imageAltered = true;
 
-  void switchTheme(AppTheme newTheme) {
+  void switchTheme(ThemeData newTheme) {
     theme = newTheme;
-    switch (newTheme) {
-      case AppTheme.defaultTheme:
-        boardImage = "assets/images/basic_board.png";
-        break;
-      case AppTheme.seventhGradeTheme:
-        boardImage = "assets/images/seventh_grade_board.png";
-        break;
-      default:
-        boardImage = "assets/images/basic_board.png";
-        break;
+
+    if (newTheme == defaultTheme){
+      boardImage = "assets/images/basic_board.png";
+    }else if (newTheme == seventhGradeTheme){
+      boardImage = "assets/images/seventh_grade_board.png";
+    }else{
+      boardImage = "assets/images/basic_board.png";
     }
+    imageAltered = true;
+
   }
 
   setImageAltered(bool imageAltered ){
@@ -29,7 +31,7 @@ class Board {
   }
 
 
-  setImage(Image image){
+  setImage(ui.Image image){
     loadedImage = image;
   }
 

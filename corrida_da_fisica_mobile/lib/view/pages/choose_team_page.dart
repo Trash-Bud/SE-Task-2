@@ -1,4 +1,3 @@
-import 'package:corrida_da_fisica_mobile/view/components/app_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -28,13 +27,16 @@ class _ChooseTeamPage extends State<ChooseTeamPage>{
   void updateData() {
     //var game = Provider.of<GameRepository>(context);
     var game = Provider.of<GameRepository>(context, listen: false);
-    game.player.setTeam(_teamController+1, isLeader);
-    if (isLeader) {
-      game.teams[_teamController].setTeamLeader(game.player);
-      Navigator.of(context).pushNamed("/team_wait_leader");
-    } else {
-      Navigator.of(context).pushNamed("/team_wait");
+    if (_teamController != -1) {
+      game.player.setTeam(_teamController + 1, isLeader);
+      if (isLeader) {
+        game.teams[_teamController].setTeamLeader(game.player);
+        Navigator.of(context).pushNamed("/team_wait_leader");
+      } else {
+        Navigator.of(context).pushNamed("/team_wait");
+      }
     }
+
   }
 
   @override

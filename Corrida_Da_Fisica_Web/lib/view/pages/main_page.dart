@@ -18,7 +18,6 @@ class MainPage extends StatelessWidget {
   }
 
   Widget getBoard(BuildContext context) {
-
     return Container(
         width: MediaQuery.of(context).size.width/2,
         alignment: Alignment.center,

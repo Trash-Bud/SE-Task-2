@@ -37,6 +37,8 @@ dependencies:
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.2
   provider: ^6.0.5
+  flutter_svg: ^1.1.6
+  percent_indicator: ^4.2.3
 
 dev_dependencies:
   flutter_test:
@@ -63,8 +65,10 @@ flutter:
   assets:
     - assets/images/
     - assets/images/basic_board.png
+    - assets/images/join_instructions/
     - assets/images/rules/
     - assets/images/icons/
+    - assets/images/dice/
   fonts:
      - family: SourceSansPro
        fonts:

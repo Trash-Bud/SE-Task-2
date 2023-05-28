@@ -3,13 +3,20 @@ import 'package:corrida_da_fisica_mobile/view/pages/choose_team_page.dart';
 import 'package:corrida_da_fisica_mobile/view/pages/color_pfp_page.dart';
 import 'package:corrida_da_fisica_mobile/view/pages/create_code_page.dart';
 import 'package:corrida_da_fisica_mobile/view/pages/create_profile_page.dart';
+import 'package:corrida_da_fisica_mobile/view/pages/game_win_page.dart';
 import 'package:corrida_da_fisica_mobile/view/pages/leader_page.dart';
 import 'package:corrida_da_fisica_mobile/view/pages/main_menu_page.dart';
 import 'package:corrida_da_fisica_mobile/view/pages/main_page.dart';
 import 'package:corrida_da_fisica_mobile/view/pages/insert_code_page.dart';
+import 'package:corrida_da_fisica_mobile/view/pages/question_page.dart';
+import 'package:corrida_da_fisica_mobile/view/pages/roll_dice_page.dart';
 import 'package:corrida_da_fisica_mobile/view/pages/rules_page.dart';
+import 'package:corrida_da_fisica_mobile/view/pages/scores_page.dart';
 import 'package:corrida_da_fisica_mobile/view/pages/team_wait_leader_page.dart';
 import 'package:corrida_da_fisica_mobile/view/pages/team_wait_page.dart';
+import 'package:corrida_da_fisica_mobile/view/pages/tie_page.dart';
+import 'package:corrida_da_fisica_mobile/view/pages/wait_answer_page.dart';
+import 'package:corrida_da_fisica_mobile/view/pages/wait_turn_page.dart';
 import 'package:flutter/material.dart';
 
 class AppRouter{
@@ -36,6 +43,20 @@ class AppRouter{
         return MaterialPageRoute(builder: (_) => TeamWaitPage(), settings: settingsNew);
       case '/team_wait_leader':
         return MaterialPageRoute(builder: (_) => TeamWaitLeaderPage(), settings: settingsNew);
+      case '/question':
+        return MaterialPageRoute(builder: (_) => QuestionPage(), settings: settingsNew);
+      case '/wait_answer':
+        return MaterialPageRoute(builder: (_) => GameWinPage(), settings: settingsNew);
+      case '/wait_turn':
+        return MaterialPageRoute(builder: (_) => WaitTurnPage(), settings: settingsNew);
+      case '/tie':
+        return MaterialPageRoute(builder: (_) => TiePage(), settings: settingsNew);
+      case '/roll_dice':
+        return MaterialPageRoute(builder: (_) => RollDicePage(), settings: settingsNew);
+      case '/game_win':
+        return MaterialPageRoute(builder: (_) => GameWinPage(), settings: settingsNew);
+      case '/scores':
+        return MaterialPageRoute(builder: (_) => ScoresPage(), settings: settingsNew);
       case '/main_menu':
         return MaterialPageRoute(builder: (_) => MainMenuPage(), settings: settingsNew);
       case '/rules':
