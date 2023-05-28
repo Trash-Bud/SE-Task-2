@@ -1,5 +1,6 @@
 const express = require('express')
 const router = express.Router()
+var { notifyGame, notifyPlayers, addTeamToPlayerStream,removeTeamFromPlayerStream } = require('../update');
 
 var fs = require('fs');
 
@@ -9,11 +10,11 @@ router.post("/join", (req,res) => {
     res.status(400).send({error: "O pedido tem de ter o seguinte formato: {code: string, playerId: string, teamsId:string}"})
     }
 
-if ((!typeof req.body["code"] === 'string' && !req.body["code"] instanceof String) ||
-(!typeof req.body["playerId"] === 'string' && !req.body["playerId"] instanceof String) ||
-(!typeof req.body["teamsId"] === 'string' && !req.body["teamsId"] instanceof String) ){
-    res.status(400).send({error: "O pedido tem de ter o seguinte formato: {code: string, playerId: string, teamsId:string}"})
-}
+    if ((!typeof req.body["code"] === 'string' && !req.body["code"] instanceof String) ||
+    (!typeof req.body["playerId"] === 'string' && !req.body["playerId"] instanceof String) ||
+    (!typeof req.body["teamsId"] === 'string' && !req.body["teamsId"] instanceof String) ){
+        res.status(400).send({error: "O pedido tem de ter o seguinte formato: {code: string, playerId: string, teamsId:string}"})
+    }
 
 // Checking if game exists
 
@@ -23,7 +24,7 @@ fs.readFile('games.json', 'utf8', function readFileCallback(err, data){
     } else {
     obj = JSON.parse(data); 
     var found = obj.games.find(element => element["code"] == req.body["code"]);
-    console.log(found)
+
     if (found == undefined){
         res.status(404).send({error:"O código do jogo que enviou não existe"})
     }
@@ -53,9 +54,13 @@ fs.readFile('games.json', 'utf8', function readFileCallback(err, data){
                 var newPending = found.pendingTeamPlayers.filter(function(el) { return el != player; }); 
                 found.pendingTeamPlayers = newPending
                 found.teams[indexTeam] = team
-                obj.games[index] = found
-        
+                obj.games[index] = found        
                 json = JSON.stringify(obj); 
+
+                addTeamToPlayerStream(req.body["code"],player.id,team.id)
+                notifyGame(JSON.stringify({pendingPlayers:found.pendingTeamPlayers, teams:found.teams}), req.body["code"])
+                notifyPlayers(JSON.stringify({teams: found.teams}),req.body["code"])
+
                 fs.writeFile('games.json', json, 'utf8', () =>{res.status(200).send({teamLeader: teamLeader})}); 
             }
         }
@@ -105,7 +110,7 @@ router.post("/leave", (req,res) => {
                 
                 var newPlayers = team.players.filter(function(el) { return el != player; })
                 team.players = newPlayers
-                if (team == player){
+                if (team.leader == player){
                     if (team.players.length == 0 ){
                         team.leader = null
                     }else{
@@ -113,11 +118,13 @@ router.post("/leave", (req,res) => {
                         team.leader = team.players[newLeaderIndex]
                     }
                 }
-                
-                var newPending = found.pendingTeamPlayers.push(player); 
-                found.pendingTeamPlayers = newPending
+                found.pendingTeamPlayers.push(player); 
                 found.teams[indexTeam] = team
                 obj.games[index] = found
+
+                removeTeamFromPlayerStream(req.body["code"],player.id,team.id)
+                notifyGame(JSON.stringify({pendingPlayers:found.pendingTeamPlayers, teams:found.teams}), req.body["code"])
+                notifyPlayers(JSON.stringify({teams: found.teams}),req.body["code"])
         
                 json = JSON.stringify(obj); 
                 fs.writeFile('games.json', json, 'utf8', () =>{res.status(200).send("Jogador removido com sucesso")}); 
@@ -127,15 +134,17 @@ router.post("/leave", (req,res) => {
    }})
    })
 
+// Change team name
 router.post("/changeName", (req,res) => {
 
 })
 
+// Change team picture
 router.post("/changePicture", (req,res) => {
 
 })
 
-
+// Change team leader
 router.post("/changeLeader", (req,res) => {
 
 })

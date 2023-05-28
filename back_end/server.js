@@ -2,10 +2,6 @@
 const express = require('express')
 const app = express()
 
-let clients = [];
-
-module.exports = {clients}
-
 app.listen(3000)
 
 app.use(express.json())

@@ -11,6 +11,9 @@ class Game {
             this.teams.push(new Team(i+1,"sss",playersPerTeam))
         }
         this.code = crypto.randomBytes(3).toString('hex');
+        this.locked = false;
+        this.question = null;
+        this.currentTeam = teams[0].id
       }
 }
 

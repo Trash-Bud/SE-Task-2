@@ -4,8 +4,7 @@ const router = express.Router()
 var Game = require("../models/game")
 var fs = require('fs');
 const Player = require('../models/player');
-const GameStream = require('../models/game_streams');
-var { clients }  = require('../server');
+var { closeGame, notifyGame, addPlayerGameStream, addGameStream, notifyPlayers} = require('../update');
 
 router.post("/create", (req,res) => {
 
@@ -44,11 +43,9 @@ router.post("/create", (req,res) => {
         // Creating game
         const game = new Game(req.body["teamNumber"],req.body["year"],req.body["playersPerTeam"])
 
-        const gameStream =  new GameStream(game.code,res)
+        addGameStream(game.code,res)
         
-        clients.push(gameStream);
-        
-        req.on('end', () => {
+        req.on('close', () => {
             closeGame(game.code)
         });
 
@@ -63,18 +60,6 @@ router.post("/create", (req,res) => {
     }});
 
 })
-
-
-function closeGame(code){
-    var gameStream = clients.find(element => element.id == code);
-
-    gameStream.stream.end()
-    gameStream.players.forEach(element => {
-        element.stream.end()
-    });
-
-    clients = clients.filter(function(el) { return el.id != gameStream.id; })
-}
 
 
 router.post("/end", (req,res) => {
@@ -135,13 +120,17 @@ router.post("/checkJoin", (req,res) => {
         } else {
         obj = JSON.parse(data); 
         var found = obj.games.find(element => element["code"] == req.body["code"]);
-        console.log(found)
         if (found == undefined){
             res.status(404).send({error:"O código do jogo que enviou não existe"})
+        }else{
+            if (found.locked){
+                res.status(403).send({error:"Este jogo já não está a aceitar participantes"})
+            }
+            else{
+                res.status(200).send("Game exists")
+            }
         }
-        else{
-            res.status(200).send("Game exists")
-        }
+        
     }})
 })
 
@@ -168,32 +157,84 @@ router.post("/join", (req,res) => {
         } else {
         obj = JSON.parse(data); 
         var found = obj.games.find(element => element["code"] == req.body["code"]);
-        console.log(found)
         if (found == undefined){
             res.status(404).send({error:"O código do jogo que enviou não existe"})
-        }
-        else{
-
-            // Setting up stream
-            res.setHeader("Content-Type", "text/event-stream")
-
-            var player = new Player(req.body["name"],req.body["pic"])
-            var index = obj.games.indexOf(found)
-            found["pendingTeamPlayers"].push((player))
-            obj.games[index] = found
-
+        }else{
+            if (found.locked){
+                res.status(403).send({error:"Este jogo já não está a aceitar participantes"})
+            }
+            else{
+    
+                // Setting up stream
+                res.setHeader("Content-Type", "text/event-stream")
+    
+                var player = new Player(req.body["name"],req.body["pic"])
+                var index = obj.games.indexOf(found)
+                found["pendingTeamPlayers"].push((player))
+                obj.games[index] = found
+    
+                
+                addPlayerGameStream(req.body["code"],res,player.id)
+    
+                notifyGame(JSON.stringify({pendingPlayers:found.pendingTeamPlayers, teams:found.teams}), req.body["code"])
+                
+                json = JSON.stringify(obj); 
+                fs.writeFile('games.json', json, 'utf8', () =>{res.write("data: " + JSON.stringify({id: player.id, teams: found.teams}) +"\n\n")}); 
             
-            var gameStream = clients.find(element => element.id == req.body["code"]);
-            var indexStream = clients.indexOf(gameStream)
-            gameStream.addPlayer(player.id,res)
-            clients[indexStream] = gameStream
-
-            gameStream.stream.write("data: " + JSON.stringify({pendingPlayers:found.pendingTeamPlayers, teams:found.teams}) + "\n\n")
-            
-            json = JSON.stringify(obj); 
-            fs.writeFile('games.json', json, 'utf8', () =>{res.write("data: " + JSON.stringify({id: player.id, teams: found.teams}) +"\n\n")}); 
+            }
         }
     }})
 })
+
+
+router.post("/lock", (req,res) => {
+    // Verifying request
+    if (!req.body.hasOwnProperty("code")){
+        res.status(400).send({error: "O pedido tem de ter o seguinte formato: {code: string}"})
+    }
+
+    if ((!typeof req.body["code"] === 'string' && !req.body["code"] instanceof String)){
+        res.status(400).send({error: "O pedido tem de ter o seguinte formato: {code: string}"})
+    }
+
+    // Checking if game exists
+
+    fs.readFile('games.json', 'utf8', function readFileCallback(err, data){
+        if (err){
+            res.status(500).send({error:"Erro Interno do Servidor"})
+        } else {
+            obj = JSON.parse(data); 
+            var found = obj.games.find(element => element["code"] == req.body["code"]);
+            if (found == undefined){
+                res.status(404).send({error:"O código do jogo que enviou não existe"})
+            }
+            else{
+
+                if (found.pendingTeamPlayers.length != 0){
+                    res.status(403).send({error:"Ainda há jogadores sem equipa"})
+                }else{
+                    var index = obj.games.indexOf(found)
+                    found.locked = true
+                    obj.games[index] = found
+        
+                        
+                    notifyPlayers(JSON.stringify({locked:true}), req.body["code"])
+                    
+                    json = JSON.stringify(obj); 
+                    fs.writeFile('games.json', json, 'utf8', () =>{res.send({locked:true})}); 
+                }
+    
+            }
+        
+ 
+    }})
+})
+
+
+// send winner
+router.post("/winner", (req,res) => {
+
+})
+
 
 module.exports = router
