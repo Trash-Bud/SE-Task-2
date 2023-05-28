@@ -5,23 +5,28 @@ import 'Player.dart';
 
 class Team{
 
-  final String id;
   String name;
   String image;
   List<Player> players = [];
-  Player teamLeader;
+  late Player teamLeader;
   Image? loadedImage;
   int square = 0;
   bool imageAltered = true;
+  bool blocked = false;
 
-  Team(this.name, this.image, this.teamLeader, this.id){
-    players.add(teamLeader);
+  Team(this.name, this.image);
+
+  setTeamLeader(Player leader){
+    teamLeader = leader;
   }
 
   setImageAltered(bool imageAltered ){
     imageAltered = imageAltered;
   }
 
+  blockTeam(){
+    blocked = true;
+  }
 
   addPlayer(Player player){
     players.add(player);
@@ -47,4 +52,11 @@ class Team{
     loadedImage = image;
   }
 
+  String getImage(){
+    return image;
+  }
+
+  String getName(){
+    return name;
+  }
 }

@@ -25,4 +25,15 @@ class GameRepository extends ChangeNotifier{
     return player.image;
   }
 
+  void setTeams(){
+    teams.add(Team("Equipa 1", "assets/images/team/pfp1.png"));
+    teams.add(Team("Equipa 2", "assets/images/team/pfp2.png"));
+    teams.add(Team("Equipa 3", "assets/images/team/pfp3.png"));
+    teams.add(Team("Equipa 4", "assets/images/team/pfp4.png"));
+  }
+
+  List<Team> getTeams(){
+    return teams;
+  }
+
 }

@@ -18,18 +18,19 @@ class _ChooseTeamPage extends State<ChooseTeamPage>{
   void initState() {
     super.initState();
     setState(() {
-      _teamController = 0;
+      _teamController = -1;
     });
   }
 
   static late int _teamController;
-  static bool isLeader = false;
+  static bool isLeader = true;
 
   void updateData() {
     //var game = Provider.of<GameRepository>(context);
     var game = Provider.of<GameRepository>(context, listen: false);
-    game.player.setTeam(_teamController, isLeader);
+    game.player.setTeam(_teamController+1, isLeader);
     if (isLeader) {
+      game.teams[_teamController].setTeamLeader(game.player);
       Navigator.of(context).pushNamed("/team_wait_leader");
     } else {
       Navigator.of(context).pushNamed("/team_wait");
@@ -90,8 +91,9 @@ class _ChooseTeamPage extends State<ChooseTeamPage>{
   }
 
   List<Widget> getTeams(BuildContext context) {
+    var gameTeams = Provider.of<GameRepository>(context, listen: false).getTeams();
     List<Widget> teams = [];
-    for (int i = 1; i < 5; i++) {
+    for (int i = 0; i < gameTeams.length; i++) {
       teams.add(
             Container(
                 margin: const EdgeInsets.all(10),
@@ -103,11 +105,11 @@ class _ChooseTeamPage extends State<ChooseTeamPage>{
                         const MaterialStatePropertyAll<Color>(Color.fromRGBO(255, 251, 236, 1)) : const MaterialStatePropertyAll<Color>(Colors.white)),
                     child: Row(
                         children: [
-                          Image.asset("assets/images/team/pfp$i.png", width:50),
+                          Image.asset(gameTeams[i].getImage(), width:50),
                           const SizedBox(width: 5,),
                           Container(
                             margin: const EdgeInsets.all(20),
-                            child: Text("Equipa $i"),
+                            child: Text(gameTeams[i].getName()),
                           )
                         ])
                     )

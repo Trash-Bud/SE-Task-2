@@ -48,7 +48,9 @@ class _CreateProfilePage extends State<CreateProfilePage>{
   void updateData() {
     //var game = Provider.of<GameRepository>(context);
     var game = Provider.of<GameRepository>(context, listen: false);
-    game.setPlayer(_nameController.toString(), (_imageController+1));
+    game.setPlayer(_nameController.text, (_imageController+1));
+    log("name ${_nameController.text}");
+    log("img $_imageController");
 
     Navigator.of(context).pushNamed("/color_pfp");
   }
@@ -57,6 +59,7 @@ class _CreateProfilePage extends State<CreateProfilePage>{
   Widget build(BuildContext context) {
     return Scaffold(
         backgroundColor: const Color.fromRGBO(255, 251, 236, 1),
+        resizeToAvoidBottomInset: false,
         appBar: CustomAppBar(),
         body: Column(
           children: [getMessage(context), getImage(context), getForm(context)],

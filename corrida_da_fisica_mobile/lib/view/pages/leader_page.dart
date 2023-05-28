@@ -22,15 +22,9 @@ class LeaderPage extends StatelessWidget {
           Padding(
               padding: EdgeInsets.all(10),
               child:Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.end,
                   children: [
-                    Text("O que é o líder da equipa?",
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                            color: Theme.of(context).primaryColor,
-                            fontSize: 30,
-                            fontWeight: FontWeight.bold))
-                    ,
+
                     IconButton(
                         icon: Icon(Icons.close, color: Theme.of(context).primaryColor),
                         onPressed: () {Navigator.of(context).pop();}
@@ -38,6 +32,13 @@ class LeaderPage extends StatelessWidget {
                   ]
               )
           ),
+          Text("O que é o líder da equipa?",
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                  color: Theme.of(context).primaryColor,
+                  fontSize: 28,
+                  fontWeight: FontWeight.bold))
+          ,
           Expanded(
               child: SingleChildScrollView(
                   child: Container(

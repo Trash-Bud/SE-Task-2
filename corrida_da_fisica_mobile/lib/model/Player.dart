@@ -4,12 +4,12 @@ import 'package:flutter/cupertino.dart';
 
 class Player{
 
-  final String name;
-  final int image;
+  String name;
+  int image;
   late int color;
   late final int teamId;
   late bool isLeader;
-  late final Widget coloredImage;
+  late Widget coloredImage;
 
   Player(this.name, this.image);
 

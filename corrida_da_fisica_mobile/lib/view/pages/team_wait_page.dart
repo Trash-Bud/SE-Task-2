@@ -44,7 +44,7 @@ class TeamWaitPage extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Text("Aguarda pelo início do jogo...",
-              style: TextStyle(color: Theme.of(context).primaryColor, fontSize: 25)),
+              style: TextStyle(color: Theme.of(context).primaryColor, fontSize: 20)),
           const SizedBox(height: 40,),
           Container(
               margin: const EdgeInsets.all(20),

@@ -1,8 +1,19 @@
 import 'package:corrida_da_fisica_mobile/view/components/app_bar.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+
+import '../../controller/GameRepository.dart';
 
 class MainMenuPage extends StatelessWidget {
   MainMenuPage({super.key});
+
+  void updateData(BuildContext context){
+    var game = Provider.of<GameRepository>(context, listen: false);
+
+    game.setTeams();
+
+    Navigator.of(context).pushNamed("/create_profile");
+  }
 
 
   @override
@@ -32,7 +43,7 @@ class MainMenuPage extends StatelessWidget {
               margin: const EdgeInsets.all(20),
               width: 500,
               child: ElevatedButton(
-                  onPressed: () => {Navigator.of(context).pushNamed("/create_profile")},
+                  onPressed: () => {updateData(context)},
                   child: Container(
                     margin: const EdgeInsets.all(20),
                     child: const Text("Criar perfil"),

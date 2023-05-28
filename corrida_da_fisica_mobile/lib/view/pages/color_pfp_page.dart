@@ -60,7 +60,7 @@ class _ColorPFPPage extends State<ColorPFPPage>{
   void updateData() {
     //var game = Provider.of<GameRepository>(context);
     var game = Provider.of<GameRepository>(context, listen: false);
-    var image = Provider.of<GameRepository>(context, listen: false).player.getImage();
+    var image = game.player.getImage();
 
     game.player.setColor(_colorController);
     game.player.setColoredImage(
@@ -114,8 +114,8 @@ class _ColorPFPPage extends State<ColorPFPPage>{
                         boxShadow: [BoxShadow(
                             color: _colorController == 0 ?
                             Theme.of(context).primaryColor : Colors.white,
-                            blurRadius: 0.5,
-                            spreadRadius: 0.5)],
+                            blurRadius: 1,
+                            spreadRadius: 1)],
                       ),
                       child: CircleAvatar(
                         radius: width/12,
@@ -132,8 +132,8 @@ class _ColorPFPPage extends State<ColorPFPPage>{
                         boxShadow: [BoxShadow(
                             color: _colorController == 1 ?
                             Theme.of(context).primaryColor : Colors.white,
-                            blurRadius: 0.5,
-                            spreadRadius: 0.5)],
+                            blurRadius: 1,
+                            spreadRadius: 1)],
                       ),
                       child: CircleAvatar(
                         radius: width/12,
@@ -150,8 +150,8 @@ class _ColorPFPPage extends State<ColorPFPPage>{
                         boxShadow: [BoxShadow(
                             color: _colorController == 2 ?
                             Theme.of(context).primaryColor : Colors.white,
-                            blurRadius: 0.5,
-                            spreadRadius: 0.5)],
+                            blurRadius: 1,
+                            spreadRadius: 1)],
                       ),
                       child: CircleAvatar(
                         radius: width/12,
@@ -168,8 +168,8 @@ class _ColorPFPPage extends State<ColorPFPPage>{
                         boxShadow: [BoxShadow(
                             color: _colorController == 3 ?
                             Theme.of(context).primaryColor : Colors.white,
-                            blurRadius: 0.5,
-                            spreadRadius: 0.5)],
+                            blurRadius: 1,
+                            spreadRadius: 1)],
                       ),
                       child: CircleAvatar(
                         radius: width/12,
@@ -191,8 +191,8 @@ class _ColorPFPPage extends State<ColorPFPPage>{
                         boxShadow: [BoxShadow(
                             color: _colorController == 4 ?
                             Theme.of(context).primaryColor : Colors.white,
-                            blurRadius: 0.5,
-                            spreadRadius: 0.5)],
+                            blurRadius: 1,
+                            spreadRadius: 1)],
                       ),
                       child: CircleAvatar(
                         radius: width/12,
@@ -209,8 +209,8 @@ class _ColorPFPPage extends State<ColorPFPPage>{
                         boxShadow: [BoxShadow(
                             color: _colorController == 5 ?
                             Theme.of(context).primaryColor : Colors.white,
-                            blurRadius: 0.5,
-                            spreadRadius: 0.5)],
+                            blurRadius: 1,
+                            spreadRadius: 1)],
                       ),
                       child: CircleAvatar(
                         radius: width/12,
@@ -227,8 +227,8 @@ class _ColorPFPPage extends State<ColorPFPPage>{
                         boxShadow: [BoxShadow(
                             color: _colorController == 6 ?
                             Theme.of(context).primaryColor : Colors.white,
-                            blurRadius: 0.5,
-                            spreadRadius: 0.5)],
+                            blurRadius: 1,
+                            spreadRadius: 1)],
                       ),
                       child: CircleAvatar(
                         radius: width/12,
@@ -245,8 +245,8 @@ class _ColorPFPPage extends State<ColorPFPPage>{
                         boxShadow: [BoxShadow(
                             color: _colorController == 7 ?
                             Theme.of(context).primaryColor : Colors.white,
-                            blurRadius: 0.5,
-                            spreadRadius: 0.5)],
+                            blurRadius: 1,
+                            spreadRadius: 1)],
                       ),
                       child: CircleAvatar(
                         radius: width/12,
