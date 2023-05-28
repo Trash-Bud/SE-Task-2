@@ -12,7 +12,8 @@ router.post("/answer", (req,res) => {
 
 })
 
-// send results (needs a send new or something if players want to switch questions)
+// send results (needs a send new or something if players want to switch questions which should not notify with results
+// but with a new question)
 router.post("/timeOut", (req,res) => {
 
 })
