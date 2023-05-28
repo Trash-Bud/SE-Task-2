@@ -139,14 +139,15 @@ router.post("/checkJoin", (req,res) => {
 
 router.post("/join", (req,res) => {
     // Verifying request
-    if (!req.body.hasOwnProperty("code") || !req.body.hasOwnProperty("name") || !req.body.hasOwnProperty("pic")){
-        res.status(400).send({error: "O pedido tem de ter o seguinte formato: {code: string, name: string, pic:string}"})
+    if (!req.body.hasOwnProperty("code") || !req.body.hasOwnProperty("name") || !req.body.hasOwnProperty("pic") || !req.body.hasOwnProperty("color")){
+        res.status(400).send({error: "O pedido tem de ter o seguinte formato: {code: string, name: string, pic:string, color:string}"})
     }
 
     if ((!typeof req.body["code"] === 'string' && !req.body["code"] instanceof String) ||
     (!typeof req.body["name"] === 'string' && !req.body["name"] instanceof String) ||
-    (!typeof req.body["pic"] === 'string' && !req.body["pic"] instanceof String) ){
-        res.status(400).send({error: "O pedido tem de ter o seguinte formato: {code: string, name: string, pic:string}"})
+    (!typeof req.body["pic"] === 'string' && !req.body["pic"] instanceof String) ||
+    (!typeof req.body["color"] === 'string' && !req.body["color"] instanceof String)){
+        res.status(400).send({error: "O pedido tem de ter o seguinte formato: {code: string, name: string, pic:string, color:string}"})
     }
 
     // Checking if game exists
@@ -168,7 +169,7 @@ router.post("/join", (req,res) => {
                 // Setting up stream
                 res.setHeader("Content-Type", "text/event-stream")
     
-                var player = new Player(req.body["name"],req.body["pic"])
+                var player = new Player(req.body["name"],req.body["pic"],req.body["color"])
                 var index = obj.games.indexOf(found)
                 found["pendingTeamPlayers"].push((player))
                 obj.games[index] = found
