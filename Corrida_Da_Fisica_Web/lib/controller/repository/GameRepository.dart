@@ -12,7 +12,7 @@ class GameRepository extends ChangeNotifier{
 
   String? gameCode;
   AppTheme appTheme = AppTheme.defaultTheme;
-  List<Team> teams = [ Team("AAA", "player_icon_1.png", Player("aluno 1","jbasdj"), "sjksadjkads")];
+  List<Team> teams = [ Team.testPos( "sjksadjkads","AAA", "player_icon_1.png", Player("aluno 1","jbasdj"),18)];
   int numberOfTeams = 0;
   int maxPlayerNumber = 2;
   Board board = Board();

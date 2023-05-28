@@ -6,7 +6,8 @@ class Team {
         this.name = "Equipa " + number;
         this.picture = picture;
         this.players = [];
-        this.maxPlayers = maxPlayers
+        this.maxPlayers = maxPlayers;
+        this.leader = null
     }
 
     addPlayer(player){

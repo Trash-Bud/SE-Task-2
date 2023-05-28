@@ -5,6 +5,7 @@ class Game {
     constructor(teamsNumber, playersPerTeam, year) {
         this.year = year;
         this.playersPerTeam = playersPerTeam;
+        this.pendingTeamPlayers = [];
         this.teams = [];
         for (var i = 0; i < teamsNumber; i++){
             this.teams.push(new Team(i+1,"sss",playersPerTeam))
