@@ -28,7 +28,7 @@ class _QuestionCard extends State<QuestionCard>{
       game.lastAnswer = -1;
     }
 
-    Navigator.of(context).pushNamed("/wait_answer");
+    Navigator.of(context).pushNamed("/answer");
   }
 
   @override

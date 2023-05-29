@@ -1,4 +1,5 @@
 
+import 'package:corrida_da_fisica_mobile/view/pages/answer_page.dart';
 import 'package:corrida_da_fisica_mobile/view/pages/choose_team_page.dart';
 import 'package:corrida_da_fisica_mobile/view/pages/color_pfp_page.dart';
 import 'package:corrida_da_fisica_mobile/view/pages/create_code_page.dart';
@@ -45,8 +46,10 @@ class AppRouter{
         return MaterialPageRoute(builder: (_) => TeamWaitLeaderPage(), settings: settingsNew);
       case '/question':
         return MaterialPageRoute(builder: (_) => QuestionPage(), settings: settingsNew);
+      case '/answer':
+        return MaterialPageRoute(builder: (_) => AnswerPage(), settings: settingsNew);
       case '/wait_answer':
-        return MaterialPageRoute(builder: (_) => GameWinPage(), settings: settingsNew);
+        return MaterialPageRoute(builder: (_) => WaitAnswerPage(), settings: settingsNew);
       case '/wait_turn':
         return MaterialPageRoute(builder: (_) => WaitTurnPage(), settings: settingsNew);
       case '/tie':

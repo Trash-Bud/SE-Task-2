@@ -69,17 +69,6 @@ class RollDicePage extends StatelessWidget {
                   )
               )
           ),
-          Container(
-              margin: const EdgeInsets.all(10),
-              width: 500,
-              child: OutlinedButton(
-                  onPressed: () => {Navigator.of(context).pushNamed("/create_code")},
-                  child: Container(
-                    margin: const EdgeInsets.all(20),
-                    child: const Text("Passar"),
-                  )
-              )
-          ),
         ],
       ),
     );
