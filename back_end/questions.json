@@ -1,11 +1,479 @@
 {"questions": [
     { 
-        "question" : "Uma galáxia é", 
+        "question" : "Uma galáxia é...",
         "options": [
-            "É um enorme agrupamento de  estrelas, gases e poeiras.",
-            "É um enxame de estrelas.",
-            "É um superenxame de estrelas.",
-            "É um conjunto de asteroides."], 
+            "um enorme agrupamento de  estrelas, gases e poeiras.",
+            "um enxame de estrelas.",
+            "um superenxame de estrelas.",
+            "um conjunto de asteroides."],
         "correct": 0
+    },
+    {
+        "question" : "O Universo é...",
+        "options": [
+            "o conjunto de todos os astros que existem no Sistema Solar.",
+            "formado por enormes estruturas e muito espaço vazio.",
+            "o conjunto de todos os astros que existem na Via Láctea.",
+            "o planeta em que o ser humano habita."],
+        "correct": 1
+    },
+    {
+        "question" : "Um planeta...",
+        "options": [
+            "emite luz visível, é aproximadamente esférico e não tem outros corpos na sua órbita.",
+            "não emite luz visível, é aproximadamente esférico e tem outros corpos na sua órbita.",
+            "emite luz visível, é aproximadamente esférico e é uma enorme bola de gás.",
+            "não emite luz visível, é aproximadamente esférico e não tem outros corpos na sua órbita."],
+        "correct": 3
+    },
+    {
+        "question" : "Os satélites...",
+        "options": [
+            "não têm movimento de translação em torno do planeta.",
+            "têm uma massa menor do que a do planeta em torno do qual orbitam.",
+            "emitem luz visível.",
+            "podem todos ser designados por luas."],
+        "correct": 1
+    },
+    {
+        "question" : "O Universo pode ser estudado com recurso...",
+        "options": [
+            "a microscópios e a missões tripuladas.",
+            "apenas a missões tripuladas.",
+            "a missões tripuladas e não tripuladas.",
+            "apenas a missões não tripuladas."],
+        "correct": 2
+    },
+    {
+        "question" : "Um exoplaneta é um planeta...",
+        "options": [
+            "que não pertence ao Sistema Solar.",
+            "que pertence ao Sistema Solar.",
+            "que nunca foi detetado.",
+            "que não orbita uma estrela."],
+        "correct": 0
+    },
+    {
+        "question" : "A Terra encontra-se a...",
+        "options": [
+            "150 000 km do Sol.",
+            "150 000 m do Sol.",
+            "150 000 000 km do Sol.",
+            "150 000 000 000 000 km do Sol."],
+        "correct": 2
+    },
+    {
+        "question" : "A Via Láctea...",
+        "options": [
+            "corresponde ao conjunto de astros que giram em torno de uma estrela.",
+            "não tem fim.",
+            "é formada por milhares de milhões de estrelas, gases e poeiras.",
+            "é o sistema planetário em que se situa a Terra."],
+        "correct": 2
+    },
+    {
+        "question" : "Segundo o modelo geocêntrico, o astro que ocupa o centro do Universo é...",
+        "options": [
+            "o Sol.",
+            "uma estrela.",
+            "a Via Láctea.",
+            "a Terra."],
+        "correct": 3
+    },
+    {
+        "question" : "O modelo heliocêntrico foi defendido...",
+        "options": [
+            "pela Igreja e por Ptolomeu.",
+            "por Copérnico e por Galileu.",
+            "por Ptolomeu e por Galileu.",
+            "pela Igreja e por Galileu."],
+        "correct": 1
+    },
+    {
+        "question" : "A ESA é...",
+        "options": [
+            "um observatório que dirige um conjunto de telescópios terrestres.",
+            "a Agência Espacial Norte-americana.",
+            "a Agência Espacial Europeia.",
+            "a Estação Espacial Internacional."],
+        "correct": 2
+    },
+    {
+        "question" : "Segundo a Teoria do Big Bang...",
+        "options": [
+            "o Universo, desde a sua formação, tem vindo a expandir-se e a arrefecer.",
+            "a Terra formou-se há 14 mil milhões de anos.",
+            "o Universo está em constante expansão e aquecimento.",
+            "o Universo formou-se há 14 milhões de anos."],
+        "correct": 0
+    },
+    {
+        "question" : "As agências espaciais foram criadas para...",
+        "options": [
+            "produzir tecnologia e realizar pesquisas de forma a desenvolver missões espaciais.",
+            "pesquisar unicamente a existência de vida noutros planetas.",
+            "produzir tecnologia de forma a sustentar o desenvolvimento económico mundial.",
+            "colocar o ser humano a colonizar Marte, unicamente."],
+        "correct": 0
+    },
+    {
+        "question" : "Com a sua luneta, Galileu observou...",
+        "options": [
+            "todas as luas de Júpiter.",
+            "as crateras da Lua.",
+            "Plutão.",
+            "as fases de Neptuno."],
+        "correct": 1
+    },
+    {
+        "question" : "A ISS...",
+        "options": [
+            "é um telescópio espacial.",
+            "é uma estação espacial capaz de albergar astronautas.",
+            "é uma teoria que explica a origem e a evolução do Universo.",
+            "é uma galáxia."],
+        "correct": 1
+    },
+    {
+        "question" : "A missão que colocou o primeiro homem na Lua foi a/o...",
+        "options": [
+            "ESO.",
+            "Sputnik 1.",
+            "Apollo 11.",
+            "ISS."],
+        "correct": 2
+    },
+    {
+        "question" : "O conhecimento do Universo...",
+        "options": [
+            "tem vindo a melhorar sem qualquer contribuição de equipas portuguesas.",
+            "tem beneficiado com o contributo de tecnologia cada vez mais inovadora.",
+            "está estagnado.",
+            "não depende do investimento das nações."],
+        "correct": 1
+    },
+    {
+        "question" : "O Sistema Solar é formado...",
+        "options": [
+            "pelo Sol, oito planetas, satélites, asteroides, cometas e meteoroides.",
+            "pelo Sol, oito planetas e a Lua.",
+            "por várias estrelas, oito planetas, satélites, asteroides, cometas e meteoroides.",
+            "por várias estrelas, visíveis apenas à noite, à exceção do Sol e oito planetas."],
+        "correct": 0
+    },
+    {
+        "question" : "A Terra é um planeta com vida porque possui uma...",
+        "options": [
+            "atmosfera rica em oxigénio e uma superfície gasosa.",
+            "superfície gasosa.",
+            "superfície sólida, água nos três estados físicos e uma atmosfera rica em nitrogénio e oxigénio.",
+            "está a uma distância do Sol que lhe permite ter uma temperatura média à superfície de cerca de 25 ºC."],
+        "correct": 2
+    },
+    {
+        "question" : "Marte é...",
+        "options": [
+            "um planeta interior.",
+            "um planeta com elevado número de satélites.",
+            "um planeta gasoso.",
+            "o maior planeta do Sistema Solar."],
+        "correct": 0
+    },
+    {
+        "question" : "De uma forma geral, à medida que aumenta a distância dos planetas ao Sol,...",
+        "options": [
+            "a temperatura média à superfície do planeta também aumenta.",
+            "o período de rotação dos planetas diminui.",
+            "o período de rotação dos planetas também aumenta.",
+            "a temperatura média à superfície do planeta diminui."],
+        "correct": 3
+    },
+    {
+        "question" : "Os planetas do Sistema Solar...",
+        "options": [
+            "são os únicos da Via Láctea.",
+            "não têm características que permitam distingui-los.",
+            "ainda não foram todos observados por telescópios.",
+            "giram todos em torno de uma estrela."],
+        "correct": 3
+    },
+    {
+        "question" : "O Universo...",
+        "options": [
+            "é formado apenas pelo Sistema Solar.",
+            "é o conjunto de tudo o que existe.",
+            "tem uma dimensão inferior à Via Láctea.",
+            "é formado por 8 planetas e uma estrela."],
+        "correct": 1
+    },
+    {
+        "question" : "A Terra...",
+        "options": [
+            "emite luz visível.",
+            "tem vários corpos celestes na sua órbita.",
+            "faz parte de um sistema planetário com várias estrelas.",
+            "encontra-se num dos braços da Via Láctea."],
+        "correct": 3
+    },
+    {
+        "question" : "Os telescópios podem ser...",
+        "options": [
+            "apenas colocados na superfície terrestre.",
+            "espaciais ou terrestres, e podem detetar apenas a luz visível.",
+            "espaciais ou terrestres, e podem detetar luz visível e invisível.",
+            "apenas espaciais e podem detetar luz visível e invisível."],
+        "correct": 2
+    },
+    {
+        "question" : "Portugal...",
+        "options": [
+            "pertence à NASA.",
+            "não pertence a nenhuma agência espacial.",
+            "pertence à ESA e à NASA.",
+            "pertence à ESA, mas não à NASA."],
+        "correct": 3
+    },
+    {
+        "question" : "A unidade astronómica é a unidade adequada para indicar...",
+        "options": [
+            "a distância entre Bragança e Faro.",
+            "distâncias dentro do Sistema Solar.",
+            "a distância entre a Via Láctea e a galáxia Andrómeda.",
+            "distâncias para além do Sistema Solar."],
+        "correct": 1
+    },
+    {
+        "question" : "Um astro que se encontra a 3,6 ua do Sol está...",
+        "options": [
+            "entre a Terra e o Sol.",
+            "perto dos limites do Sistema Solar.",
+            "3,6 vezes mais perto do Sol do que a Terra.",
+            "para além da Terra."],
+        "correct": 3
+    },
+    {
+        "question" : "O a.ℓ. é uma unidade de...",
+        "options": [
+            "distância.",
+            "luz.",
+            "tempo.",
+            "temperatura."],
+        "correct": 0
+    },
+    {
+        "question" : "Uma estrela que se encontre a 200 a.ℓ. da Terra...",
+        "options": [
+            "emite luz que demora 200 anos a chegar à Terra.",
+            "está a 200 anos da Terra.",
+            "está mais próxima da Terra do que o Sol da Terra.",
+            "está a uma distância em que a sua luz demora 200 a.ℓ. a chegar à Terra."],
+        "correct": 0
+    },
+    {
+        "question" : "O Sistema Solar...",
+        "options": [
+            "não tem planetas anões.",
+            "roda em torno do centro da Via Láctea.",
+            "tem várias estrelas, oito planetas, satélites, asteroides, cometas e meteoroides.",
+            "não tem satélites."],
+        "correct": 1
+    },
+    {
+        "question" : "A maioria dos asteroides que se encontram no Sistema Solar encontra-se...",
+        "options": [
+            "entre Marte e Júpiter.",
+            "entre o Sol e a Terra.",
+            "para além de Neptuno.",
+            "a orbitar em torno de Marte."],
+        "correct": 0
+    },
+    {
+        "question" : "Os planetas encontram-se...",
+        "options": [
+            "todos a girar no sentido anti-horário.",
+            "à exceção de Vénus, a girar no sentido anti-horário.",
+            "todos a girar no sentido horário.",
+            "à exceção de Vénus, a girar no sentido horário."],
+        "correct": 1
+    },
+    {
+        "question" : "A Via Láctea...",
+        "options": [
+            "corresponde ao conjunto de astros que giram em torno de uma estrela.",
+            "não tem fim.",
+            "é formada por milhares de milhões de estrelas, gases e poeiras.",
+            "é o sistema planetário em que se situa a Terra."],
+        "correct": 2
+    },
+    {
+        "question" : "O Sistema Solar...",
+        "options": [
+            "encontra-se no centro do Universo.",
+            "é um dos muitos sistemas planetários da Via Láctea.",
+            "encontra-se no centro da Via Láctea.",
+            "é o único sistema planetário da Via Láctea."],
+        "correct": 1
+    },
+    {
+        "question" : "A cintura de Kuiper...",
+        "options": [
+            "separa os planetas gasosos dos planetas rochosos.",
+            "encontra-se em Andrómeda.",
+            "situa-se entre Marte e Júpiter.",
+            "situa-se para além de Neptuno."],
+        "correct": 3
+    },
+    {
+        "question" : "A Terra...",
+        "options": [
+            "é um planeta constituído por rochas e metais.",
+            "é um planeta joviano.",
+            "tem um período de rotação de 365 dias e 6 horas.",
+            "é um planeta constituído maioritariamente por gases."],
+        "correct": 0
+    },
+    {
+        "question" : "Os planetas gasosos, comparativamente com os planetas rochosos...",
+        "options": [
+            "êm elevado período de translação.",
+            "são muito densos.",
+            "têm poucos satélites.",
+            "são de pequenas dimensões."],
+        "correct": 0
+    },
+    {
+        "question" : "A atmosfera terrestre tem como função, entre outras, ...",
+        "options": [
+            "fornecer sais minerais aos oceanos.",
+            "filtrar as radiações nocivas provenientes do Sol.",
+            "dar substrato às plantas, permitindo a sua sustentação.",
+            "manter a distância da Terra ao Sol."],
+        "correct": 1
+    },
+    {
+        "question" : "Saturno é...",
+        "options": [
+            "o planeta do Sistema Solar com maior número de satélites.",
+            "um planeta telúrico.",
+            "um planeta com uma massa similar à da Terra.",
+            "o planeta mais quente do Sistema Solar."],
+        "correct": 0
+    },
+    {
+        "question" : "De uma forma geral, a temperatura média à superfície de um planeta diminui...",
+        "options": [
+            "quanto maior for o período de rotação do planeta.",
+            "quanto menor for o período de translação do planeta.",
+            "quanto menor for o período de rotação do planeta.",
+            "quanto mais afastado estiver o planeta do Sol."],
+        "correct": 3
+    },
+    {
+        "question" : "Seleciona a opção correta.",
+        "options": [
+            "Os corpos celestes que conhecemos no Universo são estrelas e planetas.",
+            "Os planetas andam errantes pelo Universo.",
+            "Os planetas são os únicos corpos celestes que se movem em torno de uma estrela.",
+            "Os planetas são corpos iluminados por estrelas que se movem sempre à volta de uma estrela."],
+        "correct": 3
+    },
+    {
+        "question" : "Um sistema planetário é formado por...",
+        "options": [
+            "estrelas e planetas.",
+            "uma estrela e vários planetas.",
+            "estrelas, planetas e outros corpos celestes que se movem em torno das estrelas.",
+            "uma estrela, planetas e outros corpos celestes que se movem em torno da estrela."],
+        "correct": 3
+    },
+    {
+        "question" : "Os dois corpos celestes que, para nós, são os mais brilhantes no céu noturno são...",
+        "options": [
+            "a Lua e Vénus.",
+            "a Lua e Mercúrio.",
+            "Mercúrio e Vénus.",
+            "a Lua e Marte."],
+        "correct": 0
+    },
+    {
+        "question" : "O Universo observável contém...",
+        "options": [
+            "milhares de galáxias.",
+            "milhões de galáxias.",
+            "milhares de milhão de galáxias.",
+            "biliões de galáxias."],
+        "correct": 3
+    },
+    {
+        "question" : "Segundo o modelo heliocêntrico...",
+        "options": [
+            "o Sol ocupava o centro do Universo e os outros corpos celestes giravam em torno da Terra.",
+            "o Sol encontrava-se imóvel no centro do Universo e os outros corpos celestes giravam em torno da Terra.",
+            "o Sol ocupava o centro do Universo e todos os outros corpos celestes, incluindo a Terra, giravam à sua volta.",
+            "o Sol ocupava, juntamente com a Terra, o centro do Universo."],
+        "correct": 2
+    },
+    {
+        "question" : "Os habitantes do hemisfério sul orientam-se...",
+        "options": [
+            "pela estrela Cruzeiro do Sul.",
+            "pela constelação Cruzeiro do Sul.",
+            "pela estrela Cassiopeia do Sul.",
+            "pela constelação Cassiopeia do Sul."],
+        "correct": 1
+    },
+    {
+        "question" : "Seleciona a opção incorreta.",
+        "options": [
+            "No hemisfério norte, a Estrela Polar indica o norte.",
+            "A Estrela Polar encontra-se no alinhamento do eixo de rotação da Terra.",
+            "A Estrela Polar faz parte da constelação Ursa Maior.",
+            "A Estrela Polar é a estrela que está no extremo da cauda da Ursa Menor."],
+        "correct": 2
+    },
+    {
+        "question" : "A Estrela Polar é uma estrela que faz parte da constelação...",
+        "options": [
+            "Ursa Maior e indica o sul.",
+            "Ursa Menor e indica o sul.",
+            "Ursa Maior e indica o norte.",
+            "Ursa Menor e indica o norte."],
+        "correct": 3
+    },
+    {
+        "question" : "Seleciona a opção correta.",
+        "options": [
+            "As galáxias distribuem-se aleatoriamente no Espaço.",
+            "A Via Láctea e a Galáxia Andrómeda fazem parte do enxame de galáxias Grupo Local.",
+            "Laniakea é o enxame de galáxias mais próximo do Grupo Local.",
+            "O Grupo Local é o maior enxame de galáxias conhecido."],
+        "correct": 1
+    },
+    {
+        "question" : "As estrelas (da sequência principal) têm cores diferentes, dependendo da sua massa. Seleciona a opção correta.",
+        "options": [
+            "As estrelas de massa superior à do Sol apresentam temperaturas mais baixas.",
+            "As estrelas de massa superior à do Sol são avermelhadas.",
+            "As estrelas de massa inferior à do Sol apresentam temperaturas mais baixas.",
+            "As estrelas de massa inferior à do Sol são azuladas."],
+        "correct": 2
+    },
+    {
+        "question" : "Um exoplaneta ou planeta extrassolar é um planeta que...",
+        "options": [
+            "orbita o Sol, a uma grande distância dele.",
+            "orbita uma estrela que não é o Sol.",
+            "pertence ao Sistema Solar.",
+            "não faz parte de nenhum sistema planetário."],
+        "correct": 1
+    },
+    {
+        "question" : "Seleciona a opção correta.",
+        "options": [
+            "As Plêiades constituem uma galáxia.",
+            "As Plêiades constituem um enxame aberto de estrelas.",
+            "As Plêiades são constituídas por milhares de estrelas velhas.",
+            "\nAs Plêiades são um conjunto de estrelas jovens de cor predominantemente amarela."],
+        "correct": 1
     }
 ]}
