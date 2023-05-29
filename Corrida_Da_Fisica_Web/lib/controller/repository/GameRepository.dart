@@ -1,3 +1,6 @@
+import 'dart:developer';
+import 'dart:html';
+
 import 'package:corrida_da_fisica_web/model/Board.dart';
 import 'package:corrida_da_fisica_web/model/Player.dart';
 import 'package:corrida_da_fisica_web/utils/themes.dart';
@@ -6,7 +9,9 @@ import 'package:flutter/material.dart';
 import '../../model/Question.dart';
 import '../../model/Team.dart';
 import '../../model/game_state.dart';
+import '../../utils/constants.dart';
 import '../../utils/utils.dart';
+import '../see.dart';
 
 class GameRepository extends ChangeNotifier{
 
@@ -22,6 +27,25 @@ class GameRepository extends ChangeNotifier{
   int currentTeamTurn = 0;
   int currentPlayerTurn = 0;
   late Question question = Question("asaddas", ["answers","jja","jksajk","kjasjkdasjk"],"answers");
+  late Stream<dynamic> stream;
+
+  createGame(){
+    stream = Sse.connect(
+      uri: Uri.parse('http://$backEndUrl/connect'),
+      closeOnError: true,
+      withCredentials: false,
+    ).stream;
+
+    log(stream.toString());
+
+    stream.listen((event) {
+      log('Received:' + DateTime.now().millisecondsSinceEpoch.toString() + ' : ' + event.toString());
+      gameCode = 'Received:' + DateTime.now().millisecondsSinceEpoch.toString() + ' : ' + event.toString();
+      notifyListeners();
+    }
+    );
+  }
+
 
   changeTheme(ThemeData theme){
     board.switchTheme(theme);
