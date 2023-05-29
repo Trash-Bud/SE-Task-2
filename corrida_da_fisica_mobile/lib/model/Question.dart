@@ -2,7 +2,7 @@
 class Question{
   final String question;
   final List<String> answers;
-  final String correctAnswer;
+  final int correctAnswer;
 
   Question(this.question, this.answers, this.correctAnswer);
 

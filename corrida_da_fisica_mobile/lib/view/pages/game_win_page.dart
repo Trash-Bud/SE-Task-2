@@ -20,7 +20,7 @@ class GameWinPage extends StatelessWidget {
             ]),
             automaticallyImplyLeading: false
         ),
-        backgroundColor: Theme.of(context).primaryColor,
+        backgroundColor: Theme.of(context).colorScheme.tertiary,
         body: Column(
           children: [getBadge(context), getText(context), getButton(context)],
         ));
@@ -34,11 +34,11 @@ class GameWinPage extends StatelessWidget {
       child: Column(
         children: const [
           Text("Parabéns!",
-            style: TextStyle(color: Colors.white, fontSize: 80, fontWeight: FontWeight.bold),
+            style: TextStyle( fontSize: 80, fontWeight: FontWeight.bold),
             textAlign: TextAlign.center,
           ),
           Text("A tua equipa venceu o jogo",
-            style: TextStyle(color: Colors.white, fontSize: 30, fontWeight: FontWeight.normal),
+            style: TextStyle( fontSize: 30, fontWeight: FontWeight.normal),
             textAlign: TextAlign.center,
           ),
         ],
@@ -68,7 +68,6 @@ class GameWinPage extends StatelessWidget {
               width: 500,
               child: ElevatedButton(
                   onPressed: () => {Navigator.of(context).pushNamed("/scores")},
-                  style: ElevatedButton.styleFrom(backgroundColor: Theme.of(context).colorScheme.secondary),
                   child: Container(
                     margin: const EdgeInsets.all(20),
                     child: const Text("Ver resultados"),
@@ -80,13 +79,10 @@ class GameWinPage extends StatelessWidget {
               width: 500,
               child: OutlinedButton(
                   onPressed: () => {/*apagar content do repositorio*/Navigator.of(context).pushNamed("/")},
-                  style: OutlinedButton.styleFrom(
-                      side: BorderSide( color: Theme.of(context).colorScheme.secondary, width: 3),
-                    backgroundColor: Theme.of(context).primaryColor
-                  ),
+                  style: ButtonStyle(backgroundColor: MaterialStateProperty.all<Color>(Theme.of(context).colorScheme.tertiary)),
                   child: Container(
                     margin: const EdgeInsets.all(20),
-                    child: Text("Sair", style: TextStyle(color: Theme.of(context).colorScheme.secondary),),
+                    child: Text("Sair", style: TextStyle(color: Theme.of(context).colorScheme.secondary ),),
                   )
               )
           ),

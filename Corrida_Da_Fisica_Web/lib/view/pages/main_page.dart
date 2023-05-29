@@ -51,7 +51,7 @@ class MainPage extends StatelessWidget {
                   onPressed: () => {Navigator.of(context).pushNamed("/rules")},
                   child: Container(
                     margin: const EdgeInsets.all(20),
-                    child: const Text("Regras"),
+                    child: const Text("Regras", style: TextStyle(color: Theme.of(context).colorScheme.secondary )),
                   )
               )
           ),
@@ -62,7 +62,7 @@ class MainPage extends StatelessWidget {
                   onPressed: () => {},
                   child: Container(
                     margin: const EdgeInsets.all(20),
-                    child: const Text("Créditos"),
+                    child: const Text("Créditos", style: TextStyle(color: Theme.of(context).colorScheme.secondary )),
                   )
               )
           ),
