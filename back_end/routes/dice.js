@@ -9,12 +9,12 @@ router.post("/chooseRoll", (req,res) => {
 
     // Verifying request
     if (!req.body.hasOwnProperty("code") || !req.body.hasOwnProperty("team")){
-        res.status(400).send({error: "O pedido tem de ter o seguinte formato: {code: string, team: string}"})
+        return res.status(400).send({error: "O pedido tem de ter o seguinte formato: {code: string, team: string}"})
     }
 
     if ((!typeof req.body["code"] === 'string' && !req.body["code"] instanceof String) ||
     (!typeof req.body["team"] === 'string' && !req.body["team"] instanceof String)){
-        res.status(400).send({error: "O pedido tem de ter o seguinte formato: {code: string, team: string}"})
+        return res.status(400).send({error: "O pedido tem de ter o seguinte formato: {code: string, team: string}"})
     }
 
     fs.readFile('games.json', 'utf8', function readFileCallback(err, data){
@@ -63,13 +63,13 @@ router.post("/chooseRoll", (req,res) => {
 // Roll dice
 router.post("/roll", (req,res) => {
     if (!req.body.hasOwnProperty("code") || !req.body.hasOwnProperty("team") || !req.body.hasOwnProperty("player")){
-        res.status(400).send({error: "O pedido tem de ter o seguinte formato: {code: string, team: string, player:string}"})
+        return res.status(400).send({error: "O pedido tem de ter o seguinte formato: {code: string, team: string, player:string}"})
     }
 
     if ((!typeof req.body["code"] === 'string' && !req.body["code"] instanceof String) ||
     (!typeof req.body["team"] === 'string' && !req.body["team"] instanceof String)||
     (!typeof req.body["player"] === 'string' && !req.body["player"] instanceof String)){
-        res.status(400).send({error: "O pedido tem de ter o seguinte formato: {code: string, team: string, player:string}"})
+        return res.status(400).send({error: "O pedido tem de ter o seguinte formato: {code: string, team: string, player:string}"})
     }
 
     fs.readFile('games.json', 'utf8', function readFileCallback(err, data){
