@@ -1,15 +1,21 @@
 
-const http = require('http');
+const express = require('express')
+const app = express()
 
-const hostname = '127.0.0.1';
-const port = 3000;
+app.listen(3000)
 
-const server = http.createServer(function(req, res) {
-  res.statusCode = 200;
-  res.setHeader('Content-Type', 'text/plain');
-  res.end('Hello World\n');
-});
+app.use(express.json())
 
-server.listen(port, hostname, function() {
-  console.log('Server running at http://'+ hostname + ':' + port + '/');
-});
+app.get("/",(req,res) => {
+  res.status(200).send("Hi, I'm online!")
+})
+
+const diceRouter = require("./routes/dice.js")
+const teamRouter = require("./routes/team.js")
+const questionRouter = require("./routes/question.js")
+const gameRouter = require("./routes/game.js")
+
+app.use("/dice",diceRouter)
+app.use("/team",teamRouter)
+app.use("/question",questionRouter)
+app.use("/game",gameRouter)
