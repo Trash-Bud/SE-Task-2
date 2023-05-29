@@ -11,9 +11,9 @@ router.get("/", (req,res) => {
     res.setHeader("Content-Type", "text/event-stream")
     res.setHeader("Access-Control-Allow-Origin", "*")
     temp[id] = res;
-    console.log("hello")
+
     res.write("data: " + JSON.stringify({id:id})+"\n\n")
-    console.log("done")
+
 })
 
 
