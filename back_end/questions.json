@@ -1,0 +1,11 @@
+{"questions": [
+    { 
+        "question" : "Uma galáxia é", 
+        "options": [
+            "É um enorme agrupamento de  estrelas, gases e poeiras.",
+            "É um enxame de estrelas.",
+            "É um superenxame de estrelas.",
+            "É um conjunto de asteroides."], 
+        "correct": 0
+    }
+]}

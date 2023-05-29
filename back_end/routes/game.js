@@ -11,16 +11,18 @@ router.post("/create", (req,res) => {
     // Verifying request
     if (!req.body.hasOwnProperty("teamNumber") ||
     !req.body.hasOwnProperty("year") ||
-    !req.body.hasOwnProperty("playersPerTeam")
+    !req.body.hasOwnProperty("playersPerTeam")||
+    !req.body.hasOwnProperty("theme")
     ){
-        res.status(400).send({error: "O pedido tem de ter o seguinte formato: {teamNumber: int, year: int, playersPerTeam:int}"})
+        res.status(400).send({error: "O pedido tem de ter o seguinte formato: {teamNumber: int, year: int, playersPerTeam:int, theme:bool}"})
     }
 
     if (!Number.isInteger(req.body["teamNumber"]) ||
     !Number.isInteger(req.body["year"]) ||
-    !Number.isInteger(req.body["playersPerTeam"])
+    !Number.isInteger(req.body["playersPerTeam"]||
+    !typeof req.body["theme"] == "boolean")
     ){
-        res.status(400).send({error: "O pedido tem de ter o seguinte formato: {teamNumber: int, year: int, playersPerTeam:int}"})
+        res.status(400).send({error: "O pedido tem de ter o seguinte formato: {teamNumber: int, year: int, playersPerTeam:int, theme:bool}"})
     }
 
     
@@ -41,7 +43,7 @@ router.post("/create", (req,res) => {
         
 
         // Creating game
-        const game = new Game(req.body["teamNumber"],req.body["year"],req.body["playersPerTeam"])
+        const game = new Game(req.body["teamNumber"],req.body["playersPerTeam"],req.body["year"],req.body["theme"])
 
         addGameStream(game.code,res)
         
@@ -127,7 +129,7 @@ router.post("/checkJoin", (req,res) => {
                 res.status(403).send({error:"Este jogo já não está a aceitar participantes"})
             }
             else{
-                res.status(200).send("Game exists")
+                res.status(200).send({exists:true, theme:found.theme, year: found.year})
             }
         }
         
