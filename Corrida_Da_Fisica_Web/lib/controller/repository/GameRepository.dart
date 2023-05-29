@@ -1,5 +1,6 @@
+import 'dart:convert';
 import 'dart:developer';
-import 'dart:html';
+import 'package:http/http.dart' as http;
 
 import 'package:corrida_da_fisica_web/model/Board.dart';
 import 'package:corrida_da_fisica_web/model/Player.dart';
@@ -28,22 +29,24 @@ class GameRepository extends ChangeNotifier{
   int currentPlayerTurn = 0;
   late Question question = Question("asaddas", ["answers","jja","jksajk","kjasjkdasjk"],"answers");
   late Stream<dynamic> stream;
+  late String tempId;
 
-  createGame(){
+  connect(){
     stream = Sse.connect(
       uri: Uri.parse('http://$backEndUrl/connect'),
       closeOnError: true,
       withCredentials: false,
     ).stream;
 
-    log(stream.toString());
-
     stream.listen((event) {
-      log('Received:' + DateTime.now().millisecondsSinceEpoch.toString() + ' : ' + event.toString());
-      gameCode = 'Received:' + DateTime.now().millisecondsSinceEpoch.toString() + ' : ' + event.toString();
-      notifyListeners();
+      var decoded = json.decode(event);
+      
     }
     );
+  }
+
+  createGame(){
+
   }
 
 

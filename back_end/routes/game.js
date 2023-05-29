@@ -168,7 +168,7 @@ router.post("/join", (req,res) => {
                 
                 addPlayerGameStream(req.body["code"],connect.getStream(req.body["id"]),player.id)
     
-                notifyGame(JSON.stringify({pendingPlayers:found.pendingTeamPlayers, teams:found.teams}), req.body["code"])
+                notifyGame(JSON.stringify({activity:"player_join",pendingPlayers:found.pendingTeamPlayers, teams:found.teams}), req.body["code"])
                 
                 json = JSON.stringify(obj); 
                 fs.writeFile('games.json', json, 'utf8', () =>{res.send("Jogador juntou-se ao jogo")}); 
@@ -210,7 +210,7 @@ router.post("/lock", (req,res) => {
                     obj.games[index] = found
         
                         
-                    notifyPlayers(JSON.stringify({locked:true}), req.body["code"])
+                    notifyPlayers(JSON.stringify({activity:"game_lock",locked:true}), req.body["code"])
                     
                     json = JSON.stringify(obj); 
                     fs.writeFile('games.json', json, 'utf8', () =>{res.send({locked:true})}); 
@@ -247,7 +247,7 @@ router.post("/winner", (req,res) => {
             }
             else{
 
-                notifyPlayers(JSON.stringify({positions:req.body["positions"], results: found.results}), req.body["code"])
+                notifyPlayers(JSON.stringify({activity:"winner",positions:req.body["positions"], results: found.results}), req.body["code"])
                 
                 json = JSON.stringify(obj); 
                 fs.writeFile('games.json', json, 'utf8', () =>{res.send("Enviado")}); 

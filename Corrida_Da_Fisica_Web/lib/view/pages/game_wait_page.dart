@@ -33,7 +33,7 @@ class _GameWaitPage extends State<GameWaitPage> {
   void initState() {
     super.initState();
 
-    context.read<GameRepository>().createGame();
+    context.read<GameRepository>().connect();
   }
 
 

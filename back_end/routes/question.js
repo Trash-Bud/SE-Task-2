@@ -122,32 +122,32 @@ router.post("/timeOut", (req,res) => {
                     switch(req.body["special"]){
                         case 'doubleQuestion':
                             if (correct){
-                                notifyGame(JSON.stringify({result:"won", results:found.question, newQuestion:true}), req.body["code"])
-                                notifyTeam(JSON.stringify({result:"won", results:found.question}), req.body["code"],found.currentTeam)
+                                notifyGame(JSON.stringify({activity:"question_end",result:"won", results:found.question, newQuestion:true}), req.body["code"])
+                                notifyTeam(JSON.stringify({activity:"question_end",result:"won", results:found.question}), req.body["code"],found.currentTeam)
                             }else{
-                                notifyGame(JSON.stringify({result:"lost", results:found.question, newQuestion:false}), req.body["code"])
-                                notifyTeam(JSON.stringify({result:"lost", results:found.question}), req.body["code"],found.currentTeam)
+                                notifyGame(JSON.stringify({activity:"question_end",result:"lost", results:found.question, newQuestion:false}), req.body["code"])
+                                notifyTeam(JSON.stringify({activity:"question_end",result:"lost", results:found.question}), req.body["code"],found.currentTeam)
                             }
                             break;
                         case 'doubleChance':
                             if (correct){
                                 found.results[found.currentTeam]["moves"] += 1
-                                notifyGame(JSON.stringify({result:"won", results:found.question, newQuestion:false}), req.body["code"])
-                                notifyTeam(JSON.stringify({result:"won",results:found.question}), req.body["code"],found.currentTeam)
+                                notifyGame(JSON.stringify({activity:"question_end",result:"won", results:found.question, newQuestion:false}), req.body["code"])
+                                notifyTeam(JSON.stringify({activity:"question_end",result:"won",results:found.question}), req.body["code"],found.currentTeam)
 
                             }else{
-                                notifyGame(JSON.stringify({result:"lost", results:found.question, newQuestion:true}), req.body["code"])
-                                notifyTeam(JSON.stringify({result:"lost",results:found.question}), req.body["code"],found.currentTeam)
+                                notifyGame(JSON.stringify({activity:"question_end",result:"lost", results:found.question, newQuestion:true}), req.body["code"])
+                                notifyTeam(JSON.stringify({activity:"question_end",result:"lost",results:found.question}), req.body["code"],found.currentTeam)
                             }
                             break
                         default:
                             if (correct){
                                 found.results[found.currentTeam]["moves"] += 1
-                                notifyGame(JSON.stringify({result:"won", results:found.question, newQuestion:false}), req.body["code"])
-                                notifyTeam(JSON.stringify({result:"won",results:found.question}), req.body["code"],found.currentTeam)
+                                notifyGame(JSON.stringify({activity:"question_end",result:"won", results:found.question, newQuestion:false}), req.body["code"])
+                                notifyTeam(JSON.stringify({activity:"question_end",result:"won",results:found.question}), req.body["code"],found.currentTeam)
                             }else{
-                                notifyGame(JSON.stringify({result:"lost", results:found.question, newQuestion:false}), req.body["code"])
-                                notifyTeam(JSON.stringify({result:"lost",results:found.question}), req.body["code"],found.currentTeam)
+                                notifyGame(JSON.stringify({activity:"question_end",result:"lost", results:found.question, newQuestion:false}), req.body["code"])
+                                notifyTeam(JSON.stringify({activity:"question_end",result:"lost",results:found.question}), req.body["code"],found.currentTeam)
                             }
                             break;
                     }
@@ -189,7 +189,7 @@ function getNewQuestion(code, team, res){
                         obj.games[index] = found
                         
                         json = JSON.stringify(obj); 
-                        fs.writeFile('games.json', json, 'utf8', () =>{notifyGame(JSON.stringify({question:question.question,options:question.options}), code), notifyTeam(JSON.stringify({question:question.question,options:question.options}), code,team), res.send("Questão enviada")}); 
+                        fs.writeFile('games.json', json, 'utf8', () =>{notifyGame(JSON.stringify({activity:"question",question:question.question,options:question.options}), code), notifyTeam(JSON.stringify({activity:"question",question:question.question,options:question.options}), code,team), res.send("Questão enviada")}); 
                     }
                 }
             })
