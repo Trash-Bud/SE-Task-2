@@ -9,6 +9,7 @@ void main() {
 }
 
 class MyApp extends StatelessWidget {
+  static const BEUrl = "localhost:3000";
   const MyApp({super.key});
 
   // This widget is the root of your application.

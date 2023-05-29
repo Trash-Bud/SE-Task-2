@@ -6,6 +6,13 @@ class InsertCodePage extends StatelessWidget {
 
   final TextEditingController _formController = TextEditingController();
 
+  validateCode(BuildContext context){
+
+    //validate code
+
+    Navigator.of(context).pushNamed("/main_menu");
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -21,7 +28,7 @@ class InsertCodePage extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          Text("Insere abaixo o código do jogo",
+          const Text("Insere abaixo o código do jogo",
               textAlign: TextAlign.center,
               style: TextStyle(fontSize: 40, fontWeight: FontWeight.bold)),
         Container(
@@ -40,7 +47,7 @@ class InsertCodePage extends StatelessWidget {
               margin: const EdgeInsets.all(20),
               width: 500,
               child: ElevatedButton(
-                  onPressed: () => {Navigator.of(context).pushNamed("/main_menu")},
+                  onPressed: () => {validateCode(context)},
                   child: Container(
                     margin: const EdgeInsets.all(20),
                     child: const Text("Confirmar código"),

@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 
 class Player{
 
+  late int id;
   String name;
   int image;
   late int color;
