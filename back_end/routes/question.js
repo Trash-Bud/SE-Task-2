@@ -17,39 +17,11 @@ router.post("/get", (req,res) => {
         return res.status(400).send({error: "O pedido tem de ter o seguinte formato: {code: string, team: string}"})
     }
 
-    fs.readFile('questions.json', 'utf8', function readFileCallback(err, data){
-        if (err){
-            res.status(500).send({error:"Erro Interno do Servidor"})
-        } else {
-            obj = JSON.parse(data); 
-            var length = Math.floor(Math.random() * obj.questions.length)
-            var question = obj.questions[length]
-
-            fs.readFile('games.json', 'utf8', function readFileCallback(err, data){
-                if (err){
-                    res.status(500).send({error:"Erro Interno do Servidor"})
-                } else {
-                    obj = JSON.parse(data); 
-                    var found = obj.games.find(element => element["code"] == req.body["code"]);
-                    if (found == undefined){
-                        res.status(404).send({error:"O código do jogo que enviou não existe"})
-                    }
-                    else{
-                        var index = obj.games.indexOf(found)
-                        found.question = new Question(question.question,question.options,question.correct)
-                        found.results[req.body["team"]]["questions"] += 1
-                        obj.games[index] = found
-                        
-                        json = JSON.stringify(obj); 
-                        fs.writeFile('games.json', json, 'utf8', () =>{notifyGame(JSON.stringify({question:question.question,options:question.options}), req.body["code"]), notifyTeam(JSON.stringify({question:question.question,options:question.options}), req.body["code"],req.body["team"]), res.send("Questão enviada")}); 
-                    }
-                }
-            })
-            
-        }
-    })
+    getNewQuestion(req.body["code"],req.body["team"],res)
 
 })
+
+
 
 // answer question
 router.post("/answer", (req,res) => {
@@ -87,7 +59,7 @@ router.post("/answer", (req,res) => {
                 var index = obj.games.indexOf(found)
                 var counter = 0;
                 for (const option of Object.keys(found.question.options)) {
-                    if(req.body["answer"] = counter){
+                    if(req.body["answer"] == counter){
                         found.question.options[option].push(req.body["player"])
                         break
                     }
@@ -108,7 +80,122 @@ router.post("/answer", (req,res) => {
 // send results (needs a send new or something if players want to switch questions which should not notify with results
 // but with a new question)
 router.post("/timeOut", (req,res) => {
+    if (!req.body.hasOwnProperty("code")  || !req.body.hasOwnProperty("special")){
+        return res.status(400).send({error: "O pedido tem de ter o seguinte formato: {code: string, special: string}"})
+    }
 
+    if ((!typeof req.body["code"] === 'string' && !req.body["code"] instanceof String) ||
+    (req.body["special"] != 'doubleQuestion' && req.body["special"] != 'doubleChance' && req.body["special"] != 'replace' && req.body["special"] != '')){
+        return res.status(400).send({error: "O pedido tem de ter o seguinte formato: {code: string, special: string}"})
+    }
+
+
+    fs.readFile('games.json', 'utf8', function readFileCallback(err, data){
+        if (err){
+            res.status(500).send({error:"Erro Interno do Servidor"})
+        } else {
+            obj = JSON.parse(data); 
+            var found = obj.games.find(element => element["code"] == req.body["code"]);
+            if (found == undefined){
+                res.status(404).send({error:"O código do jogo que enviou não existe"})
+            }
+            else{
+
+                var index = obj.games.indexOf(found)
+
+                if (req.body["special"] == "replace"){
+                    getNewQuestion(req.body["code"],found.currentTeam,res)
+                }else{
+                    var question = found.question;
+    
+                    var responses = [];
+                    for (const option of Object.keys(question.options)) {
+                        responses.push(question.options[option].length)
+                    }
+                    console.log(responses)
+                    console.log( Math.max(responses))
+                    var correct = responses[question.answer] == Math.max(...responses)
+                    if (correct ){
+                        found.results[found.currentTeam]["correct"] += 1
+                    }
+
+                    switch(req.body["special"]){
+                        case 'doubleQuestion':
+                            if (correct){
+                                notifyGame(JSON.stringify({result:"won", results:found.question, newQuestion:true}), req.body["code"])
+                                notifyTeam(JSON.stringify({result:"won", results:found.question}), req.body["code"],found.currentTeam)
+                            }else{
+                                notifyGame(JSON.stringify({result:"lost", results:found.question, newQuestion:false}), req.body["code"])
+                                notifyTeam(JSON.stringify({result:"lost", results:found.question}), req.body["code"],found.currentTeam)
+                            }
+                            break;
+                        case 'doubleChance':
+                            if (correct){
+                                found.results[found.currentTeam]["moves"] += 1
+                                notifyGame(JSON.stringify({result:"won", results:found.question, newQuestion:false}), req.body["code"])
+                                notifyTeam(JSON.stringify({result:"won",results:found.question}), req.body["code"],found.currentTeam)
+
+                            }else{
+                                notifyGame(JSON.stringify({result:"lost", results:found.question, newQuestion:true}), req.body["code"])
+                                notifyTeam(JSON.stringify({result:"lost",results:found.question}), req.body["code"],found.currentTeam)
+                            }
+                            break
+                        default:
+                            if (correct){
+                                found.results[found.currentTeam]["moves"] += 1
+                                notifyGame(JSON.stringify({result:"won", results:found.question, newQuestion:false}), req.body["code"])
+                                notifyTeam(JSON.stringify({result:"won",results:found.question}), req.body["code"],found.currentTeam)
+                            }else{
+                                notifyGame(JSON.stringify({result:"lost", results:found.question, newQuestion:false}), req.body["code"])
+                                notifyTeam(JSON.stringify({result:"lost",results:found.question}), req.body["code"],found.currentTeam)
+                            }
+                            break;
+                    }
+
+                    obj.games[index] = found
+                    
+                    json = JSON.stringify(obj); 
+                    fs.writeFile('games.json', json, 'utf8', () =>{res.send("Resultados Enviados")}); 
+                }
+            }
+        }
+    })
 })
+
+
+function getNewQuestion(code, team, res){
+
+    fs.readFile('questions.json', 'utf8', function readFileCallback(err, data){
+        if (err){
+            res.status(500).send({error:"Erro Interno do Servidor"})
+        } else {
+            obj = JSON.parse(data); 
+            var length = Math.floor(Math.random() * obj.questions.length)
+            var question = obj.questions[length]
+
+            fs.readFile('games.json', 'utf8', function readFileCallback(err, data){
+                if (err){
+                    res.status(500).send({error:"Erro Interno do Servidor"})
+                } else {
+                    obj = JSON.parse(data); 
+                    var found = obj.games.find(element => element.code == code);
+                    if (found == undefined){
+                        res.status(404).send({error:"O código do jogo que enviou não existe"})
+                    }
+                    else{
+                        var index = obj.games.indexOf(found)
+                        found.question = new Question(question.question,question.options,question.correct)
+                        found.results[team]["questions"] += 1
+                        obj.games[index] = found
+                        
+                        json = JSON.stringify(obj); 
+                        fs.writeFile('games.json', json, 'utf8', () =>{notifyGame(JSON.stringify({question:question.question,options:question.options}), code), notifyTeam(JSON.stringify({question:question.question,options:question.options}), code,team), res.send("Questão enviada")}); 
+                    }
+                }
+            })
+            
+        }
+    })
+}
 
 module.exports = router
