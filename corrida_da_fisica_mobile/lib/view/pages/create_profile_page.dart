@@ -58,7 +58,6 @@ class _CreateProfilePage extends State<CreateProfilePage>{
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: const Color.fromRGBO(255, 251, 236, 1),
         resizeToAvoidBottomInset: false,
         appBar: CustomAppBar(),
         body: Column(
@@ -75,7 +74,7 @@ class _CreateProfilePage extends State<CreateProfilePage>{
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
           Text("Estás aqui!",
-          style: TextStyle(color: Theme.of(context).primaryColor, fontSize: 40, fontWeight: FontWeight.bold)),
+          style: TextStyle(fontSize: 40, fontWeight: FontWeight.bold)),
           Text("Cria o teu perfil antes de te juntares a tua equipa:",
           style: TextStyle(color: Theme.of(context).primaryColor, fontSize: 15)),
         ]

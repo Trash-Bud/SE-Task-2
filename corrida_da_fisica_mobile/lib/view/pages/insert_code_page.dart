@@ -23,7 +23,7 @@ class InsertCodePage extends StatelessWidget {
         children: [
           Text("Insere abaixo o código do jogo",
               textAlign: TextAlign.center,
-              style: TextStyle(color: Theme.of(context).primaryColor, fontSize: 40, fontWeight: FontWeight.bold)),
+              style: TextStyle(fontSize: 40, fontWeight: FontWeight.bold)),
         Container(
           margin: const EdgeInsets.all(20),
           width: 500,
@@ -54,7 +54,7 @@ class InsertCodePage extends StatelessWidget {
                   onPressed: () => {Navigator.of(context).pop()},
                   child: Container(
                     margin: const EdgeInsets.all(20),
-                    child: const Text("Voltar"),
+                    child: Text("Voltar", style: TextStyle(color: Theme.of(context).colorScheme.secondary ) ),
                   )
               )
           ),

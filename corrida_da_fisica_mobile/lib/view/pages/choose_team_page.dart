@@ -65,9 +65,6 @@ class _ChooseTeamPage extends State<ChooseTeamPage>{
           Text("Escolhe uma equipa",
               textAlign: TextAlign.center,
               style: TextStyle(
-                  color: Theme
-                      .of(context)
-                      .primaryColor,
                   fontSize: 40,
                   fontWeight: FontWeight.bold
               )
@@ -104,14 +101,15 @@ class _ChooseTeamPage extends State<ChooseTeamPage>{
                     onPressed: () => {setState(() => _teamController = i)},
                     style: ButtonStyle(
                         backgroundColor: _teamController == i ?
-                        const MaterialStatePropertyAll<Color>(Color.fromRGBO(255, 251, 236, 1)) : const MaterialStatePropertyAll<Color>(Colors.white)),
+                        MaterialStateProperty.all(Theme.of(context).colorScheme.tertiary) : MaterialStateProperty.all(Theme.of(context).scaffoldBackgroundColor),
+                    ),
                     child: Row(
                         children: [
                           Image.asset(gameTeams[i].getImage(), width:50),
                           const SizedBox(width: 5,),
                           Container(
                             margin: const EdgeInsets.all(20),
-                            child: Text(gameTeams[i].getName()),
+                            child: Text(gameTeams[i].getName(), style: TextStyle(color: Theme.of(context).colorScheme.secondary )),
                           )
                         ])
                     )

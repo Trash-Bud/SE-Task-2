@@ -80,16 +80,17 @@ class _AnswerCard extends State<AnswerCard>{
   }
 
 
-  Widget getAnswer(String text, int index, String answer, BuildContext context) {
+  Widget getAnswer(String text, int index, int answer, BuildContext context) {
     return
       ListTile(
         leading:Checkbox(
-        value: text == answer ? true : false,
+        value: index == answer ? true : false,
         onChanged: (v){ setState(() => {}); }
         ),
         title: Text(text,
-          style: TextStyle(color: text == answer ? Theme.of(context).primaryColor : Color.fromRGBO(239, 186, 129, 1), fontSize: 20,),
-        ),
+          style: TextStyle(color: index == answer ? Theme.of(context).primaryColor : Theme.of(context).colorScheme.tertiary,
+          ),
+        )
       );
   }
 

@@ -7,7 +7,6 @@ class LeaderPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: const Color.fromRGBO(255, 251, 236, 1),
         body: getInstructions(context));
   }
 
@@ -55,7 +54,7 @@ class LeaderPage extends StatelessWidget {
                   onPressed: () => {Navigator.of(context).pushNamed("/create_code")},
                   child: Container(
                     margin: const EdgeInsets.all(20),
-                    child: const Text("Deixar de ser líder"),
+                    child: Text("Deixar de ser líder", style: TextStyle(color: Theme.of(context).colorScheme.secondary )),
                   )
               )
           ),

@@ -122,7 +122,7 @@ class _TeamWaitLeaderPage extends State<TeamWaitLeaderPage>{
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [ _nameController.text == ""?
                   Text("Equipa ${Provider.of<GameRepository>(context, listen: false).player.getTeamID().toString()}",
-                      style: TextStyle(color: Theme.of(context).primaryColor, fontSize: 40, fontWeight: FontWeight.bold)) :
+                      style: TextStyle(fontSize: 40, fontWeight: FontWeight.bold)) :
                     Text(_nameController.text, style: TextStyle(color: Theme.of(context).primaryColor, fontSize: 40, fontWeight: FontWeight.bold)),
                   const SizedBox(width: 3),
                   CircleAvatar(
@@ -153,12 +153,12 @@ class _TeamWaitLeaderPage extends State<TeamWaitLeaderPage>{
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Text("És líder da equipa!",
-                  style: TextStyle(color: Theme.of(context).primaryColor, fontSize: 35, fontWeight: FontWeight.bold)),
+                  style: TextStyle(color: Theme.of(context).colorScheme.onError, fontSize: 35, fontWeight: FontWeight.bold)),
               const SizedBox(width: 3),
               GestureDetector(
                 onTap: (){Navigator.of(context).pushNamed("/leader");},
                 child: CircleAvatar(
-                  backgroundColor: Theme.of(context).primaryColor,
+                  backgroundColor: Theme.of(context).colorScheme.onError,
                   radius: 10.0,
                   child: const Icon(
                     Icons.question_mark,
@@ -189,7 +189,7 @@ class _TeamWaitLeaderPage extends State<TeamWaitLeaderPage>{
                   onPressed: () => {Navigator.of(context).pushNamed("/create_code")},
                   child: Container(
                     margin: const EdgeInsets.all(20),
-                    child: const Text("Sair da equipa"),
+                    child: Text("Sair da equipa", style: TextStyle(color: Theme.of(context).colorScheme.secondary )),
                   )
               )
           ),

@@ -17,7 +17,7 @@ class ScoresPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: const Color.fromRGBO(255, 251, 236, 1),
+        backgroundColor: Theme.of(context).colorScheme.tertiary,
         body: getScores(context));
   }
 
@@ -29,16 +29,13 @@ class ScoresPage extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          Padding(
-              padding: EdgeInsets.all(10),
-              child:
+
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Text("Resultados",
+                  const Text("Resultados",
                       textAlign: TextAlign.center,
                       style: TextStyle(
-                          color: Theme.of(context).primaryColor,
                           fontSize: 30,
                           fontWeight: FontWeight.bold)),
                   IconButton(
@@ -46,19 +43,13 @@ class ScoresPage extends StatelessWidget {
                       onPressed: () {Navigator.of(context).pop();}
                   )
                 ],
-              )
           ),
           Expanded(
-              child: SingleChildScrollView(
-                  child: Container(
-                    alignment: Alignment.center,
-                    padding: const EdgeInsets.all(10),
-                    child: ListView(
+                  child: ListView(
                       shrinkWrap: true,
                       children: scores.map((e) => ScoreCard(score: e)).toList()
                     )
-                  )
-              ),
+
           )
         ],
 

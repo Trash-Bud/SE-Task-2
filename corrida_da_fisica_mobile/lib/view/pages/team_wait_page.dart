@@ -67,7 +67,7 @@ class TeamWaitPage extends StatelessWidget {
                   onPressed: () => {Navigator.of(context).pushNamed("/create_code")},
                   child: Container(
                     margin: const EdgeInsets.all(20),
-                    child: const Text("Sair da equipa"),
+                    child: Text("Sair da equipa", style: TextStyle(color: Theme.of(context).colorScheme.secondary )),
                   )
               )
           ),

@@ -37,8 +37,8 @@ class TiePage extends StatelessWidget {
             const SizedBox(height: 20,),
             Container(
                 decoration: BoxDecoration(
-                    color: const Color.fromRGBO(237, 146, 121, 1),
-                    border: Border.all(color: const Color.fromRGBO(237, 146, 121, 1)),
+                    color: Theme.of(context).colorScheme.tertiary,
+                    border: Border.all(color: Theme.of(context).colorScheme.tertiary),
                     borderRadius: const BorderRadius.vertical(
                         top: Radius.circular(20), bottom: Radius.circular(20))),
                 width: MediaQuery.of(context).size.width-100,
