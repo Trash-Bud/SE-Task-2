@@ -55,11 +55,17 @@ function notifyGame(message, id){
 
 }
 
-function notifyPlayers(message, id){
+function notifyPlayers(message, id, exceptions){
 
     var gameStream = clients.find(element => element.id == id);
     gameStream.players.forEach(element => {
-        element.stream.write("data: " + message + "\n\n")
+        if (exceptions != undefined){
+            if (exceptions.find(element1 => element1.id == element.id) == undefined){
+                element.stream.write("data: " + message + "\n\n")
+            }
+        }else{
+            element.stream.write("data: " + message + "\n\n")
+        }
     });
 
 }

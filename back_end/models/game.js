@@ -13,7 +13,7 @@ class Game {
         this.code = crypto.randomBytes(3).toString('hex');
         this.locked = false;
         this.question = null;
-        this.currentTeam = teams[0].id
+        this.currentTeam = this.teams[0].id
       }
 }
 
