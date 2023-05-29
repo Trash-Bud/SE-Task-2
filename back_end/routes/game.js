@@ -14,7 +14,7 @@ router.post("/create", (req,res) => {
     !req.body.hasOwnProperty("playersPerTeam")||
     !req.body.hasOwnProperty("theme")
     ){
-        res.status(400).send({error: "O pedido tem de ter o seguinte formato: {teamNumber: int, year: int, playersPerTeam:int, theme:bool}"})
+        return res.status(400).send({error: "O pedido tem de ter o seguinte formato: {teamNumber: int, year: int, playersPerTeam:int, theme:bool}"})
     }
 
     if (!Number.isInteger(req.body["teamNumber"]) ||
@@ -22,7 +22,7 @@ router.post("/create", (req,res) => {
     !Number.isInteger(req.body["playersPerTeam"]||
     !typeof req.body["theme"] == "boolean")
     ){
-        res.status(400).send({error: "O pedido tem de ter o seguinte formato: {teamNumber: int, year: int, playersPerTeam:int, theme:bool}"})
+        return res.status(400).send({error: "O pedido tem de ter o seguinte formato: {teamNumber: int, year: int, playersPerTeam:int, theme:bool}"})
     }
 
     
@@ -68,11 +68,11 @@ router.post("/end", (req,res) => {
 
     // Verifying request
     if (!req.body.hasOwnProperty("code")){
-        res.status(400).send({error: "O pedido tem de ter o seguinte formato: {code: string}"})
+        return res.status(400).send({error: "O pedido tem de ter o seguinte formato: {code: string}"})
     }
 
     if (!typeof req.body["code"] === 'string' && !req.body["code"] instanceof String){
-        res.status(400).send({error: "O pedido tem de ter o seguinte formato: {code: string}"})
+        return res.status(400).send({error: "O pedido tem de ter o seguinte formato: {code: string}"})
     }
 
     // Checking if game exists
@@ -107,11 +107,11 @@ router.post("/end", (req,res) => {
 router.post("/checkJoin", (req,res) => {
     // Verifying request
     if (!req.body.hasOwnProperty("code")){
-        res.status(400).send({error: "O pedido tem de ter o seguinte formato: {code: string}"})
+        return res.status(400).send({error: "O pedido tem de ter o seguinte formato: {code: string}"})
     }
 
     if (!typeof req.body["code"] === 'string' && !req.body["code"] instanceof String){
-        res.status(400).send({error: "O pedido tem de ter o seguinte formato: {code: string}"})
+        return res.status(400).send({error: "O pedido tem de ter o seguinte formato: {code: string}"})
     }
 
     // Checking if game exists
@@ -142,14 +142,14 @@ router.post("/checkJoin", (req,res) => {
 router.post("/join", (req,res) => {
     // Verifying request
     if (!req.body.hasOwnProperty("code") || !req.body.hasOwnProperty("name") || !req.body.hasOwnProperty("pic") || !req.body.hasOwnProperty("color")){
-        res.status(400).send({error: "O pedido tem de ter o seguinte formato: {code: string, name: string, pic:string, color:string}"})
+        return res.status(400).send({error: "O pedido tem de ter o seguinte formato: {code: string, name: string, pic:string, color:string}"})
     }
 
     if ((!typeof req.body["code"] === 'string' && !req.body["code"] instanceof String) ||
     (!typeof req.body["name"] === 'string' && !req.body["name"] instanceof String) ||
     (!typeof req.body["pic"] === 'string' && !req.body["pic"] instanceof String) ||
     (!typeof req.body["color"] === 'string' && !req.body["color"] instanceof String)){
-        res.status(400).send({error: "O pedido tem de ter o seguinte formato: {code: string, name: string, pic:string, color:string}"})
+        return res.status(400).send({error: "O pedido tem de ter o seguinte formato: {code: string, name: string, pic:string, color:string}"})
     }
 
     // Checking if game exists
@@ -193,11 +193,11 @@ router.post("/join", (req,res) => {
 router.post("/lock", (req,res) => {
     // Verifying request
     if (!req.body.hasOwnProperty("code")){
-        res.status(400).send({error: "O pedido tem de ter o seguinte formato: {code: string}"})
+        return res.status(400).send({error: "O pedido tem de ter o seguinte formato: {code: string}"})
     }
 
     if ((!typeof req.body["code"] === 'string' && !req.body["code"] instanceof String)){
-        res.status(400).send({error: "O pedido tem de ter o seguinte formato: {code: string}"})
+        return res.status(400).send({error: "O pedido tem de ter o seguinte formato: {code: string}"})
     }
 
     // Checking if game exists

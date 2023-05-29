@@ -7,13 +7,13 @@ var fs = require('fs');
 router.post("/join", (req,res) => {
  // Verifying request
  if (!req.body.hasOwnProperty("code") || !req.body.hasOwnProperty("playerId") || !req.body.hasOwnProperty("teamsId")){
-    res.status(400).send({error: "O pedido tem de ter o seguinte formato: {code: string, playerId: string, teamsId:string}"})
+    return res.status(400).send({error: "O pedido tem de ter o seguinte formato: {code: string, playerId: string, teamsId:string}"})
     }
 
     if ((!typeof req.body["code"] === 'string' && !req.body["code"] instanceof String) ||
     (!typeof req.body["playerId"] === 'string' && !req.body["playerId"] instanceof String) ||
     (!typeof req.body["teamsId"] === 'string' && !req.body["teamsId"] instanceof String) ){
-        res.status(400).send({error: "O pedido tem de ter o seguinte formato: {code: string, playerId: string, teamsId:string}"})
+        return res.status(400).send({error: "O pedido tem de ter o seguinte formato: {code: string, playerId: string, teamsId:string}"})
     }
 
 // Checking if game exists
@@ -71,13 +71,13 @@ fs.readFile('games.json', 'utf8', function readFileCallback(err, data){
 router.post("/leave", (req,res) => {
     // Verifying request
     if (!req.body.hasOwnProperty("code") || !req.body.hasOwnProperty("playerId") || !req.body.hasOwnProperty("teamsId")){
-       res.status(400).send({error: "O pedido tem de ter o seguinte formato: {code: string, playerId: string, teamsId:string}"})
+        return res.status(400).send({error: "O pedido tem de ter o seguinte formato: {code: string, playerId: string, teamsId:string}"})
        }
    
    if ((!typeof req.body["code"] === 'string' && !req.body["code"] instanceof String) ||
    (!typeof req.body["playerId"] === 'string' && !req.body["playerId"] instanceof String) ||
    (!typeof req.body["teamsId"] === 'string' && !req.body["teamsId"] instanceof String) ){
-       res.status(400).send({error: "O pedido tem de ter o seguinte formato: {code: string, playerId: string, teamsId:string}"})
+    return res.status(400).send({error: "O pedido tem de ter o seguinte formato: {code: string, playerId: string, teamsId:string}"})
    }
    
    // Checking if game exists
