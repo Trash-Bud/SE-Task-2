@@ -77,7 +77,6 @@ class _ColorPFPPage extends State<ColorPFPPage>{
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: const Color.fromRGBO(255, 251, 236, 1),
         appBar: CustomAppBar(),
         body: Column(
           children: [getImage(context), getColors(context), getForm(context)],

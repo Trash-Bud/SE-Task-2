@@ -13,7 +13,7 @@ class QuestionPage extends StatelessWidget {
   Question question = Question(
       "Uma galáxia é",
       ["um enorme agrupamento de estrelas, gases e poeiras", "um enxame de estrelas", " um superenxame de estrelas", "um conjunto de asteroides"],
-      "um enorme agrupamento de estrelas, gases e poeiras");
+      0);
 
   @override
   Widget build(BuildContext context) {

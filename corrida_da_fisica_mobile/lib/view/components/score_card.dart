@@ -18,13 +18,11 @@ class ScoreCard extends StatelessWidget {
   }
 
   getPlace(BuildContext context) {
-    var teamId = Provider.of<GameRepository>(context).player.getTeamID();
     return Row(
       children: [
         getBadge(context),
         Text(Provider.of<GameRepository>(context).getTeams()[score.teamId-1].getName(),
-            style: TextStyle(
-            color: Theme.of(context).colorScheme.secondary,
+            style: const TextStyle(
             fontSize: 20,
             fontWeight: FontWeight.bold
             )
@@ -36,22 +34,21 @@ class ScoreCard extends StatelessWidget {
   getStats(BuildContext context) {
     return Container(
       alignment: Alignment.centerRight,
-      padding: const EdgeInsets.fromLTRB(0,10,0,0),
       child: Column(
         children: [
           Text("${score.getMoves()} movimentos totais", 
-              style: const TextStyle(
-                  color: Color.fromRGBO(237, 146, 121, 1),
+              style: TextStyle(
+                  color: Theme.of(context).colorScheme.onError,
                   fontSize: 15,
               fontWeight: FontWeight.bold)),
           Text("${score.getCorrects()} perguntas certas",
-              style: const TextStyle(
-                  color: Color.fromRGBO(237, 146, 121, 1),
+              style: TextStyle(
+                  color: Theme.of(context).colorScheme.onError,
                   fontSize: 15,
                   fontWeight: FontWeight.bold)),
           Text("${score.getWrongs()} perguntas erradas",
-              style: const TextStyle(
-                  color: Color.fromRGBO(237, 146, 121, 1),
+              style: TextStyle(
+                  color: Theme.of(context).colorScheme.onError,
                   fontSize: 15,
                   fontWeight: FontWeight.bold)),
         ],

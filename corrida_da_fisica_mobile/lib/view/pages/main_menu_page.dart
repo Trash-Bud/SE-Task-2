@@ -34,7 +34,6 @@ class MainMenuPage extends StatelessWidget {
           Text("Estás pronto para começar?",
               textAlign: TextAlign.center,
               style: TextStyle(
-                  color: Theme.of(context).primaryColor,
                   fontSize: 40,
                   fontWeight: FontWeight.bold
               )
@@ -57,7 +56,7 @@ class MainMenuPage extends StatelessWidget {
                   onPressed: () => {Navigator.of(context).pushNamed("/rules")},
                   child: Container(
                     margin: const EdgeInsets.all(20),
-                    child: const Text("Regras"),
+                    child: Text("Regras", style: TextStyle(color: Theme.of(context).colorScheme.secondary )),
                   )
               )
           ),
@@ -68,7 +67,7 @@ class MainMenuPage extends StatelessWidget {
                   onPressed: () => {Navigator.of(context).pushNamed("/credits")},
                   child: Container(
                     margin: const EdgeInsets.all(20),
-                    child: const Text("Créditos"),
+                    child: Text("Créditos", style: TextStyle(color: Theme.of(context).colorScheme.secondary )),
                   )
               )
           ),

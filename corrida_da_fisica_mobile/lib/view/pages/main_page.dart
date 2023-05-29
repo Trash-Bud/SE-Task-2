@@ -31,7 +31,7 @@ class MainPage extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Text("Bem vindo(a)",
-              style: TextStyle(color: Theme.of(context).primaryColor, fontSize: 40, fontWeight: FontWeight.bold)),
+              style: TextStyle(fontSize: 40, fontWeight: FontWeight.bold)),
           Container(
               margin: const EdgeInsets.all(20),
               width: 500,
@@ -50,7 +50,7 @@ class MainPage extends StatelessWidget {
                   onPressed: () => {Navigator.of(context).pushNamed("/create_code")},
                   child: Container(
                     margin: const EdgeInsets.all(20),
-                    child: const Text("Não tenho um código"),
+                    child: Text("Não tenho um código", style: TextStyle(color: Theme.of(context).colorScheme.secondary )),
                   )
               )
           ),

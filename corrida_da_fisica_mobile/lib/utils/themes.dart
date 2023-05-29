@@ -9,6 +9,27 @@ ThemeData defaultTheme = ThemeData(
     primaryColor: DefaultPalette.orange,
     colorScheme: ColorScheme.fromSwatch().copyWith(
       secondary: DefaultPalette.darkOrange,
+      tertiary: DefaultPalette.lightPeach,
+      onError: DefaultPalette.peach
+    ),
+    textTheme:const TextTheme(
+      bodyText1: TextStyle(),
+      bodyText2: TextStyle(),
+    ).apply(
+      bodyColor: DefaultPalette.darkOrange,
+    ),
+    inputDecorationTheme: const InputDecorationTheme(
+      enabledBorder: OutlineInputBorder(
+        borderRadius: BorderRadius.all(Radius.circular(30)),
+        gapPadding: 5.0,
+        borderSide: BorderSide(color: DefaultPalette.orange, width: 1),
+      ),
+      focusedBorder: OutlineInputBorder(
+        borderRadius: BorderRadius.all(Radius.circular(30)),
+        gapPadding: 5.0,
+        borderSide: BorderSide(color: DefaultPalette.peach, width: 1),
+      ),
+      iconColor: Colors.white,
     ),
     textButtonTheme: TextButtonThemeData(
         style: ButtonStyle(
@@ -61,6 +82,8 @@ ThemeData seventhGradeTheme = ThemeData(
     primaryColor: SeventhGradePalette.brightPurple,
     colorScheme: ColorScheme.fromSwatch().copyWith(
       secondary: SeventhGradePalette.yellow,
+      tertiary: SeventhGradePalette.lightPurple,
+      onError: SeventhGradePalette.darkBlue
     ),
     textTheme:const TextTheme(
       bodyText1: TextStyle(),
@@ -68,6 +91,20 @@ ThemeData seventhGradeTheme = ThemeData(
     ).apply(
       bodyColor: Colors.white,
       displayColor:  SeventhGradePalette.yellow,
+    ),
+    inputDecorationTheme: const InputDecorationTheme(
+      enabledBorder: OutlineInputBorder(
+        borderRadius: BorderRadius.all(Radius.circular(30)),
+        gapPadding: 5.0,
+        borderSide:
+        BorderSide(color: SeventhGradePalette.brightPurple, width: 1),
+      ),
+      focusedBorder: OutlineInputBorder(
+        borderRadius: BorderRadius.all(Radius.circular(30)),
+        gapPadding: 5.0,
+        borderSide:
+        BorderSide(color: SeventhGradePalette.lightPurple, width: 1),
+      ),
     ),
     scaffoldBackgroundColor: Colors.black,
 
@@ -92,6 +129,14 @@ ThemeData seventhGradeTheme = ThemeData(
       ),
     ),
 
+    radioTheme: RadioThemeData(
+      fillColor: MaterialStateProperty.all<Color>(SeventhGradePalette.yellow),
+    ),
+
+    checkboxTheme: CheckboxThemeData(
+      fillColor: MaterialStateProperty.all<Color>(SeventhGradePalette.yellow),
+    ),
+
     outlinedButtonTheme: OutlinedButtonThemeData(
       style: ButtonStyle(
         shape: MaterialStateProperty.all<RoundedRectangleBorder>(
@@ -104,11 +149,12 @@ ThemeData seventhGradeTheme = ThemeData(
             width: 1.0,
             style: BorderStyle.solid)),
         backgroundColor: MaterialStateProperty.all<Color>(Colors.black),
-        foregroundColor: MaterialStateProperty.all<Color>(SeventhGradePalette.yellow),
+        foregroundColor: MaterialStateProperty.all<Color>(SeventhGradePalette.darkPurple),
         textStyle: MaterialStateTextStyle.resolveWith(
                 (states) => const TextStyle(fontSize: 20)),
       ),
     ),
+
 
     appBarTheme: const AppBarTheme(
       color: SeventhGradePalette.darkBlue,
