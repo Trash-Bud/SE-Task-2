@@ -19,7 +19,7 @@ class Game {
         this.results = {}
 
         this.teams.forEach(element => {
-            this.results[element] = {
+            this.results[element.id] = {
                 questions: 0,
                 correct: 0,
                 moves: 0
