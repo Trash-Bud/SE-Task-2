@@ -28,6 +28,15 @@ class _GameWaitPage extends State<GameWaitPage> {
     );
   }
 
+
+  @override
+  void initState() {
+    super.initState();
+
+    context.read<GameRepository>().createGame();
+  }
+
+
   getStartButton() {
     return SizedBox(
       width: 300,

@@ -17,6 +17,9 @@ class SeventhGradePalette {
   static const darkPurple = Color(0xff5D287D);
 }
 
+
+const backEndUrl = "localhost:3000";
+
 const boardOffset = Offset(350, 330);
 const boardSize = 600.0;
 const boardIconSize = 40.0;

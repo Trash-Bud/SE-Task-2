@@ -5,6 +5,8 @@ var Question = require("../models/question")
 var { notifyGame,notifyTeam } = require('../update');
 var fs = require('fs');
 
+var {temp} =  require('./connect');
+
 // get question
 router.post("/get", (req,res) => {
 

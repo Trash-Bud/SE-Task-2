@@ -5,6 +5,8 @@ var Game = require("../models/game")
 var fs = require('fs');
 const Player = require('../models/player');
 var { closeGame, notifyGame, addPlayerGameStream, addGameStream, notifyPlayers} = require('../update');
+const connect = require("./connect.js")
+
 
 router.post("/create", (req,res) => {
 
@@ -12,7 +14,8 @@ router.post("/create", (req,res) => {
     if (!req.body.hasOwnProperty("teamNumber") ||
     !req.body.hasOwnProperty("year") ||
     !req.body.hasOwnProperty("playersPerTeam")||
-    !req.body.hasOwnProperty("theme")
+    !req.body.hasOwnProperty("theme")||
+    !req.body.hasOwnProperty("id") 
     ){
         return res.status(400).send({error: "O pedido tem de ter o seguinte formato: {teamNumber: int, year: int, playersPerTeam:int, theme:bool}"})
     }
@@ -20,7 +23,8 @@ router.post("/create", (req,res) => {
     if (!Number.isInteger(req.body["teamNumber"]) ||
     !Number.isInteger(req.body["year"]) ||
     !Number.isInteger(req.body["playersPerTeam"]||
-    !typeof req.body["theme"] == "boolean")
+    !typeof req.body["theme"] == "boolean" ||
+    (!typeof req.body["id"] === 'string' && !req.body["id"] instanceof String))
     ){
         return res.status(400).send({error: "O pedido tem de ter o seguinte formato: {teamNumber: int, year: int, playersPerTeam:int, theme:bool}"})
     }
@@ -33,23 +37,10 @@ router.post("/create", (req,res) => {
             res.status(500).send({error:"Erro Interno do Servidor"})
         } else {
 
-        // Setting up stream
-        const headers = {
-            "Content-Type" : "text/event-stream",
-            "Connection" : "keep-alive",
-            "Cache-Control" : "no-cache"
-        }
-        res.writeHead(200, headers)
-        
-
         // Creating game
         const game = new Game(req.body["teamNumber"],req.body["playersPerTeam"],req.body["year"],req.body["theme"])
-
-        addGameStream(game.code,res)
         
-        req.on('close', () => {
-            closeGame(game.code)
-        });
+        addGameStream(game.code,connect.getStream(req.body["id"]))
 
         obj = JSON.parse(data); 
         obj.games.push(game); 
@@ -57,7 +48,7 @@ router.post("/create", (req,res) => {
         
         fs.writeFile('games.json', json, 'utf8', () =>{
             console.log("Game ${game.code} - Created") 
-            res.write("data: " +JSON.stringify({code: game.code})+"\n\n")
+            res.send(JSON.stringify({code: game.code}))
         }); 
     }});
 
