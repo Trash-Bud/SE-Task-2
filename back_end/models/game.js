@@ -14,6 +14,16 @@ class Game {
         this.locked = false;
         this.question = null;
         this.currentTeam = this.teams[0].id
+
+        this.results = {}
+
+        this.teams.forEach(element => {
+            this.results[element] = {
+                questions: 0,
+                correct: 0,
+                moves: 0
+            }
+        })
       }
 }
 
