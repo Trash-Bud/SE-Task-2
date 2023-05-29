@@ -112,8 +112,6 @@ router.post("/timeOut", (req,res) => {
                     for (const option of Object.keys(question.options)) {
                         responses.push(question.options[option].length)
                     }
-                    console.log(responses)
-                    console.log( Math.max(responses))
                     var correct = responses[question.answer] == Math.max(...responses)
                     if (correct ){
                         found.results[found.currentTeam]["correct"] += 1

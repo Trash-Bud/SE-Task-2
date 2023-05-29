@@ -236,7 +236,36 @@ router.post("/lock", (req,res) => {
 
 // send winner
 router.post("/winner", (req,res) => {
+    // Verifying request
+    if (!req.body.hasOwnProperty("code") || !req.body.hasOwnProperty("positions")){
+        return res.status(400).send({error: "O pedido tem de ter o seguinte formato: {code: string, name: string, positions:[string]}"})
+    }
 
+    if ((!typeof req.body["code"] === 'string' && !req.body["code"] instanceof String) ||
+    (!Array.isArray(req.body["positions"]))){
+        return res.status(400).send({error: "O pedido tem de ter o seguinte formato: {code: string, name: string, positions:[string]}"})
+    }
+
+
+    fs.readFile('games.json', 'utf8', function readFileCallback(err, data){
+        if (err){
+            res.status(500).send({error:"Erro Interno do Servidor"})
+        } else {
+            obj = JSON.parse(data); 
+            var found = obj.games.find(element => element["code"] == req.body["code"]);
+            if (found == undefined){
+                res.status(404).send({error:"O código do jogo que enviou não existe"})
+            }
+            else{
+
+                notifyPlayers(JSON.stringify({positions:req.body["positions"], results: found.results}), req.body["code"])
+                
+                json = JSON.stringify(obj); 
+                fs.writeFile('games.json', json, 'utf8', () =>{res.send("Enviado")}); 
+            }
+        
+ 
+    }})
 })
 
 
