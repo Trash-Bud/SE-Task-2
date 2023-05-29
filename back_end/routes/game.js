@@ -17,7 +17,7 @@ router.post("/create", (req,res) => {
     !req.body.hasOwnProperty("theme")||
     !req.body.hasOwnProperty("id") 
     ){
-        return res.status(400).send({error: "O pedido tem de ter o seguinte formato: {teamNumber: int, year: int, playersPerTeam:int, theme:bool}"})
+        return res.status(400).send({error: "O pedido tem de ter o seguinte formato: {teamNumber: int, year: int, playersPerTeam:int, theme:bool, id:string}"})
     }
 
     if (!Number.isInteger(req.body["teamNumber"]) ||
@@ -26,7 +26,7 @@ router.post("/create", (req,res) => {
     !typeof req.body["theme"] == "boolean" ||
     (!typeof req.body["id"] === 'string' && !req.body["id"] instanceof String))
     ){
-        return res.status(400).send({error: "O pedido tem de ter o seguinte formato: {teamNumber: int, year: int, playersPerTeam:int, theme:bool}"})
+        return res.status(400).send({error: "O pedido tem de ter o seguinte formato: {teamNumber: int, year: int, playersPerTeam:int, theme:bool, id:string}"})
     }
 
     
@@ -132,15 +132,16 @@ router.post("/checkJoin", (req,res) => {
 
 router.post("/join", (req,res) => {
     // Verifying request
-    if (!req.body.hasOwnProperty("code") || !req.body.hasOwnProperty("name") || !req.body.hasOwnProperty("pic") || !req.body.hasOwnProperty("color")){
-        return res.status(400).send({error: "O pedido tem de ter o seguinte formato: {code: string, name: string, pic:string, color:string}"})
+    if (!req.body.hasOwnProperty("code") || !req.body.hasOwnProperty("name") || !req.body.hasOwnProperty("pic") || !req.body.hasOwnProperty("color")|| !req.body.hasOwnProperty("id")){
+        return res.status(400).send({error: "O pedido tem de ter o seguinte formato: {code: string, name: string, pic:string, color:string, id:string}"})
     }
 
     if ((!typeof req.body["code"] === 'string' && !req.body["code"] instanceof String) ||
     (!typeof req.body["name"] === 'string' && !req.body["name"] instanceof String) ||
     (!typeof req.body["pic"] === 'string' && !req.body["pic"] instanceof String) ||
-    (!typeof req.body["color"] === 'string' && !req.body["color"] instanceof String)){
-        return res.status(400).send({error: "O pedido tem de ter o seguinte formato: {code: string, name: string, pic:string, color:string}"})
+    (!typeof req.body["color"] === 'string' && !req.body["color"] instanceof String)||
+    (!typeof req.body["id"] === 'string' && !req.body["id"] instanceof String)){
+        return res.status(400).send({error: "O pedido tem de ter o seguinte formato: {code: string, name: string, pic:string, color:string, id:string}"})
     }
 
     // Checking if game exists
@@ -159,21 +160,18 @@ router.post("/join", (req,res) => {
             }
             else{
     
-                // Setting up stream
-                res.setHeader("Content-Type", "text/event-stream")
-    
                 var player = new Player(req.body["name"],req.body["pic"],req.body["color"])
                 var index = obj.games.indexOf(found)
                 found["pendingTeamPlayers"].push((player))
                 obj.games[index] = found
     
                 
-                addPlayerGameStream(req.body["code"],res,player.id)
+                addPlayerGameStream(req.body["code"],connect.getStream(req.body["id"]),player.id)
     
                 notifyGame(JSON.stringify({pendingPlayers:found.pendingTeamPlayers, teams:found.teams}), req.body["code"])
                 
                 json = JSON.stringify(obj); 
-                fs.writeFile('games.json', json, 'utf8', () =>{res.write("data: " + JSON.stringify({id: player.id, teams: found.teams}) +"\n\n")}); 
+                fs.writeFile('games.json', json, 'utf8', () =>{res.send("Jogador juntou-se ao jogo")}); 
             
             }
         }
