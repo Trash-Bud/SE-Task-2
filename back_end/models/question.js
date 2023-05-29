@@ -4,7 +4,7 @@ class Question {
         this.question = question;
         // {"option" : [players who chose it]}
         this.options = {}
-        options.array.forEach(element => {
+        options.forEach(element => {
             options[element] = []
         });
         this.answer = answer

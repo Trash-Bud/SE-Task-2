@@ -6,13 +6,13 @@ var fs = require('fs');
 
 router.post("/join", (req,res) => {
  // Verifying request
- if (!req.body.hasOwnProperty("code") || !req.body.hasOwnProperty("playerId") || !req.body.hasOwnProperty("teamsId")){
+ if (!req.body.hasOwnProperty("code") || !req.body.hasOwnProperty("player") || !req.body.hasOwnProperty("team")){
     return res.status(400).send({error: "O pedido tem de ter o seguinte formato: {code: string, playerId: string, teamsId:string}"})
     }
 
     if ((!typeof req.body["code"] === 'string' && !req.body["code"] instanceof String) ||
-    (!typeof req.body["playerId"] === 'string' && !req.body["playerId"] instanceof String) ||
-    (!typeof req.body["teamsId"] === 'string' && !req.body["teamsId"] instanceof String) ){
+    (!typeof req.body["player"] === 'string' && !req.body["player"] instanceof String) ||
+    (!typeof req.body["team"] === 'string' && !req.body["team"] instanceof String) ){
         return res.status(400).send({error: "O pedido tem de ter o seguinte formato: {code: string, playerId: string, teamsId:string}"})
     }
 
@@ -29,8 +29,8 @@ fs.readFile('games.json', 'utf8', function readFileCallback(err, data){
         res.status(404).send({error:"O código do jogo que enviou não existe"})
     }
     else{
-        var player = found.pendingTeamPlayers.find(element => element["id"] == req.body["playerId"])
-        var team = found.teams.find(element => element["id"] == req.body["teamsId"])
+        var player = found.pendingTeamPlayers.find(element => element["id"] == req.body["player"])
+        var team = found.teams.find(element => element["id"] == req.body["team"])
         if (player == undefined){
             res.status(404).send({error:"O jogador que enviou não existe, não se juntou a este jogo ou já se encontra numa equipa"})
         }
