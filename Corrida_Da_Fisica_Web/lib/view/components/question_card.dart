@@ -70,18 +70,23 @@ class QuestionCard extends StatelessWidget {
   Widget getAnswer(MapEntry option, int index, BuildContext context) {
     return Container(
         padding: const EdgeInsets.all(10),
-        child: Row(children: [
-          if (showAnswer && index == question.correctAnswer)
-            Icon(
-              Icons.check,
-              color: Theme.of(context).primaryColor,
+        child: Column(children: [
+          Row(
+            children: [Container(
+              padding: const EdgeInsets.symmetric(horizontal: 5),
+              child: Checkbox(
+                value: (showAnswer && index == question.correctAnswer), onChanged: (bool? value) {  },
+                checkColor: Theme.of(context).colorScheme.secondary,
+                fillColor:  MaterialStateProperty.all<Color>(Theme.of(context).colorScheme.primary),
+              ),
             ),
-          Flexible(
-            child: Text(
-              "${index+1}. ${option.key}",
-              style: TextStyle(
-                  color: Theme.of(context).colorScheme.primary, fontSize: 20),
-            ),
+              Flexible(
+                child: Text(
+                  option.key,
+                  style: TextStyle(
+                      color: Theme.of(context).colorScheme.primary, fontSize: 20),
+                ),
+              ),],
           ),
           Row(
             children: option.value.map<Widget>((val) => Container(
