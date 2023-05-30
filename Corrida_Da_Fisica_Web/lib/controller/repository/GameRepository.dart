@@ -63,6 +63,9 @@ class GameRepository extends ChangeNotifier {
         case "roll":
           handleRoll(decoded);
           break;
+        case "early_timeout":
+          handleEarlyTimeout(decoded);
+          break;
         case "roll_result":
           handleRollResult(decoded);
           break;
@@ -79,6 +82,12 @@ class GameRepository extends ChangeNotifier {
       }
       notifyListeners();
     });
+  }
+
+  void handleEarlyTimeout(decoded){
+    timer.cancel();
+    seconds = 30;
+    sendTimeOut(false);
   }
 
   void handleChangeTeam(decoded) {
