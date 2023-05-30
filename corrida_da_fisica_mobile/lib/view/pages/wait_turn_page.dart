@@ -24,6 +24,9 @@ class _WaitTurnPage extends State<WaitTurnPage>{
         case PageToGo.question:
           Navigator.of(context).pushNamed("/question");
           break;
+        case PageToGo.gameWin:
+          Navigator.of(context).pushNamed("/game_win");
+          break;
         case PageToGo.none:
           break;
         default:
