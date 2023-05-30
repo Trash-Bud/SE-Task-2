@@ -1,13 +1,29 @@
 import 'package:corrida_da_fisica_mobile/view/components/app_bar.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
-class InsertCodePage extends StatelessWidget {
+import '../../controller/GameRepository.dart';
+
+class InsertCodePage extends StatefulWidget {
   InsertCodePage({super.key});
+
+  @override
+  _InsertCodePage createState() => _InsertCodePage();
+
+}
+
+class _InsertCodePage extends State<InsertCodePage>{
 
   final TextEditingController _formController = TextEditingController();
 
-  validateCode(BuildContext context){
+  @override
+  void initState() {
+    super.initState();
 
+    context.read<GameRepository>().connect();
+  }
+
+  validateCode(BuildContext context){
     //validate code
 
     Navigator.of(context).pushNamed("/main_menu");

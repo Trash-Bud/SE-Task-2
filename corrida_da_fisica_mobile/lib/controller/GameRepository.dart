@@ -1,9 +1,15 @@
 
+import 'dart:developer';
+
 import 'package:corrida_da_fisica_mobile/model/Player.dart';
 import 'package:corrida_da_fisica_mobile/utils/themes.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:http/http.dart' as http;
 
 import '../../model/Team.dart';
+
+import '../utils/constants.dart';
+import 'sse.dart';
 
 class GameRepository extends ChangeNotifier{
 
@@ -16,6 +22,58 @@ class GameRepository extends ChangeNotifier{
   bool playerSet = false;
   late Player player;
   late int lastAnswer;
+  late Stream<dynamic> stream;
+
+  connect(){
+    stream = Sse.connect(
+      uri: Uri.parse('http://$backEndUrl/connect'),
+      closeOnError: true,
+      withCredentials: false,
+    ).stream;
+
+    log(stream.toString());
+
+    stream.listen((event) {
+      log('Received:' + DateTime.now().millisecondsSinceEpoch.toString() + ' : ' + event.toString());
+      gameCode = 'Received:' + DateTime.now().millisecondsSinceEpoch.toString() + ' : ' + event.toString();
+      notifyListeners();
+    }
+    );
+  }
+
+  joinGame() async {
+    try{
+      final response = await http.post(Uri.parse('http://$backEndUrl/game/join'),
+      body: {
+        "code": ""
+      });
+
+    }catch (e){
+      log(e.toString());
+    }
+  }
+
+  checkJoin(){
+
+  }
+
+  joinTeam(){
+
+  }
+
+  leaveTeam(){
+
+  }
+
+  rollDice(){
+
+  }
+
+  answerQuestion(){
+
+  }
+
+
 
   void setPlayer(String name, int image){
     player = Player(name, image);
