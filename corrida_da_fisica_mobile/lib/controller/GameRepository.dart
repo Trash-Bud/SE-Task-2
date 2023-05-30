@@ -12,15 +12,24 @@ import 'package:http/http.dart' as http;
 import '../../model/Team.dart';
 import '../utils/constants.dart';
 
+enum PageToGo{
+  rollDice,
+  waitTurn,
+  none
+}
+
 class GameRepository extends ChangeNotifier{
 
   String? gameCode;
   AppTheme appTheme = AppTheme.defaultTheme;
   List<Team> teams = [];
+  int currentTeamTurn = 0;
   int numberOfThemes = 0;
   bool isLoading = false;
   bool isPlaying = false;
   bool playerSet = false;
+  bool playersRoll = false;
+  PageToGo nextPage = PageToGo.none;
   late Player player;
   late int lastAnswer;
 
@@ -37,14 +46,20 @@ class GameRepository extends ChangeNotifier{
         var decoded = json.decode(event.data!);
         //log(decoded.toString());
         switch (decoded["activity"]) {
+          case "winner":
+          //handleQuestionEnd(decoded);
+            break;
           case "question_end":
           //handleQuestionEnd(decoded);
             break;
           case "question":
           //handleQuestion(decoded);
             break;
+          case "game_lock":
+            handleLock(decoded);
+            break;
           case "roll":
-          //handleRoll(decoded);
+            handleRoll(decoded);
             break;
           case "roll_result":
           //handleRollResult(decoded);
@@ -62,50 +77,41 @@ class GameRepository extends ChangeNotifier{
         }
         notifyListeners();
     });
-    /*
-    stream = Sse.connect(
-      uri: Uri.parse('http://$backEndUrl/connect'),
-      closeOnError: true,
-      withCredentials: false,
-    ).stream;
 
-    stream.listen((event) {
-      var decoded = json.decode(event);
-      //log(decoded.toString());
-      switch (decoded["activity"]) {
-        case "question_end":
-          //handleQuestionEnd(decoded);
-          break;
-        case "question":
-          //handleQuestion(decoded);
-          break;
-        case "roll":
-          //handleRoll(decoded);
-          break;
-        case "roll_result":
-          //handleRollResult(decoded);
-          break;
-        case "join_team":
-          //handleChangeTeam(decoded);
-          break;
-        case "connect":
-          //tempId = decoded["id"];
-          joinGame();
-          break;
-        default:
-          log("error");
-          break;
-      }
-      notifyListeners();
-    });
 
     //notifyteam
     //notifyplayer
-    //gamelock
     //winner
     //changeteam
-    //
-*/
+  }
+
+  void handleLock(decoded){
+    if (decoded["locked"] == true){
+      nextPage = PageToGo.waitTurn;
+    }
+  }
+
+  void handleRoll(decoded){
+    if (decoded["me"] == true){
+      playersRoll = true;
+      nextPage = PageToGo.rollDice;
+
+    }
+/*
+    var currTeam = decoded["team"];
+    log(currTeam);
+    log(teams[0].toString());
+    currentTeamTurn = teams.indexWhere((element) => element.id == currTeam);
+    log(currentTeamTurn.toString());
+    var currPlayerTurn = decoded["player"];
+    log(currPlayerTurn);
+    log(teams[currentTeamTurn].players.toString());
+    var currentPlayerTurn = teams[currentTeamTurn]
+        .players
+        .indexWhere((element) => element.id == currPlayerTurn);
+    log(currentPlayerTurn.toString());
+    isLoading = false;
+ */
   }
 
   void handleChangeTeam(decoded){

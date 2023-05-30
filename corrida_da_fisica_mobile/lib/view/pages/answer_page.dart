@@ -21,8 +21,8 @@ class AnswerPage extends StatelessWidget {
         appBar: AppBar(
             title: Row(children: [
               Provider.of<GameRepository>(context).player.getPfp(),
-              const SizedBox(width: 25,),
-              const Text("A Corrida da Física",
+              const SizedBox(width: 10,),
+              const Text("Corrida da Física",
                   textAlign: TextAlign.center)
             ]),
             automaticallyImplyLeading: false

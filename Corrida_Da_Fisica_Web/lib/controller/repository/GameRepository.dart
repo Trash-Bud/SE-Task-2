@@ -34,20 +34,22 @@ class GameRepository extends ChangeNotifier {
   bool applyTheme = false;
   late Question question;
   late bool questionWon;
-  late Stream<dynamic> stream;
+  late Sse stream;
   late String tempId;
   late Timer timer;
   int seconds = 30;
   List<int> totalPlayerNum = [];
+  late Team winner;
+  bool won = false;
 
   connect() {
     stream = Sse.connect(
       uri: Uri.parse('http://$backEndUrl/connect'),
       closeOnError: true,
       withCredentials: false,
-    ).stream;
+    );
 
-    stream.listen((event) {
+    stream.stream.listen((event) {
       var decoded = json.decode(event);
       log(decoded.toString());
       switch (decoded["activity"]) {
@@ -149,7 +151,10 @@ class GameRepository extends ChangeNotifier {
       listOptions[key] = [];
     });
 
-    question = Question(question, options);
+    this.question = Question(question, listOptions);
+    log(question.toString());
+
+    notifyListeners();
     isLoading = false;
 
     timer = Timer.periodic(const Duration(seconds: 1), (timer) {
@@ -187,12 +192,23 @@ class GameRepository extends ChangeNotifier {
       }
     });
     var answer = decoded["results"]["answer"];
-    question = Question.withAnswer(question, listOptions, answer);
+    this.question = Question.withAnswer(question, listOptions, answer);
 
     if (decoded["newQuestion"]) {
       extraQuestion = true;
     }
+
+    if(!extraQuestion && questionWon){
+      teams[currentTeamTurn].square += rolledNumber;
+      if (teams[currentTeamTurn].square >= 69){
+        teams[currentTeamTurn].square = 69;
+        won = true;
+        sendWinner();
+      }
+    }
+
   }
+
 
   createGame() async {
     isLoading = true;
@@ -242,9 +258,6 @@ class GameRepository extends ChangeNotifier {
           });
 
       if (response.statusCode >= 200 && response.statusCode < 300) {
-        log(response.body);
-        var decoded = json.decode(response.body);
-        gameCode = decoded["code"].toString();
       } else {
         log("${response.statusCode.toString()}: ${response.body.toString()}");
       }
@@ -254,34 +267,40 @@ class GameRepository extends ChangeNotifier {
   }
 
   checkIfAllTeamsHavePeople(){
-    return totalPlayerNum.firstWhere((element) => element == 0, orElse: () => -1) == -1;
+    return (totalPlayerNum.firstWhere((element) => element == 0, orElse: () => -1) == -1) && totalPlayerNum.isNotEmpty;
   }
 
   endGame() async {
-    isLoading = true;
+    if (gameCode != ""){
+      isLoading = true;
 
-    totalPlayerNum = [];
-    pendingPlayers = [];
-    teams = [];
+      var body = {"code": gameCode};
 
-    var body = {"code": gameCode};
+      gameCode = "";
+      totalPlayerNum = [];
+      pendingPlayers = [];
+      teams = [];
+      stream.close();
 
-    try {
-      final response = await http.post(Uri.parse("http://$backEndUrl/game/end"),
-          body: json.encode(body),
-          headers: {
-            "Content-Type": "application/json",
-          });
-      if (response.statusCode >= 200 && response.statusCode < 300) {
-      } else {
-        log("${response.statusCode.toString()}: ${response.body.toString()}");
+      log(body.toString());
+
+      try {
+        final response = await http.post(Uri.parse("http://$backEndUrl/game/end"),
+            body: json.encode(body),
+            headers: {
+              "Content-Type": "application/json",
+            });
+        if (response.statusCode >= 200 && response.statusCode < 300) {
+        } else {
+          log("${response.statusCode.toString()}: ${response.body.toString()}");
+        }
+      } catch (e) {
+        log(e.toString());
       }
-    } catch (e) {
-      log(e.toString());
-    }
 
-    isLoading = false;
-    notifyListeners();
+      isLoading = false;
+      notifyListeners();
+    }
   }
 
   chooseRoll() async {
@@ -309,12 +328,7 @@ class GameRepository extends ChangeNotifier {
 
   getCard() async {
     isLoading = true;
-
-    log(gameCode);
-
     var body = {"code": gameCode, "team": teams[currentTeamTurn].id};
-
-    log(body.toString());
 
     try {
       final response = await http.post(
@@ -377,8 +391,9 @@ class GameRepository extends ChangeNotifier {
     var positions = [];
     var teamsCopy = teams;
     teamsCopy.sort((a, b) => a.square.compareTo(b.square));
-    teamsCopy.reversed;
+    teamsCopy = teamsCopy.reversed.toList();
     positions = teamsCopy.map((e) => e.id).toList();
+    winner = teamsCopy[0];
 
     var body = {"code": gameCode, "positions": positions};
 
@@ -455,4 +470,5 @@ class GameRepository extends ChangeNotifier {
     boardIsLoading = false;
     notifyListeners();
   }
+
 }

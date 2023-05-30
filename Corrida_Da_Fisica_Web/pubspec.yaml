@@ -70,6 +70,7 @@ flutter:
     - assets/images/join_instructions/
     - assets/images/rules/
     - assets/images/icons_teams/
+    - assets/images/icons_players/
     - assets/images/dice/
   fonts:
      - family: SourceSansPro

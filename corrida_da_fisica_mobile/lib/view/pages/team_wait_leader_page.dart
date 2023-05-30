@@ -29,14 +29,28 @@ class _TeamWaitLeaderPage extends State<TeamWaitLeaderPage>{
 
   @override
   Widget build(BuildContext context) {
-    var teamID = Provider.of<GameRepository>(context, listen: false).player.getTeamID();
-    var team = Provider.of<GameRepository>(context, listen: false).teams.where((element) => element.id == teamID).first;
+    var game = Provider.of<GameRepository>(context, listen: false);
+    switch (game.nextPage){
+
+      case PageToGo.rollDice:
+        Navigator.of(context).pushNamed("/roll_dice");
+        break;
+      case PageToGo.waitTurn:
+        Navigator.of(context).pushNamed("/roll_dice");
+        break;
+      case PageToGo.none:
+        break;
+      default:
+        break;
+    }
+    var teamID = game.player.getTeamID();
+    var team = game.teams.where((element) => element.id == teamID).first;
     return Scaffold(
         appBar: AppBar(
         title: Row(children: [
         Provider.of<GameRepository>(context).player.getPfp(),
-          const SizedBox(width: 25,),
-          const Text("A Corrida da Física",
+          const SizedBox(width: 10,),
+          const Text("Corrida da Física",
             textAlign: TextAlign.center)
           ]),
           automaticallyImplyLeading: false
