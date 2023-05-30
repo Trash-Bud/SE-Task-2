@@ -18,11 +18,6 @@ class Team {
     return 'Team{id: $id, name: $name, image: $image, players: $players, teamLeader: $teamLeader, loadedImage: $loadedImage, square: $square, imageAltered: $imageAltered}';
   }
 
-  // TODO: erase later after all positions in the board are done
-  Team.testPos(this.id, this.name, this.image, this.teamLeader, this.square) {
-    players.add(teamLeader!);
-  }
-
   getPlayerById(id){
     return players.firstWhere((player) => player.id == id);
   }

@@ -2,6 +2,8 @@ import 'package:corrida_da_fisica_web/model/Question.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
+import '../../utils/constants.dart';
+
 class QuestionCard extends StatelessWidget {
   const QuestionCard(
       {super.key, required this.question, required this.showAnswer});
@@ -68,25 +70,30 @@ class QuestionCard extends StatelessWidget {
   Widget getAnswer(MapEntry option, int index, BuildContext context) {
     return Container(
         padding: const EdgeInsets.all(10),
-        child: Row(children: [
-          if (showAnswer && index == question.correctAnswer)
-            Icon(
-              Icons.check,
-              color: Theme.of(context).primaryColor,
+        child: Column(children: [
+          Row(
+            children: [Container(
+              padding: const EdgeInsets.symmetric(horizontal: 5),
+              child: Checkbox(
+                value: (showAnswer && index == question.correctAnswer), onChanged: (bool? value) {  },
+                checkColor: Theme.of(context).colorScheme.secondary,
+                fillColor:  MaterialStateProperty.all<Color>(Theme.of(context).colorScheme.primary),
+              ),
             ),
-          Flexible(
-            child: Text(
-              "${index+1}. ${option.key}",
-              style: TextStyle(
-                  color: Theme.of(context).colorScheme.primary, fontSize: 20),
-            ),
+              Flexible(
+                child: Text(
+                  option.key,
+                  style: TextStyle(
+                      color: Theme.of(context).colorScheme.primary, fontSize: 20),
+                ),
+              ),],
           ),
           Row(
             children: option.value.map<Widget>((val) => Container(
               padding: const EdgeInsets.symmetric(horizontal: 2),
               child: SvgPicture.asset(
                   "assets/images/icons_players/${val.image}",
-                  color: Theme.of(context).primaryColor,
+                  color: pfPicColors[val.color],
                   width: 20,
                   semanticsLabel: 'A red up arrow'),
             )).toList(),
