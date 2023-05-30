@@ -1,16 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-
-import '../../controller/repository/GameRepository.dart';
 import '../components/app_bar.dart';
 import '../components/page_header.dart';
 
 
 class ConnectInstructionsPage extends StatelessWidget {
   const ConnectInstructionsPage({super.key});
-
-
-
 
   @override
   Widget build(BuildContext context) {
@@ -29,8 +23,6 @@ class ConnectInstructionsPage extends StatelessWidget {
       ],
     );
   }
-
-
 
   Widget getContent(BuildContext context){
     return Row(

@@ -1,15 +1,18 @@
-import 'package:corrida_da_fisica_web/controller/repository/GameRepository.dart';
 import 'package:corrida_da_fisica_web/view/components/app_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-
+import '../../controller/repository/GameRepository.dart';
 import '../components/board_widget.dart';
 
 class MainPage extends StatelessWidget {
   const MainPage({super.key});
 
+
+
+
   @override
   Widget build(BuildContext context) {
+    context.read<GameRepository>().endGame();
     return Scaffold(
         appBar: CustomAppBar(),
         body: Row(

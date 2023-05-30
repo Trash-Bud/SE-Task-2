@@ -74,19 +74,23 @@ class QuestionCard extends StatelessWidget {
               Icons.check,
               color: Theme.of(context).primaryColor,
             ),
-          Text(
-            option.key,
-            style: TextStyle(
-                color: Theme.of(context).colorScheme.primary, fontSize: 20),
+          Flexible(
+            child: Text(
+              "${index+1}. ${option.key}",
+              style: TextStyle(
+                  color: Theme.of(context).colorScheme.primary, fontSize: 20),
+            ),
           ),
-          option.value.map((val) => Container(
-                padding: const EdgeInsets.symmetric(horizontal: 2),
-                child: SvgPicture.asset(
-                    "assets/images/icons_players/${val.image}",
-                    color: Theme.of(context).primaryColor,
-                    width: 200,
-                    semanticsLabel: 'A red up arrow'),
-              )),
+          Row(
+            children: option.value.map<Widget>((val) => Container(
+              padding: const EdgeInsets.symmetric(horizontal: 2),
+              child: SvgPicture.asset(
+                  "assets/images/icons_players/${val.image}",
+                  color: Theme.of(context).primaryColor,
+                  width: 20,
+                  semanticsLabel: 'A red up arrow'),
+            )).toList(),
+          )
         ]));
   }
 }

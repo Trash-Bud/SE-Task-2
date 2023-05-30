@@ -65,6 +65,8 @@ router.post("/end", (req,res) => {
         return res.status(400).send({error: "O pedido tem de ter o seguinte formato: {code: string}"})
     }
 
+    console.log(req.body)
+
     // Checking if game exists
 
     fs.readFile('games.json', 'utf8', function readFileCallback(err, data){

@@ -115,7 +115,7 @@ router.post("/timeOut", (req,res) => {
                     for (const option of Object.keys(question.options)) {
                         responses.push(question.options[option].length)
                     }
-                    var correct = responses[question.answer] == Math.max(...responses)
+                    var correct = (responses[question.answer] == Math.max(...responses) && Math.max(...responses) != 0)
                     if (correct ){
                         found.results[found.currentTeam]["correct"] += 1
                     }
@@ -189,7 +189,7 @@ function getNewQuestion(code, team, res){
                         obj.games[index] = found
                         
                         json = JSON.stringify(obj); 
-                        fs.writeFile('games.json', json, 'utf8', () =>{notifyGame(JSON.stringify({activity:"question",question:question.question,options:question.options}), code), notifyTeam(JSON.stringify({activity:"question",question:question.question,options:question.options}), code,team), res.send("Questão enviada")}); 
+                        fs.writeFile('games.json', json, 'utf8', () =>{notifyGame(JSON.stringify({activity:"question",question:found.question.question,options:found.question.options}), code), notifyTeam(JSON.stringify({activity:"question",question:question.question,options:question.options}), code,team), res.send("Questão enviada")}); 
                     }
                 }
             })

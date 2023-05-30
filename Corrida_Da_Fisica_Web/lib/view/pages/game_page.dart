@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:corrida_da_fisica_web/model/game_state.dart';
 import 'package:corrida_da_fisica_web/view/components/question_card.dart';
 import 'package:flutter/material.dart';
@@ -15,11 +17,12 @@ class GamePage extends StatefulWidget {
 }
 
 class _GamePage extends State<GamePage> {
-  int winner = 0;
 
   @override
   void initState() {
-    context.read<GameRepository>().chooseRoll();
+    if (!context.read<GameRepository>().won) {
+      context.read<GameRepository>().chooseRoll();
+    }
     super.initState();
   }
 
@@ -37,7 +40,12 @@ class _GamePage extends State<GamePage> {
   }
 
   Widget getBoard(GameRepository game) {
-    if (game.gameState == GameState.question) {
+    if (game.gameState == GameState.question ||
+        game.gameState == GameState.questionEnd) {
+      if (game.isLoading) {
+        return const Center(child: CircularProgressIndicator());
+      }
+
       return Container(
           width: MediaQuery.of(context).size.width / 2,
           alignment: Alignment.center,
@@ -72,16 +80,25 @@ class _GamePage extends State<GamePage> {
       const SizedBox(
         height: 5,
       ),
-      Text(game.seconds.toString()),
-      LinearProgressIndicator(
-        value: game.seconds.toDouble(),
+      Text(
+        game.seconds.toString(),
+        style: TextStyle(
+          color: Theme.of(context).colorScheme.primary,
+          fontSize: 15,
+        ),
+      ),
+      Container(
+        padding: const EdgeInsets.all(20),
+        child: LinearProgressIndicator(
+          value: game.seconds / 30,
+        ),
       )
     ]);
   }
 
   correctAnswerText(GameRepository game) {
     return Text(
-      "Os ${game} acertaram a pergunta!",
+      "Os ${game.getPlayingTeam().name} acertaram a pergunta!",
       style: TextStyle(
         color: Theme.of(context).colorScheme.secondary,
         fontSize: 20,
@@ -91,7 +108,7 @@ class _GamePage extends State<GamePage> {
 
   wrongAnswerText(GameRepository game) {
     return Text(
-      "Os ${game} erraram a pergunta",
+      "Os ${game.getPlayingTeam().name} erraram a pergunta",
       style: TextStyle(
         color: Theme.of(context).colorScheme.secondary,
         fontSize: 20,
@@ -103,7 +120,7 @@ class _GamePage extends State<GamePage> {
     return Container(
       padding: EdgeInsets.all(5),
       child: Image.asset(
-        "assets/images/icons_teams/${game.teams[winner].image}",
+        "assets/images/icons_teams/${game.winner.image}",
         scale: 5,
       ),
     );
@@ -133,7 +150,7 @@ class _GamePage extends State<GamePage> {
 
   getWinningPlayerName(GameRepository game) {
     return Text(
-      "Os ${game.teams[winner].name} venceram!",
+      "Os ${game.winner.name} venceram!",
       style: TextStyle(
           color: Theme.of(context).colorScheme.tertiary,
           fontSize: 40,
@@ -152,13 +169,16 @@ class _GamePage extends State<GamePage> {
     );
   }
 
-  backToMenuButton() {
+
+
+  backToMenuButton(GameRepository game) {
     return Container(
       margin: const EdgeInsets.all(20),
       width: 300,
       height: 60,
       child: ElevatedButton(
-        onPressed: () => {Navigator.of(context).pushNamed("/")},
+        onPressed: () => {
+          Navigator.of(context).pushNamed("/")},
         child: const Text("Voltar para o menu"),
       ),
     );
@@ -170,7 +190,7 @@ class _GamePage extends State<GamePage> {
       list.add(getWinningTitle());
       list.add(getWinningPlayerName(game));
       list.add(getWinningPlayerIcon(game));
-      list.add(backToMenuButton());
+      list.add(backToMenuButton(game));
     }
 
     if (game.gameState != GameState.gameEnd) {
@@ -197,29 +217,33 @@ class _GamePage extends State<GamePage> {
     }
 
     if (game.gameState != GameState.gameEnd) {
-      list.add(getEndGameButton());
+      list.add(getEndGameButton(game));
     }
     return list;
   }
 
   getContinueButton(GameRepository game) {
-    return ElevatedButton(
-        onPressed: () => {
-              if (game.extraQuestion)
-                {
-                  game.getCard(),
-                }
-              else
-                {
-                  game.changeCurrentTeam(),
-                  game.chooseRoll(),
-                }
-            },
-        child: const Text("Continuar"));
+    return Container(
+        margin: const EdgeInsets.all(20),
+        width: 300,
+        height: 60,
+        child: ElevatedButton(
+            onPressed: () => {
+                  if (game.extraQuestion)
+                    {game.getCard()}
+                  else
+                    {
+                      game.changeCurrentTeam(),
+                      game.chooseRoll(),
+                    }
+                },
+            child: const Text("Continuar")));
   }
 
-  getEndGameButton() {
-    return TextButton(onPressed: () => {}, child: const Text("Terminar o jogo"));
+  getEndGameButton(GameRepository game) {
+    return TextButton(
+        onPressed: () => {Navigator.of(context).pushNamed("/")},
+        child: const Text("Terminar o jogo"));
   }
 
   getWinningTitle() {

@@ -22,6 +22,13 @@ class _SetupPage extends State<SetupPage> {
   bool theme = false;
   final _formKey = GlobalKey<FormState>();
 
+
+  @override
+  void initState() {
+    context.read<GameRepository>().endGame();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

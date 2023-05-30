@@ -19,6 +19,12 @@ class _GameWaitPage extends State<GameWaitPage> {
   }
 
   @override
+  void dispose() {
+    context.read<GameRepository>().endGame();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     var game = Provider.of<GameRepository>(context);
     return Scaffold(
@@ -172,12 +178,12 @@ class _GameWaitPage extends State<GameWaitPage> {
       ),
       width: MediaQuery.of(context).size.width / 3,
       child: (!game.isLoading) ? Text(
-        game.gameCode ?? "Placeholder",
+        game.gameCode,
         style: TextStyle(
             color: Theme.of(context).colorScheme.onBackground,
             fontSize: 35,
             fontWeight: FontWeight.bold),
-      ) : Container(child: const CircularProgressIndicator(), width: 20,)
+      ) : const SizedBox(width: 20,child: CircularProgressIndicator(),)
     );
   }
 }
