@@ -19,7 +19,7 @@ class _QuestionCard extends State<QuestionCard>{
   String? _responseController;
   final Question question;
 
-  void updateData(){
+  void updateData() {
     var game = Provider.of<GameRepository>(context, listen: false);
     if (_responseController != null) {
       game.lastAnswer = int.parse(_responseController!);
@@ -27,6 +27,8 @@ class _QuestionCard extends State<QuestionCard>{
     else {
       game.lastAnswer = -1;
     }
+
+    game.sendAnswer();
 
     Navigator.of(context).pushNamed("/wait_answer");
   }
