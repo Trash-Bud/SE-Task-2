@@ -1,5 +1,6 @@
 
 import 'package:corrida_da_fisica_web/view/pages/connect_page.dart';
+import 'package:corrida_da_fisica_web/view/pages/credits_page.dart';
 import 'package:corrida_da_fisica_web/view/pages/error_page.dart';
 import 'package:corrida_da_fisica_web/view/pages/game_page.dart';
 import 'package:corrida_da_fisica_web/view/pages/game_wait_page.dart';
@@ -28,6 +29,8 @@ class AppRouter{
         return MaterialPageRoute(builder: (_) => const  GamePage(), settings: settingsNew);
       case '/how_connect':
         return MaterialPageRoute(builder: (_) => const  ConnectInstructionsPage(), settings: settingsNew);
+      case '/credits':
+        return MaterialPageRoute(builder: (_) => const  CreditsPage(), settings: settingsNew);
       default:
         return MaterialPageRoute(builder: (_) => const ErrorPage(), settings: settingsNew);
     }
