@@ -2,6 +2,8 @@ import 'package:corrida_da_fisica_web/model/Question.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
+import '../../utils/constants.dart';
+
 class QuestionCard extends StatelessWidget {
   const QuestionCard(
       {super.key, required this.question, required this.showAnswer});
@@ -86,7 +88,7 @@ class QuestionCard extends StatelessWidget {
               padding: const EdgeInsets.symmetric(horizontal: 2),
               child: SvgPicture.asset(
                   "assets/images/icons_players/${val.image}",
-                  color: Theme.of(context).primaryColor,
+                  color: pfPicColors[val.color],
                   width: 20,
                   semanticsLabel: 'A red up arrow'),
             )).toList(),

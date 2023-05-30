@@ -17,6 +17,17 @@ class SeventhGradePalette {
   static const darkPurple = Color(0xff5D287D);
 }
 
+const List<Color> pfPicColors = [
+  Colors.orange,
+  Colors.redAccent,
+  Colors.lightBlueAccent,
+  Colors.lightGreenAccent,
+  Colors.pinkAccent,
+  Colors.tealAccent,
+  Colors.deepPurpleAccent,
+  Colors.yellow
+];
+
 
 const backEndUrl = "localhost:3000";
 

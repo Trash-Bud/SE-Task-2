@@ -17,7 +17,7 @@ class Team {
   String toString() {
     return 'Team{id: $id, name: $name, image: $image, players: $players, teamLeader: $teamLeader, loadedImage: $loadedImage, square: $square, imageAltered: $imageAltered}';
   }
-  
+
   getPlayerById(id){
     return players.firstWhere((player) => player.id == id);
   }
