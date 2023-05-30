@@ -12,8 +12,15 @@ class GameWaitPage extends StatefulWidget {
 }
 
 class _GameWaitPage extends State<GameWaitPage> {
+
+  @override
+  void initState() {
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
+    var game = Provider.of<GameRepository>(context);
     return Scaffold(
       appBar: CustomAppBar(),
       body: Column(
@@ -21,38 +28,32 @@ class _GameWaitPage extends State<GameWaitPage> {
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
           const Header(title: "Jogo", path: "/"),
-          getPage(),
-          getStartButton()
+          getPage(game),
+          getStartButton(game)
         ],
       ),
     );
   }
 
 
-  @override
-  void initState() {
-    super.initState();
-
-    context.read<GameRepository>().createGame();
-  }
-
-
-  getStartButton() {
+  getStartButton(GameRepository game) {
     return SizedBox(
       width: 300,
       height: 50,
       child: ElevatedButton(
         onPressed: () {
-          Navigator.of(context).pushNamed("/game");
-          
+          if(game.pendingPlayers.isEmpty && game.checkIfAllTeamsHavePeople()){
+            game.lockGame();
+            Navigator.of(context).pushNamed("/game");
+          }
         },
-        child: const Text("Começar"),
+        child: (game.pendingPlayers.isEmpty && game.checkIfAllTeamsHavePeople()) ? const Text("Começar") : const Text("À espera...")
       ),
     );
   }
 
-  getPage() {
-    var game = Provider.of<GameRepository>(context);
+  getPage(GameRepository game) {
+
     return Container(
       padding: const EdgeInsets.all(10),
       child: Row(
@@ -105,10 +106,10 @@ class _GameWaitPage extends State<GameWaitPage> {
   getPlayers(GameRepository game) {
     return SizedBox(
       width: MediaQuery.of(context).size.width / 2 - 20,
+      height: MediaQuery.of(context).size.width / 4,
       child: SingleChildScrollView(
         child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
-            mainAxisSize: MainAxisSize.max,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: getAllPlayers(game)),
       ),
@@ -132,14 +133,29 @@ class _GameWaitPage extends State<GameWaitPage> {
       for (var player in team.players) {
         players.add(Container(
           padding: const EdgeInsets.all(5),
-          child: Text(
-            player.name,
-            style: TextStyle(
-                color: Theme.of(context).colorScheme.secondary, fontSize: 20),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [ Icon(Icons.done, color: Theme.of(context).colorScheme.tertiary),Text(
+              player.name,
+              style: TextStyle(
+                  color: Theme.of(context).colorScheme.secondary, fontSize: 20))],
+            ),
           ),
-        ));
+        );
       }
     }
+
+    for (var player in game.pendingPlayers) {
+        players.add(Container(
+          padding: const EdgeInsets.all(5),
+          child: Text(
+                player.name,
+                style: TextStyle(
+                    color: Theme.of(context).colorScheme.secondary, fontSize: 20)),
+        ),
+        );
+    }
+
 
     return players;
   }
@@ -155,13 +171,13 @@ class _GameWaitPage extends State<GameWaitPage> {
             Border.all(width: 2, color: Theme.of(context).colorScheme.primary),
       ),
       width: MediaQuery.of(context).size.width / 3,
-      child: Text(
+      child: (!game.isLoading) ? Text(
         game.gameCode ?? "Placeholder",
         style: TextStyle(
             color: Theme.of(context).colorScheme.onBackground,
             fontSize: 35,
             fontWeight: FontWeight.bold),
-      ),
+      ) : Container(child: const CircularProgressIndicator(), width: 20,)
     );
   }
 }

@@ -4,11 +4,12 @@ const router = express.Router()
 var Game = require("../models/game")
 var fs = require('fs');
 const Player = require('../models/player');
-var { closeGame, notifyGame, addPlayerGameStream, addGameStream, notifyPlayers} = require('../update');
+var { closeGame, notifyGame, addPlayerGameStream, addGameStream, notifyPlayers,notifyPlayer} = require('../update');
 const connect = require("./connect.js")
 
 
 router.post("/create", (req,res) => {
+
 
     // Verifying request
     if (!req.body.hasOwnProperty("teamNumber") ||
@@ -47,7 +48,6 @@ router.post("/create", (req,res) => {
         json = JSON.stringify(obj); 
         
         fs.writeFile('games.json', json, 'utf8', () =>{
-            console.log("Game ${game.code} - Created") 
             res.send(JSON.stringify({code: game.code}))
         }); 
     }});
@@ -56,7 +56,6 @@ router.post("/create", (req,res) => {
 
 
 router.post("/end", (req,res) => {
-
     // Verifying request
     if (!req.body.hasOwnProperty("code")){
         return res.status(400).send({error: "O pedido tem de ter o seguinte formato: {code: string}"})
@@ -74,7 +73,6 @@ router.post("/end", (req,res) => {
         } else {
         obj = JSON.parse(data); 
         var found = obj.games.find(element => element["code"] == req.body["code"]);
-        console.log(found)
         if (found == undefined){
             
             res.status(404).send({error:"O código do jogo que enviou não existe"})
@@ -139,7 +137,7 @@ router.post("/join", (req,res) => {
     if ((!typeof req.body["code"] === 'string' && !req.body["code"] instanceof String) ||
     (!typeof req.body["name"] === 'string' && !req.body["name"] instanceof String) ||
     (!typeof req.body["pic"] === 'string' && !req.body["pic"] instanceof String) ||
-    (!typeof req.body["color"] === 'string' && !req.body["color"] instanceof String)||
+    (!Number.isInteger(req.body["color"]))||
     (!typeof req.body["id"] === 'string' && !req.body["id"] instanceof String)){
         return res.status(400).send({error: "O pedido tem de ter o seguinte formato: {code: string, name: string, pic:string, color:string, id:string}"})
     }
@@ -165,11 +163,12 @@ router.post("/join", (req,res) => {
                 found["pendingTeamPlayers"].push((player))
                 obj.games[index] = found
     
-                
+               
                 addPlayerGameStream(req.body["code"],connect.getStream(req.body["id"]),player.id)
     
-                notifyGame(JSON.stringify({pendingPlayers:found.pendingTeamPlayers, teams:found.teams}), req.body["code"])
-                
+                notifyGame(JSON.stringify({activity:"change_team",teams:found.teams,pendingPlayers:found.pendingTeamPlayers}), req.body["code"])
+                notifyPlayer(JSON.stringify({activity:"change_team",id:player.id,teams:found.teams}), req.body["code"],player.id)
+
                 json = JSON.stringify(obj); 
                 fs.writeFile('games.json', json, 'utf8', () =>{res.send("Jogador juntou-se ao jogo")}); 
             
@@ -210,7 +209,7 @@ router.post("/lock", (req,res) => {
                     obj.games[index] = found
         
                         
-                    notifyPlayers(JSON.stringify({locked:true}), req.body["code"])
+                    notifyPlayers(JSON.stringify({activity:"game_lock",locked:true}), req.body["code"])
                     
                     json = JSON.stringify(obj); 
                     fs.writeFile('games.json', json, 'utf8', () =>{res.send({locked:true})}); 
@@ -247,7 +246,7 @@ router.post("/winner", (req,res) => {
             }
             else{
 
-                notifyPlayers(JSON.stringify({positions:req.body["positions"], results: found.results}), req.body["code"])
+                notifyPlayers(JSON.stringify({activity:"winner",positions:req.body["positions"], results: found.results}), req.body["code"])
                 
                 json = JSON.stringify(obj); 
                 fs.writeFile('games.json', json, 'utf8', () =>{res.send("Enviado")}); 

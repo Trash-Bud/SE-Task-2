@@ -13,7 +13,7 @@ import 'sse.dart';
 
 class GameRepository extends ChangeNotifier{
 
-  String? gameCode;
+  //String? gameCode;
   AppTheme appTheme = AppTheme.defaultTheme;
   List<Team> teams = [];
   int numberOfThemes = 0;
@@ -22,9 +22,10 @@ class GameRepository extends ChangeNotifier{
   bool playerSet = false;
   late Player player;
   late int lastAnswer;
-  late Stream<dynamic> stream;
+  //late Stream<dynamic> stream;
 
   connect(){
+    /*
     stream = Sse.connect(
       uri: Uri.parse('http://$backEndUrl/connect'),
       closeOnError: true,
@@ -39,18 +40,11 @@ class GameRepository extends ChangeNotifier{
       notifyListeners();
     }
     );
+     */
   }
 
   joinGame() async {
-    try{
-      final response = await http.post(Uri.parse('http://$backEndUrl/game/join'),
-      body: {
-        "code": ""
-      });
 
-    }catch (e){
-      log(e.toString());
-    }
   }
 
   checkJoin(){

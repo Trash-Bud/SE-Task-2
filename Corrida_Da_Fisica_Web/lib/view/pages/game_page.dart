@@ -15,8 +15,13 @@ class GamePage extends StatefulWidget {
 }
 
 class _GamePage extends State<GamePage> {
-  String assetName = "assets/images/dice/dice.svg";
   int winner = 0;
+
+  @override
+  void initState() {
+    context.read<GameRepository>().chooseRoll();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -26,18 +31,20 @@ class _GamePage extends State<GamePage> {
       appBar: CustomAppBar(),
       body: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [getBoard(game), getWaitRollDice(game)],
+        children: [getBoard(game), if (!game.isLoading) getPage(game)],
       ),
     );
   }
 
   Widget getBoard(GameRepository game) {
-
-    if (game.gameState == GameState.question){
+    if (game.gameState == GameState.question) {
       return Container(
           width: MediaQuery.of(context).size.width / 2,
           alignment: Alignment.center,
-          child: QuestionCard(question: game.question,));
+          child: QuestionCard(
+            question: game.question,
+            showAnswer: game.gameState == GameState.questionEnd,
+          ));
     }
 
     return Container(
@@ -48,22 +55,31 @@ class _GamePage extends State<GamePage> {
 
   getCurrentPlayerIcon(GameRepository game) {
     return Image.asset(
-      "assets/images/icons/${game.getPlayingTeam().image}",
+      "assets/images/icons_teams/${game.getPlayingTeam().image}",
       scale: 5,
     );
   }
 
-  getAnswerQuestion(){
-    return Text(
-      "Respondam a pergunta antes do tempo acabar.",
-      style: TextStyle(
-        color: Theme.of(context).colorScheme.secondary,
-        fontSize: 20,
+  getAnswerQuestion(GameRepository game) {
+    return Column(crossAxisAlignment: CrossAxisAlignment.center, children: [
+      Text(
+        "Respondam a pergunta antes do tempo acabar.",
+        style: TextStyle(
+          color: Theme.of(context).colorScheme.secondary,
+          fontSize: 20,
+        ),
       ),
-    );
+      const SizedBox(
+        height: 5,
+      ),
+      Text(game.seconds.toString()),
+      LinearProgressIndicator(
+        value: game.seconds.toDouble(),
+      )
+    ]);
   }
 
-  correctAnswerText(GameRepository game){
+  correctAnswerText(GameRepository game) {
     return Text(
       "Os ${game} acertaram a pergunta!",
       style: TextStyle(
@@ -73,7 +89,7 @@ class _GamePage extends State<GamePage> {
     );
   }
 
-  wrongAnswerText(GameRepository game){
+  wrongAnswerText(GameRepository game) {
     return Text(
       "Os ${game} erraram a pergunta",
       style: TextStyle(
@@ -87,17 +103,22 @@ class _GamePage extends State<GamePage> {
     return Container(
       padding: EdgeInsets.all(5),
       child: Image.asset(
-        "assets/images/icons/${game.teams[winner].image}",
+        "assets/images/icons_teams/${game.teams[winner].image}",
         scale: 5,
       ),
     );
   }
 
-  getDice() {
-    return SvgPicture.asset(assetName,
-        color: Theme.of(context).primaryColor,
-        width: 200,
-        semanticsLabel: 'A red up arrow');
+  getDice(GameRepository game) {
+    return game.gameState == GameState.rolledDice
+        ? SvgPicture.asset("assets/images/dice/dice-${game.rolledNumber}.svg",
+            color: Theme.of(context).primaryColor,
+            width: 200,
+            semanticsLabel: 'RolledDice')
+        : SvgPicture.asset("assets/images/dice/dice.svg",
+            color: Theme.of(context).primaryColor,
+            width: 200,
+            semanticsLabel: 'Hands with dice');
   }
 
   getTurn(GameRepository game) {
@@ -120,7 +141,7 @@ class _GamePage extends State<GamePage> {
     );
   }
 
-  Widget getWaitRollDice(GameRepository game) {
+  Widget getPage(GameRepository game) {
     return Container(
       width: MediaQuery.of(context).size.width / 2,
       alignment: Alignment.center,
@@ -131,15 +152,13 @@ class _GamePage extends State<GamePage> {
     );
   }
 
-  backToMenuButton(){
+  backToMenuButton() {
     return Container(
       margin: const EdgeInsets.all(20),
       width: 300,
       height: 60,
       child: ElevatedButton(
-        onPressed: () => {
-          Navigator.of(context).pushNamed("/")
-        },
+        onPressed: () => {Navigator.of(context).pushNamed("/")},
         child: const Text("Voltar para o menu"),
       ),
     );
@@ -159,8 +178,17 @@ class _GamePage extends State<GamePage> {
       list.add(getTurn(game));
     }
 
-    if (game.gameState == GameState.question){
-      list.add(getAnswerQuestion());
+    if (game.gameState == GameState.question) {
+      list.add(getAnswerQuestion(game));
+    }
+
+    if (game.gameState == GameState.questionEnd) {
+      if (game.questionWon) {
+        list.add(correctAnswerText(game));
+      } else {
+        list.add(wrongAnswerText(game));
+      }
+      list.add(getContinueButton(game));
     }
 
     if (game.gameState == GameState.waitingDice ||
@@ -174,9 +202,24 @@ class _GamePage extends State<GamePage> {
     return list;
   }
 
+  getContinueButton(GameRepository game) {
+    return ElevatedButton(
+        onPressed: () => {
+              if (game.extraQuestion)
+                {
+                  game.getCard(),
+                }
+              else
+                {
+                  game.changeCurrentTeam(),
+                  game.chooseRoll(),
+                }
+            },
+        child: const Text("Continuar"));
+  }
 
-  getEndGameButton(){
-    return TextButton(onPressed: () => {}, child: Text("Terminar o jogo"));
+  getEndGameButton() {
+    return TextButton(onPressed: () => {}, child: const Text("Terminar o jogo"));
   }
 
   getWinningTitle() {
@@ -205,8 +248,19 @@ class _GamePage extends State<GamePage> {
       const SizedBox(
         height: 30,
       ),
-      getDice()
+      getDice(game),
+      if (game.gameState == GameState.rolledDice) getQuestionButton(game)
     ];
+  }
+
+  getQuestionButton(GameRepository game) {
+    return Container(
+        margin: const EdgeInsets.all(20),
+        width: 300,
+        height: 60,
+        child: ElevatedButton(
+            onPressed: () => {game.getCard()},
+            child: const Text("Ver Questão")));
   }
 
   getDiceText(GameRepository game) {

@@ -9,7 +9,6 @@ var {temp} =  require('./connect');
 
 // get question
 router.post("/get", (req,res) => {
-
     if (!req.body.hasOwnProperty("code") || !req.body.hasOwnProperty("team")){
         return res.status(400).send({error: "O pedido tem de ter o seguinte formato: {code: string, team: string}"})
     }
@@ -18,6 +17,8 @@ router.post("/get", (req,res) => {
     (!typeof req.body["team"] === 'string' && !req.body["team"] instanceof String)){
         return res.status(400).send({error: "O pedido tem de ter o seguinte formato: {code: string, team: string}"})
     }
+
+    console.log(req.body)
 
     getNewQuestion(req.body["code"],req.body["team"],res)
 
@@ -122,32 +123,32 @@ router.post("/timeOut", (req,res) => {
                     switch(req.body["special"]){
                         case 'doubleQuestion':
                             if (correct){
-                                notifyGame(JSON.stringify({result:"won", results:found.question, newQuestion:true}), req.body["code"])
-                                notifyTeam(JSON.stringify({result:"won", results:found.question}), req.body["code"],found.currentTeam)
+                                notifyGame(JSON.stringify({activity:"question_end",result:"won", results:found.question, newQuestion:true}), req.body["code"])
+                                notifyTeam(JSON.stringify({activity:"question_end",result:"won", results:found.question}), req.body["code"],found.currentTeam)
                             }else{
-                                notifyGame(JSON.stringify({result:"lost", results:found.question, newQuestion:false}), req.body["code"])
-                                notifyTeam(JSON.stringify({result:"lost", results:found.question}), req.body["code"],found.currentTeam)
+                                notifyGame(JSON.stringify({activity:"question_end",result:"lost", results:found.question, newQuestion:false}), req.body["code"])
+                                notifyTeam(JSON.stringify({activity:"question_end",result:"lost", results:found.question}), req.body["code"],found.currentTeam)
                             }
                             break;
                         case 'doubleChance':
                             if (correct){
                                 found.results[found.currentTeam]["moves"] += 1
-                                notifyGame(JSON.stringify({result:"won", results:found.question, newQuestion:false}), req.body["code"])
-                                notifyTeam(JSON.stringify({result:"won",results:found.question}), req.body["code"],found.currentTeam)
+                                notifyGame(JSON.stringify({activity:"question_end",result:"won", results:found.question, newQuestion:false}), req.body["code"])
+                                notifyTeam(JSON.stringify({activity:"question_end",result:"won",results:found.question}), req.body["code"],found.currentTeam)
 
                             }else{
-                                notifyGame(JSON.stringify({result:"lost", results:found.question, newQuestion:true}), req.body["code"])
-                                notifyTeam(JSON.stringify({result:"lost",results:found.question}), req.body["code"],found.currentTeam)
+                                notifyGame(JSON.stringify({activity:"question_end",result:"lost", results:found.question, newQuestion:true}), req.body["code"])
+                                notifyTeam(JSON.stringify({activity:"question_end",result:"lost",results:found.question}), req.body["code"],found.currentTeam)
                             }
                             break
                         default:
                             if (correct){
                                 found.results[found.currentTeam]["moves"] += 1
-                                notifyGame(JSON.stringify({result:"won", results:found.question, newQuestion:false}), req.body["code"])
-                                notifyTeam(JSON.stringify({result:"won",results:found.question}), req.body["code"],found.currentTeam)
+                                notifyGame(JSON.stringify({activity:"question_end",result:"won", results:found.question, newQuestion:false}), req.body["code"])
+                                notifyTeam(JSON.stringify({activity:"question_end",result:"won",results:found.question}), req.body["code"],found.currentTeam)
                             }else{
-                                notifyGame(JSON.stringify({result:"lost", results:found.question, newQuestion:false}), req.body["code"])
-                                notifyTeam(JSON.stringify({result:"lost",results:found.question}), req.body["code"],found.currentTeam)
+                                notifyGame(JSON.stringify({activity:"question_end",result:"lost", results:found.question, newQuestion:false}), req.body["code"])
+                                notifyTeam(JSON.stringify({activity:"question_end",result:"lost",results:found.question}), req.body["code"],found.currentTeam)
                             }
                             break;
                     }
@@ -164,7 +165,6 @@ router.post("/timeOut", (req,res) => {
 
 
 function getNewQuestion(code, team, res){
-
     fs.readFile('questions.json', 'utf8', function readFileCallback(err, data){
         if (err){
             res.status(500).send({error:"Erro Interno do Servidor"})
@@ -189,7 +189,7 @@ function getNewQuestion(code, team, res){
                         obj.games[index] = found
                         
                         json = JSON.stringify(obj); 
-                        fs.writeFile('games.json', json, 'utf8', () =>{notifyGame(JSON.stringify({question:question.question,options:question.options}), code), notifyTeam(JSON.stringify({question:question.question,options:question.options}), code,team), res.send("Questão enviada")}); 
+                        fs.writeFile('games.json', json, 'utf8', () =>{notifyGame(JSON.stringify({activity:"question",question:question.question,options:question.options}), code), notifyTeam(JSON.stringify({activity:"question",question:question.question,options:question.options}), code,team), res.send("Questão enviada")}); 
                     }
                 }
             })

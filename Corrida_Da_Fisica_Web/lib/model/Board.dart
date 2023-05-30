@@ -11,6 +11,9 @@ class Board {
   late String boardImage = "assets/images/basic_board.png";
   ui.Image? loadedImage;
   bool imageAltered = true;
+  static const List<int> twoQuestions = [1,12,24,36,48,60];
+  static const List<int> changeQuestion = [8,20,32,44,56,67];
+  static const List<int> twoChances = [4,16,28,40,52,63];
 
   void switchTheme(ThemeData newTheme) {
     theme = newTheme;
@@ -28,6 +31,16 @@ class Board {
 
   setImageAltered(bool imageAltered ){
     imageAltered = imageAltered;
+  }
+
+  checkIfTileIsTwoQuestionsTile(tile){
+    return (twoQuestions.firstWhere((element) => element == tile, orElse: () => -1) != -1);
+  }
+  checkIfTileChangeQuestionTile(tile){
+    return (changeQuestion.firstWhere((element) => element == tile, orElse: () => -1) != -1);
+  }
+  checkIfTileTwoChancesTile(tile){
+    return (twoChances.firstWhere((element) => element == tile, orElse: () => -1) != -1);
   }
 
 

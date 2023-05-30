@@ -4,12 +4,13 @@ import 'package:meta/meta.dart';
 import 'package:universal_html/html.dart' as html;
 
 class Sse {
-  final html.EventSource eventSource;
-  final StreamController<String> streamController;
+  //final html.EventSource eventSource;
+  //final StreamController<String> streamController;
 
-  Sse._internal(this.eventSource, this.streamController);
-
+  //Sse._internal(this.eventSource, this.streamController);
+/*
   factory Sse.connect({
+
     required Uri uri,
     bool withCredentials = false,
     bool closeOnError = true,
@@ -39,4 +40,6 @@ class Sse {
     eventSource.close();
     streamController.close();
   }
+
+     */
 }

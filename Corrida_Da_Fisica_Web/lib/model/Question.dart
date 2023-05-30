@@ -1,9 +1,12 @@
 
+import 'Player.dart';
+
 class Question{
   final String question;
-  final List<String> answers;
-  final String correctAnswer;
+  final Map<String,List<Player>> answers;
+  late int correctAnswer;
 
-  Question(this.question, this.answers, this.correctAnswer);
+  Question(this.question, this.answers);
+  Question.withAnswer(this.question, this.answers, this.correctAnswer);
 
 }

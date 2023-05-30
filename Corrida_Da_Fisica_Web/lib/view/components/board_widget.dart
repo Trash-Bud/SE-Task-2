@@ -25,7 +25,7 @@ class _BoardWidget extends State<BoardWidget> {
   Widget build(BuildContext context) {
     var game = Provider.of<GameRepository>(context);
 
-    if (game.isLoading){
+    if (game.boardIsLoading){
       return const Center(child: CircularProgressIndicator());
     }
 

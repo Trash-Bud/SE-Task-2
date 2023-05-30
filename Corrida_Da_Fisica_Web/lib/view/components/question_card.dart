@@ -1,9 +1,12 @@
 import 'package:corrida_da_fisica_web/model/Question.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 
 class QuestionCard extends StatelessWidget {
-  const QuestionCard({super.key, required this.question});
+  const QuestionCard(
+      {super.key, required this.question, required this.showAnswer});
 
+  final bool showAnswer;
   final Question question;
 
   @override
@@ -41,24 +44,49 @@ class QuestionCard extends StatelessWidget {
 
   getAnswers(BuildContext context) {
     return Container(
-      alignment: Alignment.centerLeft,
-      padding: const EdgeInsets.all(20),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
+        alignment: Alignment.centerLeft,
+        padding: const EdgeInsets.all(20),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisAlignment: MainAxisAlignment.center,
           mainAxisSize: MainAxisSize.max,
-          children:
-              question.answers.map((e) => getAnswer(e, context)).toList()),
-    );
+          children: getOptionsList(context),
+        ));
   }
 
-  Widget getAnswer(String text, BuildContext context) {
+  List<Widget> getOptionsList(BuildContext context) {
+    List<Widget> widgets = [];
+    var index = 0;
+    for (var element in question.answers.entries) {
+      widgets.add(getAnswer(element, index, context));
+      index++;
+    }
+
+    return widgets;
+  }
+
+  Widget getAnswer(MapEntry option, int index, BuildContext context) {
     return Container(
         padding: const EdgeInsets.all(10),
-        child: Text(
-      text,
-      style:
-          TextStyle(color: Theme.of(context).colorScheme.primary, fontSize: 20),
-    ));
+        child: Row(children: [
+          if (showAnswer && index == question.correctAnswer)
+            Icon(
+              Icons.check,
+              color: Theme.of(context).primaryColor,
+            ),
+          Text(
+            option.key,
+            style: TextStyle(
+                color: Theme.of(context).colorScheme.primary, fontSize: 20),
+          ),
+          option.value.map((val) => Container(
+                padding: const EdgeInsets.symmetric(horizontal: 2),
+                child: SvgPicture.asset(
+                    "assets/images/icons_players/${val.image}",
+                    color: Theme.of(context).primaryColor,
+                    width: 200,
+                    semanticsLabel: 'A red up arrow'),
+              )),
+        ]));
   }
 }

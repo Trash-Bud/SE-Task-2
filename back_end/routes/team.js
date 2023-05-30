@@ -58,8 +58,8 @@ fs.readFile('games.json', 'utf8', function readFileCallback(err, data){
                 json = JSON.stringify(obj); 
 
                 addTeamToPlayerStream(req.body["code"],player.id,team.id)
-                notifyGame(JSON.stringify({pendingPlayers:found.pendingTeamPlayers, teams:found.teams}), req.body["code"])
-                notifyPlayers(JSON.stringify({teams: found.teams}),req.body["code"])
+                notifyGame(JSON.stringify({activity:"change_team",pendingPlayers:found.pendingTeamPlayers, teams:found.teams}), req.body["code"])
+                notifyPlayers(JSON.stringify({activity:"change_team",teams: found.teams}),req.body["code"])
 
                 fs.writeFile('games.json', json, 'utf8', () =>{res.status(200).send({teamLeader: teamLeader})}); 
             }
@@ -123,8 +123,8 @@ router.post("/leave", (req,res) => {
                 obj.games[index] = found
 
                 removeTeamFromPlayerStream(req.body["code"],player.id,team.id)
-                notifyGame(JSON.stringify({pendingPlayers:found.pendingTeamPlayers, teams:found.teams}), req.body["code"])
-                notifyPlayers(JSON.stringify({teams: found.teams}),req.body["code"])
+                notifyGame(JSON.stringify({activity:"change_team",pendingPlayers:found.pendingTeamPlayers, teams:found.teams}), req.body["code"])
+                notifyPlayers(JSON.stringify({activity:"change_team",teams: found.teams}),req.body["code"])
         
                 json = JSON.stringify(obj); 
                 fs.writeFile('games.json', json, 'utf8', () =>{res.status(200).send("Jogador removido com sucesso")}); 

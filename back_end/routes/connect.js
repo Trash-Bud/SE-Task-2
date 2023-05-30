@@ -9,10 +9,9 @@ router.get("/", (req,res) => {
 
     var id = crypto.randomBytes(26).toString('hex');
     res.setHeader("Content-Type", "text/event-stream")
-    res.setHeader("Access-Control-Allow-Origin", "*")
     temp[id] = res;
 
-    res.write("data: " + JSON.stringify({id:id})+"\n\n")
+    res.write("data: " + JSON.stringify({activity:"connect",id:id})+"\n\n")
 
 })
 
