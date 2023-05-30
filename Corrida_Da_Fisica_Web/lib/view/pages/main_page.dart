@@ -62,7 +62,7 @@ class MainPage extends StatelessWidget {
               margin: const EdgeInsets.all(20),
               width: 500,
               child: OutlinedButton(
-                  onPressed: () => {},
+                  onPressed: () => {Navigator.of(context).pushNamed("/credits")},
                   child: Container(
                     margin: const EdgeInsets.all(20),
                     child: Text("Créditos", style: TextStyle(color: Theme.of(context).colorScheme.secondary )),

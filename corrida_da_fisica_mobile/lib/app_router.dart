@@ -4,6 +4,7 @@ import 'package:corrida_da_fisica_mobile/view/pages/choose_team_page.dart';
 import 'package:corrida_da_fisica_mobile/view/pages/color_pfp_page.dart';
 import 'package:corrida_da_fisica_mobile/view/pages/create_code_page.dart';
 import 'package:corrida_da_fisica_mobile/view/pages/create_profile_page.dart';
+import 'package:corrida_da_fisica_mobile/view/pages/credits_page.dart';
 import 'package:corrida_da_fisica_mobile/view/pages/game_win_page.dart';
 import 'package:corrida_da_fisica_mobile/view/pages/leader_page.dart';
 import 'package:corrida_da_fisica_mobile/view/pages/main_menu_page.dart';
@@ -62,6 +63,8 @@ class AppRouter{
         return MaterialPageRoute(builder: (_) => ScoresPage(), settings: settingsNew);
       case '/main_menu':
         return MaterialPageRoute(builder: (_) => MainMenuPage(), settings: settingsNew);
+      case '/credits':
+        return  MaterialPageRoute(builder: (_) => const CreditsPage(), settings: settingsNew);
       case '/rules':
         return MaterialPageRoute(builder: (_) => RulesPage(), settings: settingsNew);
       case '/leader':
