@@ -10,10 +10,7 @@ class MainMenuPage extends StatelessWidget {
   void updateData(BuildContext context){
     var game = Provider.of<GameRepository>(context, listen: false);
 
-    //prolly isto vai embora mas temos de buscar as infos dos teams mais a frente
     game.setTeams();
-
-    //send join user
 
     Navigator.of(context).pushNamed("/create_profile");
   }
@@ -34,7 +31,7 @@ class MainMenuPage extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          const Text("Estás pronto para começar?",
+          Text("Estás pronto para começar?",
               textAlign: TextAlign.center,
               style: TextStyle(
                   fontSize: 40,

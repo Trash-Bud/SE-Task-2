@@ -5,7 +5,6 @@ import 'Player.dart';
 
 class Team{
 
-  late int id;
   String name;
   String image;
   List<Player> players = [];

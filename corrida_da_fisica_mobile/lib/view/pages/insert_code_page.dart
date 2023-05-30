@@ -1,33 +1,10 @@
 import 'package:corrida_da_fisica_mobile/view/components/app_bar.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 
-import '../../controller/GameRepository.dart';
-
-class InsertCodePage extends StatefulWidget {
+class InsertCodePage extends StatelessWidget {
   InsertCodePage({super.key});
 
-  @override
-  _InsertCodePage createState() => _InsertCodePage();
-
-}
-
-class _InsertCodePage extends State<InsertCodePage>{
-
   final TextEditingController _formController = TextEditingController();
-
-  @override
-  void initState() {
-    super.initState();
-
-    context.read<GameRepository>().connect();
-  }
-
-  validateCode(BuildContext context){
-    //validate code
-
-    Navigator.of(context).pushNamed("/main_menu");
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -44,7 +21,7 @@ class _InsertCodePage extends State<InsertCodePage>{
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          const Text("Insere abaixo o código do jogo",
+          Text("Insere abaixo o código do jogo",
               textAlign: TextAlign.center,
               style: TextStyle(fontSize: 40, fontWeight: FontWeight.bold)),
         Container(
@@ -63,7 +40,7 @@ class _InsertCodePage extends State<InsertCodePage>{
               margin: const EdgeInsets.all(20),
               width: 500,
               child: ElevatedButton(
-                  onPressed: () => {validateCode(context)},
+                  onPressed: () => {Navigator.of(context).pushNamed("/main_menu")},
                   child: Container(
                     margin: const EdgeInsets.all(20),
                     child: const Text("Confirmar código"),

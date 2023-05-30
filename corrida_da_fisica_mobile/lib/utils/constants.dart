@@ -18,5 +18,3 @@ class SeventhGradePalette {
   static const darkBlue = Color(0xff260E6B);
   static const darkPurple = Color(0xff5D287D);
 }
-
-const backEndUrl = "localhost:3000";

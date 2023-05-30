@@ -16,19 +16,19 @@ class QuestionCard extends StatefulWidget {
 class _QuestionCard extends State<QuestionCard>{
   _QuestionCard(this.question);
 
-  //String? _responseController;
+  String? _responseController;
   final Question question;
 
   void updateData(){
     var game = Provider.of<GameRepository>(context, listen: false);
-    //if (_responseController != null) {
-      //game.lastAnswer = int.parse(_responseController!);
-    //}
-    //else {
-    //  game.lastAnswer = -1;
-    //}
+    if (_responseController != null) {
+      game.lastAnswer = int.parse(_responseController!);
+    }
+    else {
+      game.lastAnswer = -1;
+    }
 
-   // Navigator.of(context).pushNamed("/wait_answer");
+    Navigator.of(context).pushNamed("/wait_answer");
   }
 
   @override
@@ -93,16 +93,14 @@ class _QuestionCard extends State<QuestionCard>{
 
 
   Widget getAnswer(String text, int index, BuildContext context) {
-    return Text("");
-    /*RadioListTile(
+    return RadioListTile(
         title: Text(text,
         style: TextStyle(color: Theme.of(context).primaryColor, fontSize: 20),
         ),
         value: "$index",
         groupValue: _responseController,
-        onChanged: (v){ setState(() => 
-        _responseController = v.toString());}
-    );*/
+        onChanged: (v){ setState(() => _responseController = v.toString()); }
+    );
   }
 
 

@@ -58,6 +58,7 @@ class _ColorPFPPage extends State<ColorPFPPage>{
 
 
   void updateData() {
+    //var game = Provider.of<GameRepository>(context);
     var game = Provider.of<GameRepository>(context, listen: false);
     var image = game.player.getImage();
 
@@ -69,8 +70,6 @@ class _ColorPFPPage extends State<ColorPFPPage>{
             height: MediaQuery.of(context).size.height/8
         )
     );
-
-    //send info of user
 
     Navigator.of(context).pushNamed("/choose_team");
   }
