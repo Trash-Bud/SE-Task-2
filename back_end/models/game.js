@@ -17,6 +17,7 @@ class Game {
         this.currentTeam = this.teams[0].id
         this.currentPlayer = ""
         this.results = {}
+        this.answers = 0
 
         this.teams.forEach(element => {
             this.results[element.id] = {

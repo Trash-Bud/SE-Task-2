@@ -136,16 +136,24 @@ router.post("/leave", (req,res) => {
 
 // Change team name
 router.post("/changeName", (req,res) => {
+  
 
+    
 })
 
 // Change team picture
 router.post("/changePicture", (req,res) => {
 
+
+
+
 })
 
 // Change team leader
 router.post("/changeLeader", (req,res) => {
+
+
+
 
 })
 

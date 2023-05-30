@@ -69,7 +69,13 @@ router.post("/answer", (req,res) => {
                     counter ++;
                 }
 
+                found.answers ++;
+
                 obj.games[index] = found
+
+                if(found.answers == team.players.length){
+                    notifyGame(JSON.stringify({activity:"early_timeout"}),req.body["code"])
+                }
                 
                 json = JSON.stringify(obj); 
                 fs.writeFile('games.json', json, 'utf8', () =>{res.send({answered:true})}); 
