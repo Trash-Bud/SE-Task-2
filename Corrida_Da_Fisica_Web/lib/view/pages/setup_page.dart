@@ -106,7 +106,7 @@ class _SetupPage extends State<SetupPage> {
   }
 
   changeTheme() {
-      setState(() {
+
         var themeProvider = Provider.of<ThemeChanger>(context, listen: false);
         var game = Provider.of<GameRepository>(context, listen: false);
         if (theme) {
@@ -116,7 +116,7 @@ class _SetupPage extends State<SetupPage> {
           themeProvider.setTheme(defaultTheme);
           game.board.switchTheme(defaultTheme);
         }
-      });
+
   }
 
         getTeamsDropDownOptions() {

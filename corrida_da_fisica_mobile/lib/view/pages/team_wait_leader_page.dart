@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:corrida_da_fisica_mobile/view/components/app_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -31,7 +33,6 @@ class _TeamWaitLeaderPage extends State<TeamWaitLeaderPage>{
   Widget build(BuildContext context) {
     var game = Provider.of<GameRepository>(context, listen: false);
     switch (game.nextPage){
-
       case PageToGo.rollDice:
         Navigator.of(context).pushNamed("/roll_dice");
         break;

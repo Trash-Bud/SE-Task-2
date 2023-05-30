@@ -4,8 +4,18 @@ import 'package:provider/provider.dart';
 
 import '../../controller/GameRepository.dart';
 
-class MainMenuPage extends StatelessWidget {
-  MainMenuPage({super.key});
+
+
+class MainMenuPage extends StatefulWidget {
+  const MainMenuPage({super.key});
+
+  @override
+  State<MainMenuPage> createState() => _MainMenuPage();
+
+}
+
+class _MainMenuPage extends State<MainMenuPage> {
+
 
   void updateData(BuildContext context){
     var game = Provider.of<GameRepository>(context, listen: false);
@@ -14,7 +24,6 @@ class MainMenuPage extends StatelessWidget {
 
     Navigator.of(context).pushNamed("/create_profile");
   }
-
 
   @override
   Widget build(BuildContext context) {
