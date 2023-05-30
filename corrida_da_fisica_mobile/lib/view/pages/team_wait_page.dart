@@ -12,35 +12,36 @@ class TeamWaitPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var game = Provider.of<GameRepository>(context, listen: false);
-    switch (game.nextPage){
-
-      case PageToGo.rollDice:
-        Navigator.of(context).pushNamed("/roll_dice");
-        break;
-      case PageToGo.waitTurn:
-        Navigator.of(context).pushNamed("/roll_dice");
-        break;
-      case PageToGo.none:
-        break;
-      default:
-        break;
-    }
-    var teamID = game.player.getTeamID();
-    var team = game.teams.where((element) => element.id == teamID).first;
-    return Scaffold(
-        appBar: AppBar(
-            title: Row(children: [
-              Provider.of<GameRepository>(context).player.getPfp(),
-              const SizedBox(width: 10,),
-              const Text("Corrida da Física",
-                  textAlign: TextAlign.center)
-            ]),
-            automaticallyImplyLeading: false
-        ),
-        body: Column(
-          children: [getTeamImage(context, team), getTeamName(context, team), getButton(context)],
-        ));
+    var game = Provider.of<GameRepository>(context, listen: true);
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      switch (game.nextPage){
+        case PageToGo.rollDice:
+          Navigator.of(context).pushNamed("/roll_dice");
+          break;
+        case PageToGo.waitTurn:
+          Navigator.of(context).pushNamed("/wait_turn");
+          break;
+        case PageToGo.none:
+          break;
+        default:
+          break;
+      }
+    });
+      var teamID = game.player.getTeamID();
+      var team = game.teams.where((element) => element.id == teamID).first;
+      return Scaffold(
+          appBar: AppBar(
+              title: Row(children: [
+                Provider.of<GameRepository>(context).player.getPfp(),
+                const SizedBox(width: 10,),
+                const Text("Corrida da Física",
+                    textAlign: TextAlign.center)
+              ]),
+              automaticallyImplyLeading: false
+          ),
+          body: Column(
+            children: [getTeamImage(context, team), getTeamName(context, team), getButton(context)],
+          ));
   }
 
   Widget getTeamImage(BuildContext context, Team team) {

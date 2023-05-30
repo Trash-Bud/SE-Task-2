@@ -32,18 +32,20 @@ class _TeamWaitLeaderPage extends State<TeamWaitLeaderPage>{
   @override
   Widget build(BuildContext context) {
     var game = Provider.of<GameRepository>(context, listen: false);
-    switch (game.nextPage){
-      case PageToGo.rollDice:
-        Navigator.of(context).pushNamed("/roll_dice");
-        break;
-      case PageToGo.waitTurn:
-        Navigator.of(context).pushNamed("/roll_dice");
-        break;
-      case PageToGo.none:
-        break;
-      default:
-        break;
-    }
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      switch (game.nextPage) {
+        case PageToGo.rollDice:
+          Navigator.of(context).pushNamed("/roll_dice");
+          break;
+        case PageToGo.waitTurn:
+          Navigator.of(context).pushNamed("/wait_turn");
+          break;
+        case PageToGo.none:
+          break;
+        default:
+          break;
+      }
+    });
     var teamID = game.player.getTeamID();
     var team = game.teams.where((element) => element.id == teamID).first;
     return Scaffold(

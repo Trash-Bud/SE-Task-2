@@ -8,15 +8,11 @@ import '../../model/Question.dart';
 class AnswerPage extends StatelessWidget {
   AnswerPage({super.key});
 
-
-
-  Question question = Question(
-      "Uma galáxia é",
-      ["um enorme agrupamento de estrelas, gases e poeiras", "um enxame de estrelas", " um superenxame de estrelas", "um conjunto de asteroides"],
-      0);
+  late Question question;
 
   @override
   Widget build(BuildContext context) {
+    question = Provider.of<GameRepository>(context).question;
     return Scaffold(
         appBar: AppBar(
             title: Row(children: [
