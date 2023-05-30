@@ -10,11 +10,13 @@ import 'package:http/http.dart' as http;
 
 
 import '../../model/Team.dart';
+import '../model/Question.dart';
 import '../utils/constants.dart';
 
 enum PageToGo{
   rollDice,
   waitTurn,
+  question,
   none
 }
 
@@ -32,6 +34,7 @@ class GameRepository extends ChangeNotifier{
   PageToGo nextPage = PageToGo.none;
   late Player player;
   late int lastAnswer;
+  late Question question;
 
   late Stream<dynamic> stream;
   late String tempId;
@@ -53,7 +56,7 @@ class GameRepository extends ChangeNotifier{
           //handleQuestionEnd(decoded);
             break;
           case "question":
-          //handleQuestion(decoded);
+            handleQuestion(decoded);
             break;
           case "game_lock":
             handleLock(decoded);
@@ -62,7 +65,7 @@ class GameRepository extends ChangeNotifier{
             handleRoll(decoded);
             break;
           case "roll_result":
-          //handleRollResult(decoded);
+            handleRollResult(decoded);
             break;
           case "change_team":
             handleChangeTeam(decoded);
@@ -77,41 +80,73 @@ class GameRepository extends ChangeNotifier{
         }
         notifyListeners();
     });
+  }
 
+  void handleQuestion(decoded){
+    var question = decoded["question"];
+    var options = decoded["options"];
+    Map<String, List<Player>> listOptions = {};
 
-    //notifyteam
-    //notifyplayer
-    //winner
-    //changeteam
+    options.forEach((key) {
+      listOptions[key] = [];
+    });
+
+    this.question = Question(question, listOptions);
+
+    notifyListeners();
+
+    nextPage = PageToGo.question;
   }
 
   void handleLock(decoded){
-    if (decoded["locked"] == true){
+    //if (decoded["locked"] == true){
+   //   nextPage = PageToGo.waitTurn;
+    //}
+  }
+
+  void handleRollResult(decoded){
+    nextPage = PageToGo.waitTurn;
+  }
+
+  void handleRoll(decoded){
+    if (decoded["me"] == true && decoded["team"] == player.getTeamID()){
+      playersRoll = true;
+      nextPage = PageToGo.rollDice;
+    }
+    else {
+      playersRoll = false;
       nextPage = PageToGo.waitTurn;
     }
   }
 
-  void handleRoll(decoded){
-    if (decoded["me"] == true){
-      playersRoll = true;
-      nextPage = PageToGo.rollDice;
+  void rollDice()async {
+    nextPage = PageToGo.none;
+    try {
+      var body = {
+        "code": gameCode,
+        "player": player.getID(),
+        "team": player.getTeamID()
+      };
 
+      final response = await http.post(
+          Uri.parse("http://$backEndUrl/dice/roll"),
+          body: json.encode(body),
+          headers: {
+            "Content-Type": "application/json",
+          });
+
+      if (response.statusCode >= 200 && response.statusCode < 300) {
+        log(response.body);
+        var decoded = json.decode(response.body);
+      } else {
+        log("${response.statusCode.toString()}: ${response.body.toString()}");
+
+      }
+    } catch (e) {
+      log(e.toString());
     }
-/*
-    var currTeam = decoded["team"];
-    log(currTeam);
-    log(teams[0].toString());
-    currentTeamTurn = teams.indexWhere((element) => element.id == currTeam);
-    log(currentTeamTurn.toString());
-    var currPlayerTurn = decoded["player"];
-    log(currPlayerTurn);
-    log(teams[currentTeamTurn].players.toString());
-    var currentPlayerTurn = teams[currentTeamTurn]
-        .players
-        .indexWhere((element) => element.id == currPlayerTurn);
-    log(currentPlayerTurn.toString());
-    isLoading = false;
- */
+
+    notifyListeners();
   }
 
   void handleChangeTeam(decoded){

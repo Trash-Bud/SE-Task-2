@@ -62,7 +62,10 @@ class RollDicePage extends StatelessWidget {
               margin: const EdgeInsets.all(10),
               width: 500,
               child: ElevatedButton(
-                  onPressed: () => {Navigator.of(context).pushNamed("/insert_code")},
+                  onPressed: () => {
+                    Provider.of<GameRepository>(context, listen: false).rollDice(),
+                    Navigator.of(context).pushNamed("/wait_turn")
+                  },
                   child: Container(
                     margin: const EdgeInsets.all(20),
                     child: const Text("Rolar"),

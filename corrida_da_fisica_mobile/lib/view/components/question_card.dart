@@ -83,10 +83,12 @@ class _QuestionCard extends State<QuestionCard>{
 
   List<Widget> getAnswers(BuildContext context){
     List<Widget> answers = [];
-    for (int i = 0; i < question.answers.length; i++){
+    int i = 0;
+    for (var answer in question.answers.keys){
       answers.add(
-        getAnswer(question.answers[i], i, context)
+          getAnswer(answer, i, context)
       );
+      i++;
     }
     return answers;
   }

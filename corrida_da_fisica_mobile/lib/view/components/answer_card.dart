@@ -71,10 +71,12 @@ class _AnswerCard extends State<AnswerCard>{
 
   List<Widget> getAnswers(BuildContext context){
     List<Widget> answers = [];
-    for (int i = 0; i < question.answers.length; i++){
+    int i = 0;
+    for (var answer in question.answers.keys){
       answers.add(
-          getAnswer(question.answers[i], i, question.correctAnswer, context)
+          getAnswer(answer, i, question.correctAnswer, context)
       );
+      i++;
     }
     return answers;
   }

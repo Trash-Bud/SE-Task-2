@@ -303,7 +303,7 @@ class _GamePage extends State<GamePage> {
   getDiceText(GameRepository game) {
     return game.gameState == GameState.rolledDice
         ? Text(
-            "Saio-te um ${game.rolledNumber}",
+            "Saiu-te um ${game.rolledNumber}",
             style: TextStyle(
               color: Theme.of(context).colorScheme.secondary,
               fontSize: 20,
