@@ -1,4 +1,3 @@
-
 import 'dart:convert';
 import 'dart:developer';
 
@@ -10,9 +9,10 @@ import 'package:http/http.dart' as http;
 
 
 import '../../model/Team.dart';
+import '../model/Score.dart';
 import '../utils/constants.dart';
 
-enum PageToGo{
+enum PageToGo {
   mainMenu,
   warning,
   rollDice,
@@ -20,7 +20,7 @@ enum PageToGo{
   none
 }
 
-class GameRepository extends ChangeNotifier{
+class GameRepository extends ChangeNotifier {
 
   String? gameCode;
   AppTheme appTheme = AppTheme.defaultTheme;
@@ -38,47 +38,47 @@ class GameRepository extends ChangeNotifier{
   bool themeToggle = false;
   late Stream<dynamic> stream;
   late String tempId;
+  late int place;
+  List<Score> scores = [];
 
   connect() {
-
     SSEClient.subscribeToSSE(
         url: 'http://$backEndUrl/connect',
         header: {
         }).listen((event) {
-
-        var decoded = json.decode(event.data!);
-        log(decoded.toString());
-        switch (decoded["activity"]) {
-          case "winner":
-          //handleQuestionEnd(decoded);
-            break;
-          case "question_end":
-          //handleQuestionEnd(decoded);
-            break;
-          case "question":
-          //handleQuestion(decoded);
-            break;
-          case "game_lock":
-            handleLock(decoded);
-            break;
-          case "roll":
-            handleRoll(decoded);
-            break;
-          case "roll_result":
-          //handleRollResult(decoded);
-            break;
-          case "change_team":
-            handleChangeTeam(decoded);
-            break;
-          case "connect":
-            tempId = decoded["id"];
-            joinGame();
-            break;
-          default:
-            log("error");
-            break;
-        }
-        notifyListeners();
+      var decoded = json.decode(event.data!);
+      log(decoded.toString());
+      switch (decoded["activity"]) {
+        case "winner":
+          handleGameEnd(decoded);
+          break;
+        case "question_end":
+        //handleQuestionEnd(decoded);
+          break;
+        case "question":
+        //handleQuestion(decoded);
+          break;
+        case "game_lock":
+          handleLock(decoded);
+          break;
+        case "roll":
+          handleRoll(decoded);
+          break;
+        case "roll_result":
+        //handleRollResult(decoded);
+          break;
+        case "change_team":
+          handleChangeTeam(decoded);
+          break;
+        case "connect":
+          tempId = decoded["id"];
+          joinGame();
+          break;
+        default:
+          log("error");
+          break;
+      }
+      notifyListeners();
     });
 
 
@@ -88,17 +88,35 @@ class GameRepository extends ChangeNotifier{
     //changeteam
   }
 
-  void handleLock(decoded){
-    if (decoded["locked"] == true){
+  void handleGameEnd(decoded) {
+    var positions = decoded["positions"];
+
+    for (var i = 0; i < positions.length(); i++) {
+      if (positions[i] == player.getTeamID()) {
+        place == i;
+      }
+    }
+
+    var results = decoded["results"];
+
+    results.forEach((key, value) {
+      scores.add(Score(
+          positions.indexWhere((element) => element.id == key), key,
+          value["moves"], value["correct"],
+          value["questions"] - value["correct"]));
+      });
+  }
+
+  void handleLock(decoded) {
+    if (decoded["locked"] == true) {
       nextPage = PageToGo.waitTurn;
     }
   }
 
-  void handleRoll(decoded){
-    if (decoded["me"] == true){
+  void handleRoll(decoded) {
+    if (decoded["me"] == true) {
       playersRoll = true;
       nextPage = PageToGo.rollDice;
-
     }
 /*
     var currTeam = decoded["team"];
@@ -117,8 +135,8 @@ class GameRepository extends ChangeNotifier{
  */
   }
 
-  void handleChangeTeam(decoded){
-    if (decoded["id"] != null){
+  void handleChangeTeam(decoded) {
+    if (decoded["id"] != null) {
       player.setId(decoded["id"]);
     }
     teams = [];
@@ -126,8 +144,10 @@ class GameRepository extends ChangeNotifier{
     var teamsJson = decoded["teams"];
 
     Team finalTeam;
-    teamsJson.forEach((team) => {
-      finalTeam = Team(team["name"], "assets/images/team/${team["picture"]}", team["id"]),
+    teamsJson.forEach((team) =>
+    {
+      finalTeam = Team(
+          team["name"], "assets/images/team/${team["picture"]}", team["id"]),
       if (team["leader"] != null)
         {
           finalTeam.changeTeamLeader(Player.fromServer(
@@ -136,7 +156,8 @@ class GameRepository extends ChangeNotifier{
               "assets/images/profile/${team["leader"]["picture"]}",
               team["leader"]["color"])),
         },
-      team["players"].forEach((player) => {
+      team["players"].forEach((player) =>
+      {
         finalTeam.addPlayer(Player.fromServer(player["name"], player["id"],
             player["picture"], player["color"]))
       }),
@@ -162,7 +183,7 @@ class GameRepository extends ChangeNotifier{
       if (response.statusCode >= 200 && response.statusCode < 300) {
         log(response.body);
         var decoded = json.decode(response.body);
-        if (decoded["exists"] == true){
+        if (decoded["exists"] == true) {
           themeToggle = decoded["theme"];
           year = decoded["year"];
         }
@@ -179,7 +200,6 @@ class GameRepository extends ChangeNotifier{
     isLoading = false;
     notifyListeners();
   }
-
 
 
   joinTeam() async {
@@ -200,7 +220,7 @@ class GameRepository extends ChangeNotifier{
       if (response.statusCode >= 200 && response.statusCode < 300) {
         log(response.body);
         var decoded = json.decode(response.body);
-        if (decoded["teamLeader"] == true){
+        if (decoded["teamLeader"] == true) {
           player.isLeader = true;
         }
         else {
@@ -208,7 +228,6 @@ class GameRepository extends ChangeNotifier{
         }
       } else {
         log("${response.statusCode.toString()}: ${response.body.toString()}");
-
       }
     } catch (e) {
       log(e.toString());
@@ -246,7 +265,6 @@ class GameRepository extends ChangeNotifier{
          */
       } else {
         log("${response.statusCode.toString()}: ${response.body.toString()}");
-
       }
     } catch (e) {
       log(e.toString());
@@ -286,19 +304,18 @@ class GameRepository extends ChangeNotifier{
 
     isLoading = false;
     notifyListeners();
-
   }
 
-  void setPlayer(String name, String image){
+  void setPlayer(String name, String image) {
     player = Player(name, image);
     playerSet = true;
   }
 
-  String getPfp(){
+  String getPfp() {
     return player.image;
   }
 
-  void setTeams(){
+  void setTeams() {
     /*
     teams.add(Team("Equipa 1", "assets/images/team/pfp1.png"));
     teams.add(Team("Equipa 2", "assets/images/team/pfp2.png"));
@@ -307,7 +324,7 @@ class GameRepository extends ChangeNotifier{
      */
   }
 
-  List<Team> getTeams(){
+  List<Team> getTeams() {
     return teams;
   }
 
