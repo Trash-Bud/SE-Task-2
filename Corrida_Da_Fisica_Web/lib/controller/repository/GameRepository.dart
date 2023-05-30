@@ -41,6 +41,7 @@ class GameRepository extends ChangeNotifier {
   List<int> totalPlayerNum = [];
   late Team winner;
   bool won = false;
+  bool isReplacement = false;
 
   connect() {
     stream = Sse.connect(
@@ -142,6 +143,7 @@ class GameRepository extends ChangeNotifier {
   }
 
   void handleQuestion(decoded) {
+    isLoading = true;
     gameState = GameState.question;
 
     var question = decoded["question"];
@@ -164,7 +166,7 @@ class GameRepository extends ChangeNotifier {
       } else {
         timer.cancel();
         seconds = 30;
-        sendTimeOut();
+        sendTimeOut(false);
       }
     });
   }
@@ -196,6 +198,8 @@ class GameRepository extends ChangeNotifier {
 
     if (decoded["newQuestion"]) {
       extraQuestion = true;
+    }else{
+      extraQuestion = false;
     }
 
     if(!extraQuestion && questionWon){
@@ -347,21 +351,37 @@ class GameRepository extends ChangeNotifier {
     notifyListeners();
   }
 
-  sendTimeOut() async {
+  replaceCard(){
+    timer.cancel();
+    seconds = 30;
+    sendTimeOut(true);
+  }
+
+
+  checkIfReplaceTile(){
+    return board.checkIfTileChangeQuestionTile(teams[currentTeamTurn].square);
+  }
+
+  sendTimeOut(bool replace) async {
     isLoading = true;
     gameState = GameState.questionEnd;
 
     String special = "";
 
-    if (board.checkIfTileIsTwoQuestionsTile(teams[currentTeamTurn].square)) {
-      special = "doubleQuestion";
+    if (!extraQuestion) {
+      if (board.checkIfTileIsTwoQuestionsTile(teams[currentTeamTurn].square)) {
+        special = "doubleQuestion";
+      }
+      if (board.checkIfTileChangeQuestionTile(teams[currentTeamTurn].square) &&
+          replace && !isReplacement) {
+        isReplacement = true;
+        special = "replace";
+      }
+      if (board.checkIfTileTwoChancesTile(teams[currentTeamTurn].square)) {
+        special = "doubleChance";
+      }
     }
-    if (board.checkIfTileChangeQuestionTile(teams[currentTeamTurn].square)) {
-      special = "replace";
-    }
-    if (board.checkIfTileTwoChancesTile(teams[currentTeamTurn].square)) {
-      special = "doubleChance";
-    }
+
 
     var body = {"code": gameCode, "special": special};
 

@@ -92,7 +92,8 @@ class _GamePage extends State<GamePage> {
         child: LinearProgressIndicator(
           value: game.seconds / 30,
         ),
-      )
+      ),
+      if (!game.isReplacement && game.checkIfReplaceTile()) replaceCardButton(game)
     ]);
   }
 
@@ -170,6 +171,18 @@ class _GamePage extends State<GamePage> {
   }
 
 
+  replaceCardButton(GameRepository game){
+    return Container(
+      margin: const EdgeInsets.all(20),
+      width: 300,
+      height: 60,
+      child: ElevatedButton(
+        onPressed: () => {
+          game.replaceCard()},
+        child: const Text("Trocar de pergunta"),
+      ),
+    );
+  }
 
   backToMenuButton(GameRepository game) {
     return Container(
