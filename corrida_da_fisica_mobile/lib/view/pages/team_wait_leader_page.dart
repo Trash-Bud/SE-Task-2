@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 import 'package:getwidget/getwidget.dart';
 
 import '../../controller/GameRepository.dart';
+import '../../model/Team.dart';
 
 class TeamWaitLeaderPage extends StatefulWidget {
   const TeamWaitLeaderPage({super.key});
@@ -28,23 +29,39 @@ class _TeamWaitLeaderPage extends State<TeamWaitLeaderPage>{
 
   @override
   Widget build(BuildContext context) {
+    var game = Provider.of<GameRepository>(context, listen: false);
+    switch (game.nextPage){
+
+      case PageToGo.rollDice:
+        Navigator.of(context).pushNamed("/roll_dice");
+        break;
+      case PageToGo.waitTurn:
+        Navigator.of(context).pushNamed("/roll_dice");
+        break;
+      case PageToGo.none:
+        break;
+      default:
+        break;
+    }
+    var teamID = game.player.getTeamID();
+    var team = game.teams.where((element) => element.id == teamID).first;
     return Scaffold(
         appBar: AppBar(
         title: Row(children: [
         Provider.of<GameRepository>(context).player.getPfp(),
-          const SizedBox(width: 25,),
-          const Text("A Corrida da Física",
+          const SizedBox(width: 10,),
+          const Text("Corrida da Física",
             textAlign: TextAlign.center)
           ]),
           automaticallyImplyLeading: false
         ),
         resizeToAvoidBottomInset: false,
         body: Column(
-          children: [getTeamImage(context), getTeamName(context), getButton(context)],
+          children: [getTeamImage(context, team), getTeamName(context, team), getButton(context)],
         ));
   }
 
-  Widget getTeamImage(BuildContext context) {
+  Widget getTeamImage(BuildContext context, Team team) {
     return Padding(
       padding: const EdgeInsets.fromLTRB(0,20,0,0),
       child: GestureDetector(
@@ -71,7 +88,7 @@ class _TeamWaitLeaderPage extends State<TeamWaitLeaderPage>{
       child: GFAvatar(
         radius: 40,
         backgroundImage: _imageController == -1 ?
-        ExactAssetImage("assets/images/team/pfp${Provider.of<GameRepository>(context, listen: false).player.getTeamID()}.png") : ExactAssetImage("assets/images/team/pfp${_imageController+1}.png"),
+        ExactAssetImage(team.getImage()) : ExactAssetImage("assets/images/team/pfp${_imageController+1}.png"),
         shape: GFAvatarShape.standard,
         child: Align(
           alignment: Alignment.bottomRight,
@@ -90,7 +107,7 @@ class _TeamWaitLeaderPage extends State<TeamWaitLeaderPage>{
     );
   }
 
-  Widget getTeamName(BuildContext context) {
+  Widget getTeamName(BuildContext context, Team team) {
     return Center(
       child: GestureDetector(
           onTap: (){
@@ -121,8 +138,8 @@ class _TeamWaitLeaderPage extends State<TeamWaitLeaderPage>{
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [ _nameController.text == ""?
-                  Text("Equipa ${Provider.of<GameRepository>(context, listen: false).player.getTeamID().toString()}",
-                      style: TextStyle(fontSize: 40, fontWeight: FontWeight.bold)) :
+                  Text(team.getName(),
+                      style: const TextStyle(fontSize: 40, fontWeight: FontWeight.bold)) :
                     Text(_nameController.text, style: TextStyle(color: Theme.of(context).primaryColor, fontSize: 40, fontWeight: FontWeight.bold)),
                   const SizedBox(width: 3),
                   CircleAvatar(
@@ -186,7 +203,7 @@ class _TeamWaitLeaderPage extends State<TeamWaitLeaderPage>{
               margin: const EdgeInsets.all(10),
               width: 500,
               child: OutlinedButton(
-                  onPressed: () => {Navigator.of(context).pushNamed("/create_code")},
+                  onPressed: () => {Provider.of<GameRepository>(context, listen: false).leaveTeam(), Navigator.of(context).pop()},
                   child: Container(
                     margin: const EdgeInsets.all(20),
                     child: Text("Sair da equipa", style: TextStyle(color: Theme.of(context).colorScheme.secondary )),

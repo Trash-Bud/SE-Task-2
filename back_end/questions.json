@@ -473,7 +473,259 @@
             "As Plêiades constituem uma galáxia.",
             "As Plêiades constituem um enxame aberto de estrelas.",
             "As Plêiades são constituídas por milhares de estrelas velhas.",
-            "\nAs Plêiades são um conjunto de estrelas jovens de cor predominantemente amarela."],
+            "As Plêiades são um conjunto de estrelas jovens de cor predominantemente amarela."],
         "correct": 1
+    },
+    {
+        "question" : "O movimento de rotação de um planeta é realizado em torno...",
+        "options": [
+            "do seu eixo imaginário.",
+            "do Sol.",
+            "de um satélite.",
+            "de um asteroide."],
+        "correct": 0
+    },
+    {
+        "question" : "O período de translação corresponde...",
+        "options": [
+            "ao trajeto que um astro executa em torno de uma estrela e/ou do centro da Via Láctea.",
+            "à distância a que um astro se encontra do Sol.",
+            "ao tempo que um astro demora a executar o movimento de translação.",
+            "ao movimento que um astro executa ao rodar em torno de outros astros e/ou do centro da Via Láctea."],
+        "correct": 2
+    },
+    {
+        "question" : "O Sol nasce e põe-se, respetivamente, a...",
+        "options": [
+            "este e oeste.",
+            "oeste e este.",
+            "norte e sul.",
+            "sul e norte."],
+        "correct": 0
+    },
+    {
+        "question" : "Uma das consequências do movimento de rotação da Terra é...",
+        "options": [
+            "o movimento aparente do Sol e das estrelas, de oeste para este.",
+            "o diferente aquecimento dos hemisférios norte e sul.",
+            "a sucessão das estações do ano.",
+            "a sucessão do dia e da noite."],
+        "correct": 3
+    },
+    {
+        "question" : "Entre os dias em que se inicia o inverno e a primavera decorrem...",
+        "options": [
+            "3 meses.",
+            "6 meses.",
+            "9 meses.",
+            "12 meses."],
+        "correct": 0
+    },
+    {
+        "question" : "A força responsável pela queda de uma bola para a superfície da Terra denomina-se...",
+        "options": [
+            "gravítica e exerce-se com necessidade de contacto entre a Terra e a bola.",
+            "magnética e resulta de uma interação repulsiva entre a Terra e a bola.",
+            "gravítica e resulta de uma interação atrativa entre a Terra e a bola.",
+            "terrestre e resulta de uma interação atrativa entre a Terra e a bola."],
+        "correct": 2
+    },
+    {
+        "question" : "Num eclipse solar...",
+        "options": [
+            "é observado o encobrimento do Sol em apenas algumas regiões do planeta.",
+            "a Lua passa pela sombra projetada pela Terra.",
+            "o Sol encontra-se entre a Terra e a Lua.",
+            "o Sol, a Terra e a Lua não se encontram alinhados."],
+        "correct": 0
+    },
+    {
+        "question" : "No dia 6 de setembro de 2045 (em Portugal)...",
+        "options": [
+            "será, obrigatoriamente, dia 6 de setembro em todas as regiões do planeta.",
+            "poderá ser dia 7 de setembro numa outra região do planeta.",
+            "poderá ser dia 8 de setembro numa outra região do planeta.",
+            "poderá ser dia 7 e 8 de setembro em diferentes regiões do planeta."],
+        "correct": 1
+    },
+    {
+        "question" : "Ao longo do dia, a sombra de uma vara em Portugal...",
+        "options": [
+            "move-se de este para oeste.",
+            "não varia em comprimento.",
+            "pode servir para orientação espacial.",
+            "deixa de existir ao meio-dia solar."],
+        "correct": 2
+    },
+    {
+        "question" : "As forças...",
+        "options": [
+            "descrevem a interação entre corpos.",
+            "atuam apenas quando dois corpos entram em contacto.",
+            "são aplicadas apenas por seres humanos.",
+            "não se podem medir."],
+        "correct": 0
+    },
+    {
+        "question" : "A sucessão das estações do ano resulta...",
+        "options": [
+            "do facto de a Terra realizar o movimento de translação e de ter um eixo de rotação sem inclinação.",
+            "de a órbita da Terra em torno do Sol ser ligeiramente elíptica.",
+            "do facto de a Terra realizar o movimento de translação em torno do Sol e de ter um eixo inclinado relativamente ao plano da órbita.",
+            "de a distância entre a Terra e o Sol variar ao longo do ano."],
+        "correct": 2
+    },
+    {
+        "question" : "À medida que um foguetão se afasta da Terra, a sua massa... e o valor do seu peso...",
+        "options": [
+            "mantém-se/ também se mantém.",
+            "mantém-se/ diminui.",
+            "não se mantém/ diminui.",
+            "não se mantém/ aumenta."],
+        "correct": 1
+    },
+    {
+        "question" : "A unidade SI da massa é o...",
+        "options": [
+            "grama.",
+            "quilograma.",
+            "quilograma ou o newton (ambos são corretos).",
+            "decigrama."],
+        "correct": 1
+    },
+    {
+        "question" : "O movimento de translação corresponde...",
+        "options": [
+            "ao trajeto que um astro executa em torno do eixo imaginário.",
+            "ao tempo que um astro demora a executar o movimento de rotação.",
+            "à distância a que um astro se encontra do Sol.",
+            "ao movimento que um astro executa ao rodar em torno de outros astros e/ou do centro da Via Láctea."],
+        "correct": 3
+    },
+    {
+        "question" : "No solstício de junho...",
+        "options": [
+            "ocorre a noite mais longa no hemisfério norte.",
+            "inicia-se o inverno no hemisfério sul.",
+            "os dois hemisférios estão igualmente iluminados.",
+            "a Terra está mais aproxima do Sol e, por isso, inicia-se o verão no hemisfério norte."],
+        "correct": 1
+    },
+    {
+        "question" : "A sucessão das estações do ano resulta...",
+        "options": [
+            "da distância entre a Terra e o Sol variar ao longo do ano.",
+            "da órbita ligeiramente elítica da Terra em torno do Sol.",
+            "do facto de a Terra realizar o movimento de rotação com o eixo de translação inclinado.",
+            "do facto de a Terra realizar o movimento de translação com o eixo de rotação inclinado."],
+        "correct": 1
+    },
+    {
+        "question" : "Os anos bissextos...",
+        "options": [
+            "devem-se à inclinação do eixo de rotação da Terra.",
+            "têm 365 dias e 6 horas.",
+            "ocorrem de quatro em quatro anos.",
+            "resultam do facto de a Terra, de quatro em quatro anos, demorar mais um dia a dar uma volta completa em torno do Sol."],
+        "correct": 2
+    },
+    {
+        "question" : "No equinócio de março...",
+        "options": [
+            "a duração do dia é maior do que a duração da noite.",
+            "os dois hemisférios estão igualmente iluminados pelo Sol.",
+            "ocorre o dia maior do ano.",
+            "inicia-se o verão."],
+        "correct": 1
+    },
+    {
+        "question" : "O período de translação da Lua é de...",
+        "options": [
+            "365 dias e 6 horas.",
+            "24 horas.",
+            "cerca de 7 dias.",
+            "27 dias e 8 h."],
+        "correct": 3
+    },
+    {
+        "question" : "A Lua...",
+        "options": [
+            "é um satélite.",
+            "é a única lua do Sistema Solar.",
+            "é um corpo luminoso.",
+            "formou-se há cerca de 14 mil milhões de anos."],
+        "correct": 0
+    },
+    {
+        "question" : "A Lua apresenta fases porque gira em torno da Terra...",
+        "options": [
+            "e a face voltada para a Terra não está sempre igualmente iluminada.",
+            "com iguais períodos de rotação e de translação.",
+            "com diferentes períodos de rotação e de translação.",
+            "com iguais movimentos de rotação e de translação."],
+        "correct": 0
+    },
+    {
+        "question" : "Num eclipse da Lua, ...",
+        "options": [
+            "a Lua passa pela sombra projetada pela Terra.",
+            "é observado o encobrimento do Sol em apenas algumas regiões do planeta.",
+            "o Sol encontra-se entre a Terra e a Lua.",
+            "o Sol, a Terra e a Lua encontram-se em planos de órbita diferentes."],
+        "correct": 0
+    },
+    {
+        "question" : "Durante um eclipse do Sol, ...",
+        "options": [
+            "toda a superfície da Terra voltada para o Sol fica às escuras.",
+            "a Terra projeta uma sombra no Sol.",
+            "a Lua projeta a sua sombra numa região da Terra.",
+            "a Terra projeta uma sombra na Lua."],
+        "correct": 2
+    },
+    {
+        "question" : "Em todos os meses do ano...",
+        "options": [
+            "a Lua dá duas voltas completas em torno da Terra.",
+            "há pelo menos um eclipse.",
+            "a Lua mostra-nos a sua face iluminada.",
+            "há pelo menos três Luas Novas."],
+        "correct": 2
+    },
+    {
+        "question" : "Os satélites de um planeta...",
+        "options": [
+            "têm movimento de translação em torno do planeta.",
+            "podem ter uma massa maior do que a do planeta em torno do qual orbitam.",
+            "emitem luz visível.",
+            "situam-se maioritariamente entre Marte e Júpiter."],
+        "correct": 0
+    },
+    {
+        "question" : "O período de rotação de um planeta corresponde a...",
+        "options": [
+            "um dia nesse planeta.",
+            "um mês nesse planeta.",
+            "um ano nesse planeta.",
+            "um ano solar nesse planeta."],
+        "correct": 0
+    },
+    {
+        "question" : "O período de rotação de Mercúrio é de 58,65 dias terrestres, logo,...",
+        "options": [
+            "um dia em Mercúrio corresponde a 24 horas.",
+            "um dia em Mercúrio corresponde a 58,65 × 24 horas.",
+            "um ano em Mercúrio corresponde a 24 horas.",
+            "um ano em Mercúrio corresponde a 58,65 × 24 horas."],
+        "correct": 1
+    },
+    {
+        "question" : "Ocorre a sucessão do dia e da noite porque...",
+        "options": [
+            "a Terra roda em torno do eixo.",
+            "o Sol move-se à volta da Terra, de oeste para este.",
+            "o Sol move-se à volta da Terra, de este para oeste.",
+            "a Terra roda em torno do Sol."],
+        "correct": 0
     }
 ]}

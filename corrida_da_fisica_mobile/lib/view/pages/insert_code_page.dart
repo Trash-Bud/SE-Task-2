@@ -1,5 +1,8 @@
 import 'package:corrida_da_fisica_mobile/view/components/app_bar.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+
+import '../../controller/GameRepository.dart';
 
 class InsertCodePage extends StatelessWidget {
   InsertCodePage({super.key});
@@ -9,6 +12,7 @@ class InsertCodePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        resizeToAvoidBottomInset: false,
         appBar: CustomAppBar(),
         body: getButton(context));
   }
@@ -40,7 +44,12 @@ class InsertCodePage extends StatelessWidget {
               margin: const EdgeInsets.all(20),
               width: 500,
               child: ElevatedButton(
-                  onPressed: () => {Navigator.of(context).pushNamed("/main_menu")},
+                  onPressed: () => {
+                    if (_formController.text != ""){
+                      Provider.of<GameRepository>(context, listen: false).gameCode = _formController.text,
+                      Navigator.of(context).pushNamed("/main_menu")
+                    }
+                  },
                   child: Container(
                     margin: const EdgeInsets.all(20),
                     child: const Text("Confirmar código"),

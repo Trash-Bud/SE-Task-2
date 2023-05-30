@@ -21,15 +21,22 @@ class WaitTurnPage extends StatelessWidget {
         ),
         body: Container(
           alignment: Alignment.center,
-          child: Text(
-              "_ está a jogar",
-              textAlign: TextAlign.center,
-              style: TextStyle(
-                  color: Theme.of(context).colorScheme.secondary,
-                  fontSize: 40,
-                  fontWeight: FontWeight.bold
-              )
-          ),
+          child: Column(
+            children: [
+              Text(
+                  "Estás no jogo!",
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                      color: Theme.of(context).colorScheme.secondary,
+                      fontSize: 40,
+                      fontWeight: FontWeight.bold
+                  )
+              ),
+              Text("Aguarda a tua vez",
+                  textAlign: TextAlign.center,
+                  style: TextStyle(color: Theme.of(context).primaryColor, fontSize: 20)),
+            ],
+          )
         )
     );
   }

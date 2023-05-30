@@ -48,7 +48,7 @@ class _CreateProfilePage extends State<CreateProfilePage>{
   void updateData() {
     //var game = Provider.of<GameRepository>(context);
     var game = Provider.of<GameRepository>(context, listen: false);
-    game.setPlayer(_nameController.text, (_imageController+1));
+    game.setPlayer(_nameController.text, "pfp${_imageController+1}");
     log("name ${_nameController.text}");
     log("img $_imageController");
 
