@@ -14,6 +14,8 @@ import '../model/Question.dart';
 import '../utils/constants.dart';
 
 enum PageToGo{
+  mainMenu,
+  warning,
   rollDice,
   waitTurn,
   question,
@@ -36,6 +38,8 @@ class GameRepository extends ChangeNotifier{
   late int lastAnswer;
   late Question question;
 
+  late int year;
+  bool themeToggle = false;
   late Stream<dynamic> stream;
   late String tempId;
 
@@ -45,9 +49,9 @@ class GameRepository extends ChangeNotifier{
         url: 'http://$backEndUrl/connect',
         header: {
         }).listen((event) {
-      log('Data: ' + event.data!);
+
         var decoded = json.decode(event.data!);
-        //log(decoded.toString());
+        log(decoded.toString());
         switch (decoded["activity"]) {
           case "winner":
           //handleQuestionEnd(decoded);
@@ -176,6 +180,43 @@ class GameRepository extends ChangeNotifier{
     });
     log(teams.toString());
   }
+
+  checkJoin() async {
+    isLoading = true;
+    try {
+      var body = {
+        "code": gameCode,
+      };
+
+      final response = await http.post(
+          Uri.parse("http://$backEndUrl/game/checkJoin"),
+          body: json.encode(body),
+          headers: {
+            "Content-Type": "application/json",
+          });
+
+      if (response.statusCode >= 200 && response.statusCode < 300) {
+        log(response.body);
+        var decoded = json.decode(response.body);
+        if (decoded["exists"] == true){
+          themeToggle = decoded["theme"];
+          year = decoded["year"];
+        }
+        nextPage = PageToGo.mainMenu;
+        log(nextPage.toString());
+      } else {
+        log("${response.statusCode.toString()}: ${response.body.toString()}");
+        nextPage = PageToGo.warning;
+      }
+    } catch (e) {
+      log("exception");
+      log(e.toString());
+    }
+    isLoading = false;
+    notifyListeners();
+  }
+
+
 
   joinTeam() async {
     try {

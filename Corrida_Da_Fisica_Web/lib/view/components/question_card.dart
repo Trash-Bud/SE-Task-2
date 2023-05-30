@@ -90,11 +90,11 @@ class QuestionCard extends StatelessWidget {
           ),
           Row(
             children: option.value.map<Widget>((val) => Container(
-              padding: const EdgeInsets.symmetric(horizontal: 2),
+              padding: const EdgeInsets.symmetric(horizontal: 5),
               child: SvgPicture.asset(
                   "assets/images/icons_players/${val.image}",
                   color: pfPicColors[val.color],
-                  width: 20,
+                  width: 30,
                   semanticsLabel: 'A red up arrow'),
             )).toList(),
           )

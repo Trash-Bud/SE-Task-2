@@ -1,20 +1,70 @@
+import 'dart:developer';
+
 import 'package:corrida_da_fisica_mobile/view/components/app_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../../controller/GameRepository.dart';
+import '../../controller/ThemeChanger.dart';
+import '../../utils/themes.dart';
 
-class InsertCodePage extends StatelessWidget {
-  InsertCodePage({super.key});
+
+class InsertCodePage extends StatefulWidget{
+  const InsertCodePage({super.key});
+
+  @override
+  State<InsertCodePage> createState() => _InsertCodePage();
+}
+
+class _InsertCodePage extends State<InsertCodePage> {
 
   final TextEditingController _formController = TextEditingController();
 
+
+
+
   @override
   Widget build(BuildContext context) {
+
+    var game = Provider.of<GameRepository>(context,listen: false);
+    navigate(game);
     return Scaffold(
         resizeToAvoidBottomInset: false,
         appBar: CustomAppBar(),
         body: getButton(context));
+  }
+
+  navigate(GameRepository game){
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      switch (game.nextPage) {
+        case PageToGo.mainMenu:
+          changeTheme(game);
+          Navigator.pop(context);
+          Navigator.of(context).pushNamed("/main_menu");
+          break;
+        case PageToGo.warning:
+          const snackBar = SnackBar(
+            content: Text('Não existe um jogo com o código inserido.'),
+          );
+          ScaffoldMessenger.of(context).showSnackBar(snackBar);
+          break;
+        case PageToGo.none:
+          break;
+        default:
+          break;
+      }
+      });
+  }
+
+  changeTheme(game) {
+    setState(() {
+      var themeProvider = Provider.of<ThemeChanger>(context, listen: false);
+      if (game.themeToggle) {
+        themeProvider.setTheme(seventhGradeTheme);
+      } else {
+        themeProvider.setTheme(defaultTheme);
+      }
+    });
   }
 
   Widget getButton(BuildContext context) {
@@ -47,7 +97,7 @@ class InsertCodePage extends StatelessWidget {
                   onPressed: () => {
                     if (_formController.text != ""){
                       Provider.of<GameRepository>(context, listen: false).gameCode = _formController.text,
-                      Navigator.of(context).pushNamed("/main_menu")
+                      Provider.of<GameRepository>(context, listen: false).checkJoin()
                     }
                   },
                   child: Container(

@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:corrida_da_fisica_mobile/view/components/app_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
