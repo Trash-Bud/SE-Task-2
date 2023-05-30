@@ -1,6 +1,4 @@
-import 'package:corrida_da_fisica_mobile/view/components/app_bar.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:provider/provider.dart';
 
 import '../../controller/GameRepository.dart';
@@ -27,18 +25,20 @@ class GameWinPage extends StatelessWidget {
   }
 
   Widget getText(BuildContext context){
+    var game = Provider.of<GameRepository>(context,listen: false);
+    var text = (game.place == 1) ? "A tua equipa venceu o jogo!" :"A tua ficou ${game.place}º lugar!";
     return Container(
       padding: const EdgeInsets.all(10),
       alignment: Alignment.center,
       width: MediaQuery.of(context).size.width - 30,
       child: Column(
-        children: const [
-          Text("Parabéns!",
+        children:  [
+          const Text("Parabéns!",
             style: TextStyle( fontSize: 80, fontWeight: FontWeight.bold),
             textAlign: TextAlign.center,
           ),
-          Text("A tua equipa venceu o jogo",
-            style: TextStyle( fontSize: 30, fontWeight: FontWeight.normal),
+          Text( text,
+            style: const TextStyle( fontSize: 30, fontWeight: FontWeight.normal),
             textAlign: TextAlign.center,
           ),
         ],
