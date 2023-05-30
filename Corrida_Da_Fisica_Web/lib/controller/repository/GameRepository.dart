@@ -16,7 +16,7 @@ import '../../utils/utils.dart';
 import '../see.dart';
 
 class GameRepository extends ChangeNotifier {
-  String? gameCode;
+  String gameCode = "";
   AppTheme appTheme = AppTheme.defaultTheme;
   List<Team> teams = [];
   int numberOfTeams = 0;
@@ -36,7 +36,7 @@ class GameRepository extends ChangeNotifier {
   late bool questionWon;
   late Stream<dynamic> stream;
   late String tempId;
-  Timer? timer;
+  late Timer timer;
   int seconds = 30;
   List<int> totalPlayerNum = [];
 
@@ -310,7 +310,11 @@ class GameRepository extends ChangeNotifier {
   getCard() async {
     isLoading = true;
 
+    log(gameCode);
+
     var body = {"code": gameCode, "team": teams[currentTeamTurn].id};
+
+    log(body.toString());
 
     try {
       final response = await http.post(

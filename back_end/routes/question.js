@@ -18,6 +18,8 @@ router.post("/get", (req,res) => {
         return res.status(400).send({error: "O pedido tem de ter o seguinte formato: {code: string, team: string}"})
     }
 
+    console.log(req.body)
+
     getNewQuestion(req.body["code"],req.body["team"],res)
 
 })
@@ -35,8 +37,6 @@ router.post("/answer", (req,res) => {
     !Number.isInteger(req.body["answer"])){
         return res.status(400).send({error: "O pedido tem de ter o seguinte formato: {code: string, team: string, answer:int}"})
     }
-
-    console.log(req.body)
 
     fs.readFile('games.json', 'utf8', function readFileCallback(err, data){
         if (err){

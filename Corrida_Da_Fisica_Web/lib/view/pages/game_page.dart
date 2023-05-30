@@ -215,11 +215,11 @@ class _GamePage extends State<GamePage> {
                   game.chooseRoll(),
                 }
             },
-        child: Text("Continuar"));
+        child: const Text("Continuar"));
   }
 
   getEndGameButton() {
-    return TextButton(onPressed: () => {}, child: Text("Terminar o jogo"));
+    return TextButton(onPressed: () => {}, child: const Text("Terminar o jogo"));
   }
 
   getWinningTitle() {
@@ -249,7 +249,7 @@ class _GamePage extends State<GamePage> {
         height: 30,
       ),
       getDice(game),
-      getQuestionButton(game)
+      if (game.gameState == GameState.rolledDice) getQuestionButton(game)
     ];
   }
 

@@ -16,14 +16,12 @@ router.post("/chooseRoll", (req,res) => {
         return res.status(400).send({error: "O pedido tem de ter o seguinte formato: {code: string, team: string}"})
     }
 
-    console.log(req)
 
     fs.readFile('games.json', 'utf8', function readFileCallback(err, data){
         if (err){
             res.status(500).send({error:"Erro Interno do Servidor"})
         } else {
         obj = JSON.parse(data); 
-        console.log(obj)
         var found = obj.games.find(element => element["code"] == req.body["code"]);
         if (found == undefined){
             res.status(404).send({error:"O código do jogo que enviou não existe"})

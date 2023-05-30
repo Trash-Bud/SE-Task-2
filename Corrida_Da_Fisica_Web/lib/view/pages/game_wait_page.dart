@@ -42,10 +42,12 @@ class _GameWaitPage extends State<GameWaitPage> {
       height: 50,
       child: ElevatedButton(
         onPressed: () {
-          game.lockGame();
-          Navigator.of(context).pushNamed("/game");
+          if(game.pendingPlayers.isEmpty && game.checkIfAllTeamsHavePeople()){
+            game.lockGame();
+            Navigator.of(context).pushNamed("/game");
+          }
         },
-        child: (game.pendingPlayers.isEmpty && !game.checkIfAllTeamsHavePeople()) ? const Text("Começar") : const Text("À espera...")
+        child: (game.pendingPlayers.isEmpty && game.checkIfAllTeamsHavePeople()) ? const Text("Começar") : const Text("À espera...")
       ),
     );
   }
