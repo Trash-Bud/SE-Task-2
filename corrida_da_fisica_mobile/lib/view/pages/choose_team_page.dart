@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 
 import '../../controller/GameRepository.dart';
 import '../../model/Team.dart';
+import '../../utils/constants.dart';
 
 class ChooseTeamPage extends StatefulWidget {
   ChooseTeamPage({super.key});
@@ -22,18 +23,6 @@ class _ChooseTeamPage extends State<ChooseTeamPage>{
       _teamController = "";
     });
   }
-
-
-  List<Color> colors = [
-    Colors.orange,
-    Colors.redAccent,
-    Colors.lightBlueAccent,
-    Colors.lightGreenAccent,
-    Colors.pinkAccent,
-    Colors.tealAccent,
-    Colors.deepPurpleAccent,
-    Colors.yellow
-  ];
 
   static late String _teamController;
 

@@ -19,3 +19,16 @@ class SeventhGradePalette {
   static const darkPurple = Color(0xff5D287D);
 }
 const backEndUrl = "10.0.2.2:3000";
+
+
+
+List<Color> colors = [
+  Colors.orange,
+  Colors.redAccent,
+  Colors.lightBlueAccent,
+  Colors.lightGreenAccent,
+  Colors.pinkAccent,
+  Colors.tealAccent,
+  Colors.deepPurpleAccent,
+  Colors.yellow
+];
