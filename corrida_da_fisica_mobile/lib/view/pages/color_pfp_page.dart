@@ -65,12 +65,13 @@ class _ColorPFPPage extends State<ColorPFPPage>{
     game.player.setColor(_colorController);
     game.player.setColoredImage(
         SvgPicture.asset(
-            'assets/svg/pfp$image.svg',
+            'assets/svg/$image.svg',
             colorFilter: ColorFilter.mode(colors[_colorController], BlendMode.srcIn),
             height: MediaQuery.of(context).size.height/8
         )
     );
 
+    context.read<GameRepository>().connect();
     Navigator.of(context).pushNamed("/choose_team");
   }
 
@@ -90,7 +91,7 @@ class _ColorPFPPage extends State<ColorPFPPage>{
       SizedBox(
         height: MediaQuery.of(context).size.height/3,
         child: SvgPicture.asset(
-            'assets/svg/pfp$image.svg',
+            'assets/svg/$image.svg',
             colorFilter: ColorFilter.mode(colors[_colorController], BlendMode.srcIn),
             height: MediaQuery.of(context).size.height/3
         ),

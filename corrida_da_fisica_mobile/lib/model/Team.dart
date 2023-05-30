@@ -4,7 +4,7 @@ import 'dart:ui';
 import 'Player.dart';
 
 class Team{
-
+  final String id;
   String name;
   String image;
   List<Player> players = [];
@@ -14,7 +14,12 @@ class Team{
   bool imageAltered = true;
   bool blocked = false;
 
-  Team(this.name, this.image);
+  Team(this.name, this.image, this.id);
+
+  @override
+  String toString() {
+    return 'Team{id: $id, name: $name, image: $image, players: $players, teamLeader: $teamLeader, loadedImage: $loadedImage, square: $square, imageAltered: $imageAltered}';
+  }
 
   setTeamLeader(Player leader){
     teamLeader = leader;

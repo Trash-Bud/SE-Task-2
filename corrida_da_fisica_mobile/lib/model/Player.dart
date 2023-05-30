@@ -3,23 +3,35 @@
 import 'package:flutter/cupertino.dart';
 
 class Player{
-
+  late final String id;
   String name;
-  int image;
+  String image;
   late int color;
-  late final int teamId;
+  late String teamId;
   late bool isLeader;
   late Widget coloredImage;
 
   Player(this.name, this.image);
+  Player.fromServer(this.name, this.id, this.image, this.color);
 
-  void setTeam(int id, bool leader){
+  void setTeam(String id){
     teamId = id;
-    isLeader = leader;
   }
 
-  int getTeamID(){
+  void setId(String newId){
+    id = newId;
+  }
+
+  String getID(){
+    return id;
+  }
+
+  String getTeamID(){
     return teamId;
+  }
+
+  String getName(){
+    return name;
   }
 
   void setColor(int colorID){
@@ -34,7 +46,7 @@ class Player{
     return color;
   }
 
-  int getImage(){
+  String getImage(){
     return image;
   }
 
