@@ -13,6 +13,23 @@ class QuestionPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     question = Provider.of<GameRepository>(context).question;
+
+    var game = Provider.of<GameRepository>(context, listen: false);
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      switch (game.nextPage) {
+        case PageToGo.waitAnswer:
+          Navigator.of(context).pushNamed("/wait_answer");
+          break;
+        case PageToGo.answer:
+          Navigator.of(context).pushNamed("/answer");
+          break;
+        case PageToGo.none:
+          break;
+        default:
+          break;
+      }
+    });
+
     return Scaffold(
         appBar: AppBar(
             title: Row(children: [

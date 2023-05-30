@@ -21,23 +21,19 @@ class _AnswerCard extends State<AnswerCard>{
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-        children: [
-          Container(
-              decoration: BoxDecoration(
-                  border: Border.all(color: Theme.of(context).primaryColor, width: 3),
-                  borderRadius: BorderRadius.circular(20)),
-              margin: const EdgeInsets.all(25),
-              width: MediaQuery.of(context).size.height - 50,
-              height: MediaQuery.of(context).size.height - 300,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [getQuestion(context), getList(context), ],
-              )
-          ),
-          getButton(context)
-        ]
-    );
+    return
+        Container(
+            decoration: BoxDecoration(
+                border: Border.all(color: Theme.of(context).primaryColor, width: 3),
+                borderRadius: BorderRadius.circular(20)),
+            margin: const EdgeInsets.all(25),
+            width: MediaQuery.of(context).size.height - 50,
+            height: MediaQuery.of(context).size.height - 300,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [getQuestion(context), getList(context), ],
+            )
+        );
   }
 
   getQuestion(BuildContext context) {
@@ -96,19 +92,4 @@ class _AnswerCard extends State<AnswerCard>{
       );
   }
 
-
-  Widget getButton(BuildContext context) {
-    return
-      Container(
-          margin: const EdgeInsets.all(20),
-          width: 500,
-          child: ElevatedButton(
-              onPressed: () => {Navigator.of(context).pushNamed("/wait_turn")},
-              child: Container(
-                margin: const EdgeInsets.all(20),
-                child: const Text("Avançar"),
-              )
-          )
-      );
-  }
 }

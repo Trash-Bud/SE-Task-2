@@ -49,7 +49,7 @@ class AppRouter{
       case '/answer':
         return MaterialPageRoute(builder: (_) => AnswerPage(), settings: settingsNew);
       case '/wait_answer':
-        return MaterialPageRoute(builder: (_) => GameWinPage(), settings: settingsNew);
+        return MaterialPageRoute(builder: (_) => WaitAnswerPage(), settings: settingsNew);
       case '/wait_turn':
         return MaterialPageRoute(builder: (_) => WaitTurnPage(), settings: settingsNew);
       case '/tie':

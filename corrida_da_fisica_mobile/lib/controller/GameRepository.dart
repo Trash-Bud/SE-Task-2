@@ -19,6 +19,8 @@ enum PageToGo {
   rollDice,
   waitTurn,
   question,
+  waitAnswer,
+  answer,
   none
 }
 
@@ -58,7 +60,7 @@ class GameRepository extends ChangeNotifier {
             handleGameEnd(decoded);
             break;
           case "question_end":
-          //handleQuestionEnd(decoded);
+            handleQuestionEnd(decoded);
             break;
           case "question":
             handleQuestion(decoded);
@@ -85,6 +87,23 @@ class GameRepository extends ChangeNotifier {
         }
         notifyListeners();
     });
+  }
+
+  void handleQuestionEnd(decoded){
+    var question = decoded["results"]["question"];
+    var options = decoded["results"]["options"];
+    Map<String, List<Player>> listOptions = {};
+
+    options.keys.forEach((key) {
+      listOptions[key] = [];
+      for (var player in options[key]) {
+        listOptions[key]?.add(teams[currentTeamTurn].getPlayerById(player));
+      }
+    });
+    var answer = decoded["results"]["answer"];
+    this.question = Question.withAnswer(question, listOptions, answer);
+
+    nextPage = PageToGo.answer;
   }
 
   void handleQuestion(decoded){
@@ -150,6 +169,38 @@ class GameRepository extends ChangeNotifier {
     } catch (e) {
       log(e.toString());
     }
+  }
+
+  void sendAnswer() async{
+    isLoading = true;
+    try {
+      var body = {
+        "code": gameCode,
+        "player": player.getID(),
+        "answer": lastAnswer
+      };
+
+      final response = await http.post(
+          Uri.parse("http://$backEndUrl/question/answer"),
+          body: json.encode(body),
+          headers: {
+            "Content-Type": "application/json",
+          });
+
+      if (response.statusCode >= 200 && response.statusCode < 300) {
+        log(response.body);
+        var decoded = json.decode(response.body);
+        nextPage = PageToGo.waitAnswer;
+        log(nextPage.toString());
+      } else {
+        log("${response.statusCode.toString()}: ${response.body.toString()}");
+      }
+    } catch (e) {
+      log("exception");
+      log(e.toString());
+    }
+    isLoading = false;
+    notifyListeners();
   }
 
   void handleGameEnd(decoded) {

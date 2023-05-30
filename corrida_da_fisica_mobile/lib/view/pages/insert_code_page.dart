@@ -26,7 +26,7 @@ class _InsertCodePage extends State<InsertCodePage> {
   @override
   Widget build(BuildContext context) {
 
-    var game = Provider.of<GameRepository>(context,listen: false);
+    var game = Provider.of<GameRepository>(context);
     navigate(game);
     return Scaffold(
         resizeToAvoidBottomInset: false,
