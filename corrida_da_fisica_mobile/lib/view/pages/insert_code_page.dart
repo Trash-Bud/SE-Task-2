@@ -26,7 +26,7 @@ class _InsertCodePage extends State<InsertCodePage> {
   @override
   Widget build(BuildContext context) {
 
-    var game = Provider.of<GameRepository>(context);
+    var game = Provider.of<GameRepository>(context,listen: false);
     navigate(game);
     return Scaffold(
         resizeToAvoidBottomInset: false,
@@ -38,8 +38,8 @@ class _InsertCodePage extends State<InsertCodePage> {
     WidgetsBinding.instance.addPostFrameCallback((_) {
       switch (game.nextPage) {
         case PageToGo.mainMenu:
-          game.dispose();
           changeTheme(game);
+          Navigator.pop(context);
           Navigator.of(context).pushNamed("/main_menu");
           break;
         case PageToGo.warning:
