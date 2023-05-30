@@ -6,7 +6,6 @@ var fs = require('fs');
 
 // Choose who will roll
 router.post("/chooseRoll", (req,res) => {
-
     // Verifying request
     if (!req.body.hasOwnProperty("code") || !req.body.hasOwnProperty("team")){
         return res.status(400).send({error: "O pedido tem de ter o seguinte formato: {code: string, team: string}"})
@@ -17,11 +16,14 @@ router.post("/chooseRoll", (req,res) => {
         return res.status(400).send({error: "O pedido tem de ter o seguinte formato: {code: string, team: string}"})
     }
 
+    console.log(req)
+
     fs.readFile('games.json', 'utf8', function readFileCallback(err, data){
         if (err){
             res.status(500).send({error:"Erro Interno do Servidor"})
         } else {
         obj = JSON.parse(data); 
+        console.log(obj)
         var found = obj.games.find(element => element["code"] == req.body["code"]);
         if (found == undefined){
             res.status(404).send({error:"O código do jogo que enviou não existe"})
@@ -47,7 +49,7 @@ router.post("/chooseRoll", (req,res) => {
                 found.currentPlayer = choosePlayer.id
                 obj.games[index] = found
 
-                notifyGame(JSON.stringify({activity:"roll",team:req.body["team"], player:choosePlayer,}), req.body["code"])
+                notifyGame(JSON.stringify({activity:"roll",team:req.body["team"], player:choosePlayer.id,}), req.body["code"])
                 notifyPlayers(JSON.stringify({activity:"roll", me: false, team:req.body["team"]}), req.body["code"],[choosePlayer.id])
                 notifyPlayer(JSON.stringify({activity:"roll",me: true, team:req.body["team"]}), req.body["code"],choosePlayer.id)
 

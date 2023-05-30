@@ -1,5 +1,4 @@
 enum GameState{
-  waiting,
   waitingDice,
   rolledDice,
   gameEnd,

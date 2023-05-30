@@ -69,7 +69,7 @@ flutter:
     - assets/images/basic_board.png
     - assets/images/join_instructions/
     - assets/images/rules/
-    - assets/images/icons/
+    - assets/images/icons_teams/
     - assets/images/dice/
   fonts:
      - family: SourceSansPro

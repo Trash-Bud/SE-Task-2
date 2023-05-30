@@ -87,6 +87,9 @@ class _SetupPage extends State<SetupPage> {
             {
               game.numberOfTeams = teams,
               game.maxPlayerNumber = playerNum,
+              game.applyTheme = theme,
+              game.year = year,
+              context.read<GameRepository>().connect(),
               Navigator.of(context).pushNamed("/connect")
             }
         },

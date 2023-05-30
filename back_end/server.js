@@ -4,6 +4,10 @@ const app = express()
 
 app.listen(3000)
 
+const cors = require('cors');
+app.use(cors({
+  origin: '*'
+}));
 app.use(express.json())
 
 app.get("/",(req,res) => {

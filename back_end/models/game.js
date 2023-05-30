@@ -9,7 +9,7 @@ class Game {
         this.theme = theme;
         this.teams = [];
         for (var i = 0; i < teamsNumber; i++){
-            this.teams.push(new Team(i+1,"sss",playersPerTeam))
+            this.teams.push(new Team(i+1,"pfp"+(i+1)+".png",playersPerTeam))
         }
         this.code = crypto.randomBytes(3).toString('hex');
         this.locked = false;
