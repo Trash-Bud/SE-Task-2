@@ -96,6 +96,9 @@ router.post("/end", (req,res) => {
 // Just checks if game exists
 
 router.post("/checkJoin", (req,res) => {
+
+    
+
     // Verifying request
     if (!req.body.hasOwnProperty("code")){
         return res.status(400).send({error: "O pedido tem de ter o seguinte formato: {code: string}"})
