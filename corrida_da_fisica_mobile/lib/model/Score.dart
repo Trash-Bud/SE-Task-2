@@ -1,7 +1,7 @@
 class Score {
 
   final int place;
-  final int teamId;
+  final String teamId;
   final int moves;
   final int corrects;
   final int wrongs;

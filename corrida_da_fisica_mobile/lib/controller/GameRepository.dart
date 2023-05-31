@@ -210,7 +210,7 @@ class GameRepository extends ChangeNotifier {
 
     for (var i = 0; i < positions.length; i++) {
       if (positions[i] == player.getTeamID()) {
-        place == i+1;
+        place = i+1;
       }
     }
 
@@ -218,7 +218,7 @@ class GameRepository extends ChangeNotifier {
 
     results.forEach((key, value) {
       scores.add(Score(
-          positions.indexWhere((element) => element.id == key)+1, key,
+          positions.indexWhere((element) => element == key)+1, key,
           value["moves"], value["correct"],
           value["questions"] - value["correct"]));
       });

@@ -12,7 +12,7 @@ class CustomAppBar extends AppBar{
   Widget? get title => Row(children: [
       Image.asset("assets/images/logo_no_name.png", width:50),
       const SizedBox(width: 25,),
-    const Text("A Corrida da Física",
+    const Text("Corrida da Física",
     textAlign: TextAlign.center)
   ]);
 
