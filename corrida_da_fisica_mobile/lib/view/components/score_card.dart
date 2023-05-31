@@ -21,7 +21,7 @@ class ScoreCard extends StatelessWidget {
     return Row(
       children: [
         getBadge(context),
-        Text(Provider.of<GameRepository>(context).getTeams()[score.teamId-1].getName(),
+        Text(Provider.of<GameRepository>(context).getTeams().where((element) => element.id == score.teamId).first.getName(),
             style: const TextStyle(
             fontSize: 20,
             fontWeight: FontWeight.bold

@@ -34,11 +34,11 @@ class GameWinPage extends StatelessWidget {
       child: Column(
         children:  [
           const Text("Parabéns!",
-            style: TextStyle( fontSize: 80, fontWeight: FontWeight.bold),
+            style: TextStyle( fontSize: 70, fontWeight: FontWeight.bold),
             textAlign: TextAlign.center,
           ),
           Text( text,
-            style: const TextStyle( fontSize: 30, fontWeight: FontWeight.normal),
+            style: const TextStyle( fontSize: 25, fontWeight: FontWeight.normal),
             textAlign: TextAlign.center,
           ),
         ],
