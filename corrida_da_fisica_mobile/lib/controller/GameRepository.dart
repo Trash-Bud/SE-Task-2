@@ -133,6 +133,7 @@ class GameRepository extends ChangeNotifier {
   }
 
   void handleRoll(decoded){
+    currentTeamTurn = teams.indexWhere((element) => element.id == decoded["team"]);
     if (decoded["me"] == true && decoded["team"] == player.getTeamID()){
       playersRoll = true;
       nextPage = PageToGo.rollDice;
@@ -251,7 +252,6 @@ class GameRepository extends ChangeNotifier {
       }),
       teams.add(finalTeam),
     });
-    log(teams.toString());
   }
 
   checkJoin() async {

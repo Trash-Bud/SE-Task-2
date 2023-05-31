@@ -20,9 +20,11 @@ class QuestionCard extends StatelessWidget {
         margin: const EdgeInsets.all(25),
         width: MediaQuery.of(context).size.height - 50,
         height: MediaQuery.of(context).size.height - 300,
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: [getQuestion(context), getAnswers(context)],
+        child: SingleChildScrollView(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [getQuestion(context), getAnswers(context)],
+          ),
         ));
   }
 

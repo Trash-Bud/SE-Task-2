@@ -193,6 +193,7 @@ function getNewQuestion(code, team, res){
                         var index = obj.games.indexOf(found)
                         found.question = new Question(question.question,question.options,question.correct)
                         found.results[team]["questions"] += 1
+                        found.answers = 0
                         obj.games[index] = found
                         
                         json = JSON.stringify(obj); 
