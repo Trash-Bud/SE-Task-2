@@ -21,6 +21,7 @@ enum PageToGo {
   question,
   waitAnswer,
   answer,
+  gameWin,
   none
 }
 
@@ -205,11 +206,12 @@ class GameRepository extends ChangeNotifier {
   }
 
   void handleGameEnd(decoded) {
+    nextPage = PageToGo.none;
     var positions = decoded["positions"];
 
-    for (var i = 0; i < positions.length(); i++) {
+    for (var i = 0; i < positions.length; i++) {
       if (positions[i] == player.getTeamID()) {
-        place == i;
+        place == i+1;
       }
     }
 
@@ -217,10 +219,12 @@ class GameRepository extends ChangeNotifier {
 
     results.forEach((key, value) {
       scores.add(Score(
-          positions.indexWhere((element) => element.id == key), key,
+          positions.indexWhere((element) => element.id == key)+1, key,
           value["moves"], value["correct"],
           value["questions"] - value["correct"]));
       });
+
+    nextPage = PageToGo.gameWin;
   }
 
 

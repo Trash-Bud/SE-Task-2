@@ -26,7 +26,7 @@ class GameWinPage extends StatelessWidget {
 
   Widget getText(BuildContext context){
     var game = Provider.of<GameRepository>(context,listen: false);
-    var text = (game.place == 1) ? "A tua equipa venceu o jogo!" :"A tua ficou ${game.place}º lugar!";
+    var text = (game.place == 1) ? "A tua equipa venceu o jogo!" :"A tua equipa ficou ${game.place}º lugar!";
     return Container(
       padding: const EdgeInsets.all(10),
       alignment: Alignment.center,
@@ -47,11 +47,28 @@ class GameWinPage extends StatelessWidget {
   }
 
   Widget getBadge(BuildContext context) {
+    var game = Provider.of<GameRepository>(context,listen: false);
+    var image = "";
+    switch (game.place){
+      case 1:
+        image = 'assets/images/first_place.png';
+        break;
+      case 2:
+        image = 'assets/images/second_place.png';
+        break;
+      case 3:
+        image = 'assets/images/third_place.png';
+        break;
+      default:
+        image = 'assets/images/other_place.png';
+        break;
+    }
+
     return Container(
       height: MediaQuery.of(context).size.height/4+15,
       alignment: Alignment.center,
       padding: const EdgeInsets.all(10),
-      child: Image.asset('assets/images/first_place.png'),
+      child: Image.asset(image),
     );
   }
 

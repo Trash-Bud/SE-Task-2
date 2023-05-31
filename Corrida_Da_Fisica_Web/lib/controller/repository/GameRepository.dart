@@ -212,7 +212,8 @@ class GameRepository extends ChangeNotifier {
     }
 
     if(!extraQuestion && questionWon){
-      teams[currentTeamTurn].square += rolledNumber;
+      //teams[currentTeamTurn].square += rolledNumber;
+      teams[currentTeamTurn].square += 69;
       if (teams[currentTeamTurn].square >= 69){
         teams[currentTeamTurn].square = 69;
         won = true;
