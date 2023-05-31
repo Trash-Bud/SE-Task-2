@@ -1,7 +1,6 @@
 
 
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 
 import '../components/app_bar.dart';
 import '../components/page_header.dart';
@@ -22,7 +21,7 @@ class CreditsPage extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
-        const Header(title:"Créditos:", path: "/connect"),
+        const Header(title:"Créditos:", path: "/"),
         getContent(context)
       ],
     );

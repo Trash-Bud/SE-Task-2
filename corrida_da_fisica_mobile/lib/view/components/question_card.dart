@@ -44,9 +44,11 @@ class _QuestionCard extends State<QuestionCard>{
             margin: const EdgeInsets.all(25),
             width: MediaQuery.of(context).size.height - 50,
             height: MediaQuery.of(context).size.height - 300,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [getQuestion(context), getList(context), ],
+            child: SingleChildScrollView(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [getQuestion(context), getList(context), ],
+              ),
             )
         ),
         getButton(context)
@@ -97,13 +99,15 @@ class _QuestionCard extends State<QuestionCard>{
 
 
   Widget getAnswer(String text, int index, BuildContext context) {
-    return RadioListTile(
-        title: Text(text,
-        style: TextStyle(color: Theme.of(context).primaryColor, fontSize: 20),
-        ),
-        value: "$index",
-        groupValue: _responseController,
-        onChanged: (v){ setState(() => _responseController = v.toString()); }
+    return SingleChildScrollView(
+      child: RadioListTile(
+          title: Text(text,
+          style: TextStyle(color: Theme.of(context).primaryColor, fontSize: 20),
+          ),
+          value: "$index",
+          groupValue: _responseController,
+          onChanged: (v){ setState(() => _responseController = v.toString()); }
+      ),
     );
   }
 
