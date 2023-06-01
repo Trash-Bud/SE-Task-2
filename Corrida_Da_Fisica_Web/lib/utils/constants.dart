@@ -29,7 +29,7 @@ const List<Color> pfPicColors = [
 ];
 
 
-const backEndUrl = "localhost:3000";
+const backEndUrl = "corrida-da-fisica-be.onrender.com";
 
 const boardOffset = Offset(350, 330);
 const boardSize = 600.0;

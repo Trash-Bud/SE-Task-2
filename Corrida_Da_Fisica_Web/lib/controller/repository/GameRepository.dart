@@ -45,7 +45,7 @@ class GameRepository extends ChangeNotifier {
 
   connect() {
     stream = Sse.connect(
-      uri: Uri.parse('http://$backEndUrl/connect'),
+      uri: Uri.parse('https://$backEndUrl/connect'),
       closeOnError: true,
       withCredentials: false,
     );
@@ -235,7 +235,7 @@ class GameRepository extends ChangeNotifier {
       };
 
       final response = await http.post(
-          Uri.parse("http://$backEndUrl/game/create"),
+          Uri.parse("https://$backEndUrl/game/create"),
           body: json.encode(body),
           headers: {
             "Content-Type": "application/json",
@@ -264,7 +264,7 @@ class GameRepository extends ChangeNotifier {
       };
 
       final response = await http.post(
-          Uri.parse("http://$backEndUrl/game/lock"),
+          Uri.parse("https://$backEndUrl/game/lock"),
           body: json.encode(body),
           headers: {
             "Content-Type": "application/json",
@@ -298,7 +298,7 @@ class GameRepository extends ChangeNotifier {
       log(body.toString());
 
       try {
-        final response = await http.post(Uri.parse("http://$backEndUrl/game/end"),
+        final response = await http.post(Uri.parse("https://$backEndUrl/game/end"),
             body: json.encode(body),
             headers: {
               "Content-Type": "application/json",
@@ -323,7 +323,7 @@ class GameRepository extends ChangeNotifier {
 
     try {
       final response = await http.post(
-          Uri.parse("http://$backEndUrl/dice/chooseRoll"),
+          Uri.parse("https://$backEndUrl/dice/chooseRoll"),
           body: json.encode(body),
           headers: {
             "Content-Type": "application/json",
@@ -345,7 +345,7 @@ class GameRepository extends ChangeNotifier {
 
     try {
       final response = await http.post(
-          Uri.parse("http://$backEndUrl/question/get"),
+          Uri.parse("https://$backEndUrl/question/get"),
           body: json.encode(body),
           headers: {
             "Content-Type": "application/json",
@@ -396,7 +396,7 @@ class GameRepository extends ChangeNotifier {
 
     try {
       final response = await http.post(
-          Uri.parse("http://$backEndUrl/question/timeOut"),
+          Uri.parse("https://$backEndUrl/question/timeOut"),
           body: json.encode(body),
           headers: {
             "Content-Type": "application/json",
@@ -428,7 +428,7 @@ class GameRepository extends ChangeNotifier {
 
     try {
       final response = await http.post(
-          Uri.parse("http://$backEndUrl/game/winner"),
+          Uri.parse("https://$backEndUrl/game/winner"),
           body: json.encode(body),
           headers: {
             "Content-Type": "application/json",

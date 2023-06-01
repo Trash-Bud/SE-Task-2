@@ -18,7 +18,7 @@ class SeventhGradePalette {
   static const darkBlue = Color(0xff260E6B);
   static const darkPurple = Color(0xff5D287D);
 }
-const backEndUrl = "10.0.2.2:3000";
+const backEndUrl = "corrida-da-fisica-be.onrender.com";
 
 
 

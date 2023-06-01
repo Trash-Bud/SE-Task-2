@@ -7,9 +7,11 @@ import 'package:corrida_da_fisica_web/view/pages/game_wait_page.dart';
 import 'package:corrida_da_fisica_web/view/pages/main_page.dart';
 import 'package:corrida_da_fisica_web/view/pages/rules_page.dart';
 import 'package:corrida_da_fisica_web/view/pages/setup_page.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 
 class AppRouter{
+
   static Route<dynamic> generateRoute(RouteSettings settings){
     
     //final args = settings.arguments;

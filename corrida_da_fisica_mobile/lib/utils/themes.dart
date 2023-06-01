@@ -85,6 +85,9 @@ ThemeData seventhGradeTheme = ThemeData(
       tertiary: SeventhGradePalette.lightPurple,
       onError: SeventhGradePalette.darkBlue
     ),
+
+
+
     textTheme:const TextTheme(
       bodyText1: TextStyle(),
       bodyText2: TextStyle(),
@@ -93,6 +96,7 @@ ThemeData seventhGradeTheme = ThemeData(
       displayColor:  SeventhGradePalette.yellow,
     ),
     inputDecorationTheme: const InputDecorationTheme(
+
       enabledBorder: OutlineInputBorder(
         borderRadius: BorderRadius.all(Radius.circular(30)),
         gapPadding: 5.0,

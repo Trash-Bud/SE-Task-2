@@ -38,9 +38,8 @@ class _InsertCodePage extends State<InsertCodePage> {
     WidgetsBinding.instance.addPostFrameCallback((_) {
       switch (game.nextPage) {
         case PageToGo.mainMenu:
-          changeTheme(game);
-          Navigator.pop(context);
-          Navigator.of(context).pushNamed("/main_menu");
+          changeTheme();
+          Navigator.of(context).popAndPushNamed("/main_menu");
           break;
         case PageToGo.warning:
           const snackBar = SnackBar(
@@ -56,10 +55,11 @@ class _InsertCodePage extends State<InsertCodePage> {
       });
   }
 
-  changeTheme(game) {
+  changeTheme() {
     setState(() {
+      var gameProvider = Provider.of<GameRepository>(context, listen: false);
       var themeProvider = Provider.of<ThemeChanger>(context, listen: false);
-      if (game.themeToggle) {
+      if (gameProvider.themeToggle) {
         themeProvider.setTheme(seventhGradeTheme);
       } else {
         themeProvider.setTheme(defaultTheme);

@@ -44,9 +44,10 @@ class _ChooseTeamPage extends State<ChooseTeamPage>{
 
   @override
   Widget build(BuildContext context) {
+
     return Scaffold(
         appBar: AppBar(
-          title: Row(children: [
+          title: Provider.of<GameRepository>(context).isLoading ? const Center(child: CircularProgressIndicator(),) :  Row(children: [
                 Provider.of<GameRepository>(context).player.getPfp(),
                 const SizedBox(width: 10,),
                 const Text("Corrida da Física",

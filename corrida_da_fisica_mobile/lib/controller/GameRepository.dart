@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:developer';
 
+import 'package:corrida_da_fisica_mobile/controller/see.dart';
 import 'package:corrida_da_fisica_mobile/model/Player.dart';
 import 'package:corrida_da_fisica_mobile/utils/themes.dart';
 import 'package:flutter/cupertino.dart';
@@ -43,13 +44,18 @@ class GameRepository extends ChangeNotifier {
 
   late int year;
   bool themeToggle = false;
-  late Stream<dynamic> stream;
+  late Sse stream;
   late String tempId;
   late int place;
   List<Score> scores = [];
 
   connect() {
-    SSEClient.subscribeToSSE(
+
+    isLoading = true;
+
+
+      /* For exporting app
+      SSEClient.subscribeToSSE(
         url: 'http://$backEndUrl/connect',
         header: {
         }).listen((event) {
@@ -87,6 +93,53 @@ class GameRepository extends ChangeNotifier {
             break;
         }
         notifyListeners();
+    });
+      */
+
+
+    stream = Sse.connect(
+      uri: Uri.parse('https://$backEndUrl/connect'),
+      closeOnError: true,
+      withCredentials: false,
+    );
+
+    stream.stream.listen((event) {
+      isLoading = true;
+        var decoded = json.decode(event);
+        log(decoded.toString());
+        switch (decoded["activity"]) {
+          case "winner":
+            handleGameEnd(decoded);
+            break;
+          case "question_end":
+            handleQuestionEnd(decoded);
+            break;
+          case "question":
+            handleQuestion(decoded);
+            break;
+          case "game_lock":
+            handleLock(decoded);
+            break;
+          case "roll":
+            handleRoll(decoded);
+            break;
+          case "roll_result":
+            handleRollResult(decoded);
+            break;
+          case "change_team":
+            handleChangeTeam(decoded);
+            break;
+          case "connect":
+            tempId = decoded["id"];
+            joinGame();
+            break;
+          default:
+            log("error");
+            break;
+        }
+      isLoading = false;
+        notifyListeners();
+
     });
   }
 
@@ -155,7 +208,7 @@ class GameRepository extends ChangeNotifier {
       };
 
       final response = await http.post(
-          Uri.parse("http://$backEndUrl/dice/roll"),
+          Uri.parse("https://$backEndUrl/dice/roll"),
           body: json.encode(body),
           headers: {
             "Content-Type": "application/json",
@@ -183,7 +236,7 @@ class GameRepository extends ChangeNotifier {
       };
 
       final response = await http.post(
-          Uri.parse("http://$backEndUrl/question/answer"),
+          Uri.parse("https://$backEndUrl/question/answer"),
           body: json.encode(body),
           headers: {
             "Content-Type": "application/json",
@@ -266,7 +319,7 @@ class GameRepository extends ChangeNotifier {
       };
 
       final response = await http.post(
-          Uri.parse("http://$backEndUrl/game/checkJoin"),
+          Uri.parse("https://$backEndUrl/game/checkJoin"),
           body: json.encode(body),
           headers: {
             "Content-Type": "application/json",
@@ -303,7 +356,7 @@ class GameRepository extends ChangeNotifier {
       };
 
       final response = await http.post(
-          Uri.parse("http://$backEndUrl/team/join"),
+          Uri.parse("https://$backEndUrl/team/join"),
           body: json.encode(body),
           headers: {
             "Content-Type": "application/json",
@@ -337,7 +390,7 @@ class GameRepository extends ChangeNotifier {
       };
 
       final response = await http.post(
-          Uri.parse("http://$backEndUrl/team/leave"),
+          Uri.parse("https://$backEndUrl/team/leave"),
           body: json.encode(body),
           headers: {
             "Content-Type": "application/json",
@@ -377,7 +430,7 @@ class GameRepository extends ChangeNotifier {
       };
 
       final response = await http.post(
-          Uri.parse("http://$backEndUrl/game/join"),
+          Uri.parse("https://$backEndUrl/game/join"),
           body: json.encode(body),
           headers: {
             "Content-Type": "application/json",

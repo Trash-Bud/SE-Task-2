@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../components/app_bar.dart';
+import '../components/get_rule_section.dart';
 import '../components/page_header.dart';
 
 class RulesPage extends StatefulWidget {
@@ -12,7 +13,7 @@ class RulesPage extends StatefulWidget {
 
 class _RulesPage extends State<RulesPage> {
   int page = 1;
-  int max_pages = 3;
+  int maxPages = 3;
 
   @override
   Widget build(BuildContext context) {
@@ -22,11 +23,11 @@ class _RulesPage extends State<RulesPage> {
     );
   }
 
-  Widget getPage(){
+  Widget getPage() {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const Header(title:"Regras", path: "/"),
+        const Header(title: "Regras", path: "/"),
         if (page == 1) getPageOne(),
         if (page == 2) getPageTwo(),
         if (page == 3) getPageThree(),
@@ -35,152 +36,97 @@ class _RulesPage extends State<RulesPage> {
     );
   }
 
-  back(){
+  back() {
     setState(() {
-      if (page > 1) page --;
+      if (page > 1) page--;
     });
   }
 
-  next(){
+  next() {
     setState(() {
-      if (page < max_pages) page ++;
+      if (page < maxPages) page++;
     });
   }
 
-  Widget getFooter(){
-    return Container( margin: const EdgeInsets.all(10), child: Row(children: [
-      if (page > 1) IconButton(onPressed: () => back(), icon:  Icon(Icons.arrow_back, color: Theme.of(context).primaryColor,)),
-      Container(margin: const EdgeInsets.fromLTRB(5, 0, 5, 0), child: Text("$page / $max_pages", style: TextStyle(fontSize: 20,  color: Theme.of(context).primaryColor))),
-      if (page < max_pages) IconButton(onPressed: () => next(), icon: Icon(Icons.arrow_forward, color: Theme.of(context).primaryColor))
-    ],));
+  Widget getFooter() {
+    return Container(
+        margin: const EdgeInsets.all(10),
+        child: Row(
+          children: [
+            if (page > 1)
+              IconButton(
+                  onPressed: () => back(),
+                  icon: Icon(
+                    Icons.arrow_back,
+                    color: Theme.of(context).primaryColor,
+                  )),
+            Container(
+                margin: const EdgeInsets.fromLTRB(5, 0, 5, 0),
+                child: Text("$page / $maxPages",
+                    style: TextStyle(
+                        fontSize: 20, color: Theme.of(context).primaryColor))),
+            if (page < maxPages)
+              IconButton(
+                  onPressed: () => next(),
+                  icon: Icon(Icons.arrow_forward,
+                      color: Theme.of(context).primaryColor))
+          ],
+        ));
   }
 
-  Widget getPageOne(){
+  Widget getPageOne() {
     return Row(
       children: [
-        Container(
-          padding: const EdgeInsets.all(20),
-          child: Column(
-              children: [
-                SizedBox(
-                  width: MediaQuery.of(context).size.width / 2 - 40,
-                  child: const Flexible(
-                      child: Text("O jogo consiste num tabuleiro e num conjunto de cartas com perguntas sobre Física", style:  TextStyle(fontSize: 25), textAlign: TextAlign.center,),
-                    ),
-                ),
-                const SizedBox(height: 30,),
-                SizedBox(height: 300,  child: Image.asset("assets/images/rules/board_and_cards.png"))
-              ],
-            ),
-          ),
-
-        Container(
-          padding: const EdgeInsets.all(20),
-          child: Column(
-            children: [
-              SizedBox(
-                width: MediaQuery.of(context).size.width / 2 - 40,
-                child: const Flexible(
-                  child: Text("Cada equipa/jogador rola um dado para definir o número de casas que vai avançar no tabuleiro", style:  TextStyle(fontSize: 25), textAlign: TextAlign.center,),
-                ),
-              ),
-              const SizedBox(height: 30,),
-              SizedBox(height: 300,  child: Image.asset("assets/images/rules/dice.png"))
-            ],
-          ),
-        ),
+        RuleSection(
+            width: MediaQuery.of(context).size.width / 2 - 40,
+            text:
+                "O jogo consiste num tabuleiro e num conjunto de cartas com perguntas sobre Física",
+            image: "assets/images/rules/board_and_cards.png"),
+        RuleSection(
+            width: MediaQuery.of(context).size.width / 2 - 40,
+            text:
+                "Cada equipa/jogador rola um dado para definir o número de casas que vai avançar no tabuleiro",
+            image: "assets/images/rules/dice.png"),
       ],
     );
   }
 
-  Widget getPageTwo(){
+  Widget getPageTwo() {
     return Row(
       children: [
-        Container(
-          padding: const EdgeInsets.all(20),
-          child: Column(
-            children: [
-              SizedBox(
-                width: MediaQuery.of(context).size.width / 2 - 40,
-                child: const Flexible(
-                  child: Text("Após rolar o dado é dada uma pergunta à equipa/jogador e esta só poderá avançar se acertar na pergunta", style:  TextStyle(fontSize: 25), textAlign: TextAlign.center,),
-                ),
-              ),
-              const SizedBox(height: 30,),
-              SizedBox(height: 300,  child: Image.asset("assets/images/rules/card.png"))
-            ],
-          ),
-        ),
-
-        Container(
-          padding: const EdgeInsets.all(20),
-          child: Column(
-            children: [
-              SizedBox(
-                width: MediaQuery.of(context).size.width / 2 - 40,
-                child: const Flexible(
-                  child: Text("Se a equipa estiver numa casa especial...", style:  TextStyle(fontSize: 25), textAlign: TextAlign.center,),
-                ),
-              ),
-              const SizedBox(height: 30,),
-              SizedBox(height: 300,  child: Image.asset("assets/images/rules/special_squares.png"))
-            ],
-          ),
-        ),
+        RuleSection(
+            width: MediaQuery.of(context).size.width / 2 - 40,
+            text:
+            "Após rolar o dado é dada uma pergunta à equipa/jogador e esta só poderá avançar se acertar na pergunta",
+            image: "assets/images/rules/card.png"),
+        RuleSection(
+            width: MediaQuery.of(context).size.width / 2 - 40,
+            text:
+            "Se a equipa estiver numa casa especial...",
+            image: "assets/images/rules/special_squares.png"),
       ],
     );
   }
 
-  Widget getPageThree(){
+  Widget getPageThree() {
     return Row(
       children: [
-        Container(
-          padding: const EdgeInsets.all(20),
-          child: Column(
-            children: [
-              SizedBox(
-                width: MediaQuery.of(context).size.width / 3 - 40,
-                child: const Flexible(
-                  child: Text("No caso de um jogo em equipas a resposta final é aquela que foi dada pela maioria jogadores da equipa", style:  TextStyle(fontSize: 25), textAlign: TextAlign.center,),
-                ),
-              ),
-              const SizedBox(height: 30,),
-              SizedBox(height: 250,  child: Image.asset("assets/images/rules/card_answer.png"))
-            ],
-          ),
-        ),
 
-        Container(
-          padding: const EdgeInsets.all(20),
-          child: Column(
-            children: [
-              SizedBox(
-                width: MediaQuery.of(context).size.width / 3 - 40,
-                child: const Flexible(
-                  child: Text("No caso de empate são dados 60 segundos à equipa para discutir a sua resposta", style:  TextStyle(fontSize: 25), textAlign: TextAlign.center,),
-                ),
-              ),
-              const SizedBox(height: 30,),
-              SizedBox(height: 300,  child: Image.asset("assets/images/rules/draw.png"))
-            ],
-          ),
-        ),
-
-        Container(
-          padding: const EdgeInsets.all(20),
-          child: Column(
-            children: [
-              SizedBox(
-                width: MediaQuery.of(context).size.width / 3 - 40,
-                child: const Flexible(
-                  child: Text("Ganha o jogo a primeira equipa/jogador a chegar ao fim do tabuleiro ", style:  TextStyle(fontSize: 25), textAlign: TextAlign.center,),
-                ),
-              ),
-              const SizedBox(height: 30,),
-              SizedBox(height: 250,  child: Image.asset("assets/images/rules/win.png"))
-            ],
-          ),
-        ),
+        RuleSection(
+            width: MediaQuery.of(context).size.width / 3 - 40,
+            text:
+            "No caso de um jogo em equipas a resposta final é aquela que foi dada pela maioria jogadores da equipa",
+            image: "assets/images/rules/card_answer.png"),
+        RuleSection(
+            width: MediaQuery.of(context).size.width / 3 - 40,
+            text:
+            "No caso de empate são dados 60 segundos à equipa para discutir a sua resposta",
+            image: "assets/images/rules/draw.png"),
+        RuleSection(
+            width: MediaQuery.of(context).size.width / 3 - 40,
+            text:
+            "Ganha o jogo a primeira equipa/jogador a chegar ao fim do tabuleiro ",
+            image: "assets/images/rules/win.png"),
       ],
     );
   }

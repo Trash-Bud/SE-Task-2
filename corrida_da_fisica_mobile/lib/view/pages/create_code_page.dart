@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 class CreateCodePage extends StatelessWidget {
   CreateCodePage({super.key});
 
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -19,36 +18,32 @@ class CreateCodePage extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-      Padding(
-      padding: EdgeInsets.all(10),
-      child:
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Text("Como criar um jogo",
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                    color: Theme.of(context).primaryColor,
-                    fontSize: 30,
-                    fontWeight: FontWeight.bold)),
-              IconButton(
-                icon: const Icon(Icons.close, color: Colors.grey),
-                onPressed: () {Navigator.of(context).pop();}
-              )
-        ],
-          )
-      ),
+          Padding(
+              padding: EdgeInsets.all(10),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text("Como criar um jogo",
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                          color: Theme.of(context).primaryColor,
+                          fontSize: 30,
+                          fontWeight: FontWeight.bold)),
+                  IconButton(
+                      icon: const Icon(Icons.close, color: Colors.grey),
+                      onPressed: () {
+                        Navigator.of(context).pop();
+                      })
+                ],
+              )),
           Expanded(
-            child: SingleChildScrollView(
-                child: Container(
-                  alignment: Alignment.center,
-                  padding: const EdgeInsets.all(10),
-                  child: Image.asset("assets/images/rules/create_game.png"),
-                )
-              )
-          ),
+              child: SingleChildScrollView(
+                  child: Container(
+            alignment: Alignment.center,
+            padding: const EdgeInsets.all(10),
+            child: Image.asset("assets/images/rules/create_game.png"),
+          ))),
         ],
-
       ),
     );
   }

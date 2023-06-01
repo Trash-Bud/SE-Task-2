@@ -74,31 +74,38 @@ class QuestionCard extends StatelessWidget {
         padding: const EdgeInsets.all(10),
         child: Column(children: [
           Row(
-            children: [Container(
-              padding: const EdgeInsets.symmetric(horizontal: 5),
-              child: Checkbox(
-                value: (showAnswer && index == question.correctAnswer), onChanged: (bool? value) {  },
-                checkColor: Theme.of(context).colorScheme.secondary,
-                fillColor:  MaterialStateProperty.all<Color>(Theme.of(context).colorScheme.primary),
+            children: [
+              Container(
+                padding: const EdgeInsets.symmetric(horizontal: 5),
+                child: Checkbox(
+                  value: (showAnswer && index == question.correctAnswer),
+                  onChanged: (bool? value) {},
+                  checkColor: Theme.of(context).colorScheme.secondary,
+                  fillColor: MaterialStateProperty.all<Color>(
+                      Theme.of(context).colorScheme.primary),
+                ),
               ),
-            ),
               Flexible(
                 child: Text(
                   option.key,
                   style: TextStyle(
-                      color: Theme.of(context).colorScheme.primary, fontSize: 20),
+                      color: Theme.of(context).colorScheme.primary,
+                      fontSize: 20),
                 ),
-              ),],
+              ),
+            ],
           ),
           Row(
-            children: option.value.map<Widget>((val) => Container(
-              padding: const EdgeInsets.symmetric(horizontal: 5),
-              child: SvgPicture.asset(
-                  "assets/images/icons_players/${val.image}.svg",
-                  color: pfPicColors[val.color],
-                  width: 30,
-                  semanticsLabel: 'A red up arrow'),
-            )).toList(),
+            children: option.value
+                .map<Widget>((val) => Container(
+                      padding: const EdgeInsets.symmetric(horizontal: 5),
+                      child: SvgPicture.asset(
+                          "assets/images/icons_players/${val.image}.svg",
+                          color: pfPicColors[val.color],
+                          width: 30,
+                          semanticsLabel: 'A red up arrow'),
+                    ))
+                .toList(),
           )
         ]));
   }
