@@ -2,6 +2,16 @@
 
 ## Projeto Corrida da Física
 
+### Links de deploy
+
+- Backend: https://corrida-da-fisica-be.onrender.com
+- Página controladora do jogo: https://corrida-da-fisica-web.web.app        
+    - Nota: Funciona em chrome, pode não funcionar noutros browsers
+- Página do jogador: https://corrida-da-fisica-mobile.web.app 
+    - Notas: 
+        - Funciona em chrome, pode não funcionar noutros browsers
+        - É para ser vista a partir de um telemóvel, usar no browser de um computador ou tablet causa bugs visuais
+
 ### Descrição
 
 A Corrida da Física é um jogo de tabuleiro digital, que visa ajudar estudantes do 7º, 8º e 9º anos a adquirir conhecimentos de física através de uma experiência divertida e competitiva.
