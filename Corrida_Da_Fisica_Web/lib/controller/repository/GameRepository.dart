@@ -271,6 +271,7 @@ class GameRepository extends ChangeNotifier {
           });
 
       if (response.statusCode >= 200 && response.statusCode < 300) {
+        await chooseRoll();
       } else {
         log("${response.statusCode.toString()}: ${response.body.toString()}");
       }

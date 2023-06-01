@@ -132,7 +132,7 @@ class _CreateProfilePage extends State<CreateProfilePage>{
             margin: const EdgeInsets.all(20),
             width: 500,
             child: TextFormField(
-              style: const TextStyle(color: Colors.white),
+              style: TextStyle(color: Theme.of(context).colorScheme.onBackground),
                 controller: _nameController,
                 decoration: const InputDecoration(
                   border: OutlineInputBorder(

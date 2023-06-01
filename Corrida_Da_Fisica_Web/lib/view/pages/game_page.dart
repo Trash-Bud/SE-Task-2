@@ -20,9 +20,6 @@ class _GamePage extends State<GamePage> {
 
   @override
   void initState() {
-    if (!context.read<GameRepository>().won) {
-      context.read<GameRepository>().chooseRoll();
-    }
     super.initState();
   }
 

@@ -10,7 +10,8 @@ ThemeData defaultTheme = ThemeData(
     colorScheme: ColorScheme.fromSwatch().copyWith(
       secondary: DefaultPalette.darkOrange,
       tertiary: DefaultPalette.lightPeach,
-      onError: DefaultPalette.peach
+      onError: DefaultPalette.peach,
+        onBackground: Colors.black
     ),
     textTheme:const TextTheme(
       bodyText1: TextStyle(),
@@ -83,7 +84,8 @@ ThemeData seventhGradeTheme = ThemeData(
     colorScheme: ColorScheme.fromSwatch().copyWith(
       secondary: SeventhGradePalette.yellow,
       tertiary: SeventhGradePalette.lightPurple,
-      onError: SeventhGradePalette.darkBlue
+      onError: SeventhGradePalette.darkBlue,
+        onBackground: Colors.white
     ),
 
 

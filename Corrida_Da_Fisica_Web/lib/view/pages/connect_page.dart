@@ -32,7 +32,7 @@ class ConnectInstructionsPage extends StatelessWidget {
         RuleSection(
             width: MediaQuery.of(context).size.width / 3 - 40,
             text:
-            "Aceder ao site www.placeholder2.com a partir de um dispositivo pessoal",
+            "Aceder ao site \"corrida-da-fisica-mobile.web.app\" a partir de um dispositivo pessoal",
             image: "assets/images/join_instructions/main_screen.png"),
         RuleSection(
             width: MediaQuery.of(context).size.width / 3 - 40,
