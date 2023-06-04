@@ -5,7 +5,7 @@
 ### Links de deploy
 
 - Backend: https://corrida-da-fisica-be.onrender.com
-- Página controladora do jogo: https://corrida-da-fisica-web.web.app        
+- Página controladora do jogo: https://corrida-da-fisica-web-3adf5.web.app    
     - Nota: Funciona em chrome, pode não funcionar noutros browsers
 - Página do jogador: https://corrida-da-fisica-mobile.web.app 
     - Notas: 
